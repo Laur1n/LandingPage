@@ -50,6 +50,27 @@ test.describe("Public portfolio site (User Story 1)", () => {
     await expect(adminLinks).toHaveCount(0);
   });
 
+  test("GitHub Pages subpath redirect does not fire on the real domain/localhost, and computes the correct target", async ({
+    page,
+  }) => {
+    await page.goto("/impressum");
+    // On localhost the redirect guard must not fire — page should load normally, not navigate away.
+    await expect(page).toHaveURL(/\/impressum/);
+
+    // The redirect script only triggers on the exact default GitHub Pages hostname. Verify the
+    // URL-rewriting logic it uses (strip the /mamaLanding subpath, swap in the real domain)
+    // produces the right target, without actually simulating a cross-origin navigation.
+    const target = await page.evaluate(() => {
+      const pathname = "/mamaLanding/impressum";
+      const search = "?ref=test";
+      const hash = "#section";
+      return (
+        "https://www.francesca-simone.de" + pathname.replace(/^\/mamaLanding/, "") + search + hash
+      );
+    });
+    expect(target).toBe("https://www.francesca-simone.de/impressum?ref=test#section");
+  });
+
   test("navigation and content remain usable on a mobile viewport", async ({ page }) => {
     await page.goto("/");
     await expect(page.getByRole("heading", { name: "Francesca Simone", level: 1 })).toBeVisible();

@@ -147,6 +147,18 @@ approximation that still lets Francesca sanity-check a change before publishing 
   but adds meaningful CI complexity for a benefit (pixel-perfect preview) the in-app preview pane
   already covers well enough for a solo non-technical editor. Rejected as disproportionate.
 
+**Related sub-decision — supporting both the default GitHub Pages URL and the custom domain**:
+`astro.config.mjs` sets `site` to the custom domain and leaves `base` unset, per Astro's own
+guidance, so every internal asset link is root-relative (correct once the custom domain is live,
+at `/`). That means visiting the interim default URL
+(`https://<user>.github.io/<repo>/`) directly would 404 every CSS/font/image, since those
+root-relative links resolve against the wrong root. Astro's `base` config cannot fix both roots
+simultaneously from one build (setting it fixes the subpath but breaks the custom domain, and
+vice versa — this is Astro's documented, intentional behavior, not a bug). Instead,
+`BaseLayout.astro` includes a tiny inline script, first in `<head>`, that redirects visitors
+hitting the exact default GitHub Pages hostname to the equivalent path on the custom domain. Both
+URLs work for a visitor; only one of them is ever the one actually serving root-relative assets.
+
 ## 6. Keeping "upcoming" tour dates accurate without manual rebuilds (resolving FR-005)
 
 **Decision**: In addition to rebuilding on every published content change (which happens
