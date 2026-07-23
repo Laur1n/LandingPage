@@ -1,0 +1,76 @@
+---
+import { getCollection, render } from "astro:content";
+
+const [entry] = await getCollection("biography");
+const { Content } = await render(entry);
+---
+
+<section id="vita" class="vita">
+  <div class="container vita__grid">
+    <div class="vita__portrait">
+      <img src={entry.data.portrait} alt={entry.data.portraitAlt} loading="lazy" decoding="async" />
+    </div>
+    <div class="vita__text">
+      <p class="vita__eyebrow">Vita</p>
+      <h2 class="vita__heading">{entry.data.tagline}</h2>
+      <div class="vita__body">
+        <Content />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .vita {
+    padding-block: var(--space-4xl);
+  }
+
+  .vita__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: var(--space-3xl);
+    align-items: start;
+  }
+
+  .vita__portrait img {
+    border-radius: 0.25rem;
+    width: 100%;
+  }
+
+  .vita__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: var(--text-sm);
+    color: var(--color-accent);
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+  }
+
+  .vita__heading {
+    font-size: var(--text-xl);
+    font-style: italic;
+    font-weight: 400;
+    margin-bottom: var(--space-xl);
+    max-width: 20ch;
+  }
+
+  .vita__body :global(blockquote) {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-style: italic;
+    color: var(--color-ink);
+    border: none;
+    margin: var(--space-xl) 0 0;
+    padding: 0;
+  }
+
+  @media (max-width: 56rem) {
+    .vita__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .vita__portrait {
+      max-width: 20rem;
+    }
+  }
+</style>

@@ -1,0 +1,88 @@
+---
+import { getCollection, render } from "astro:content";
+
+const entries = (await getCollection("projects")).sort(
+  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99),
+);
+const rendered = await Promise.all(
+  entries.map(async (entry) => ({ entry, ...(await render(entry)) })),
+);
+---
+
+<section id="projekte" class="projekte">
+  <div class="container">
+    <p class="section-eyebrow">Projekte</p>
+    <h2 class="section-heading">Auf der Bühne</h2>
+    <ol class="projekte__list">
+      {
+        rendered.map(({ entry, Content }, index) => (
+          <li class="projekte__item">
+            <span class="projekte__index">{String(index + 1).padStart(2, "0")}</span>
+            <div>
+              <h3 class="projekte__name">{entry.data.name}</h3>
+              <div class="projekte__description">
+                <Content />
+              </div>
+              {entry.data.photo && (
+                <img
+                  src={entry.data.photo}
+                  alt={entry.data.photoAlt}
+                  loading="lazy"
+                  decoding="async"
+                  class="projekte__photo"
+                />
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .projekte {
+    padding-block: var(--space-4xl);
+    background: var(--color-surface-raised);
+  }
+
+  .projekte__list {
+    list-style: none;
+    margin: var(--space-2xl) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2xl);
+  }
+
+  .projekte__item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-lg);
+    padding-block: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .projekte__index {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    color: var(--color-accent);
+    line-height: 1;
+  }
+
+  .projekte__name {
+    font-size: var(--text-lg);
+    font-weight: 500;
+    margin-bottom: var(--space-sm);
+  }
+
+  .projekte__description :global(p) {
+    color: var(--color-ink-muted);
+    margin: 0;
+  }
+
+  .projekte__photo {
+    margin-top: var(--space-md);
+    max-width: 20rem;
+    border-radius: 0.25rem;
+  }
+</style>

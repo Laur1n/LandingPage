@@ -1,0 +1,120 @@
+---
+import { getCollection, render } from "astro:content";
+
+const entries = (await getCollection("discography")).sort(
+  (a, b) => (b.data.releaseYear ?? 0) - (a.data.releaseYear ?? 0),
+);
+const rendered = await Promise.all(
+  entries.map(async (entry) => ({ entry, ...(await render(entry)) })),
+);
+---
+
+<section id="cds" class="cds">
+  <div class="container">
+    <p class="section-eyebrow">CDs</p>
+    <h2 class="section-heading">Diskografie</h2>
+    <ul class="cds__list">
+      {
+        rendered.map(({ entry, Content }) => (
+          <li class="cds__item">
+            {entry.data.coverImage && (
+              <img
+                src={entry.data.coverImage}
+                alt={entry.data.coverImageAlt}
+                loading="lazy"
+                decoding="async"
+                class="cds__cover"
+              />
+            )}
+            <div>
+              <h3 class="cds__title">
+                {entry.data.title}
+                {entry.data.releaseYear && (
+                  <span class="cds__year"> · {entry.data.releaseYear}</span>
+                )}
+              </h3>
+              <div class="cds__description">
+                <Content />
+              </div>
+              {entry.data.links && entry.data.links.length > 0 && (
+                <ul class="cds__links">
+                  {entry.data.links.map((link) => (
+                    <li>
+                      <a href={link.url}>{link.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .cds {
+    padding-block: var(--space-4xl);
+    background: var(--color-surface-raised);
+  }
+
+  .cds__list {
+    list-style: none;
+    margin: var(--space-2xl) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2xl);
+  }
+
+  .cds__item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-lg);
+    align-items: start;
+  }
+
+  .cds__cover {
+    width: 8rem;
+    border-radius: 0.25rem;
+  }
+
+  .cds__title {
+    font-size: var(--text-lg);
+    font-weight: 500;
+    margin-bottom: var(--space-sm);
+  }
+
+  .cds__year {
+    color: var(--color-ink-muted);
+    font-weight: 400;
+  }
+
+  .cds__description :global(p) {
+    color: var(--color-ink-muted);
+    margin: 0 0 var(--space-sm);
+  }
+
+  .cds__links {
+    list-style: none;
+    display: flex;
+    gap: var(--space-md);
+    padding: 0;
+    margin: var(--space-sm) 0 0;
+  }
+
+  .cds__links a {
+    font-weight: 600;
+    font-size: var(--text-sm);
+  }
+
+  @media (max-width: 30rem) {
+    .cds__item {
+      grid-template-columns: 1fr;
+    }
+
+    .cds__cover {
+      width: 6rem;
+    }
+  }
+</style>

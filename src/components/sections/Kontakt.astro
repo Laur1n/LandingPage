@@ -1,0 +1,82 @@
+---
+import { getCollection } from "astro:content";
+
+const [entry] = await getCollection("contact");
+const { email, phone, location, socialLinks } = entry.data;
+---
+
+<section id="kontakt" class="kontakt">
+  <div class="container">
+    <p class="section-eyebrow">Kontakt</p>
+    <h2 class="section-heading">Konzert anfragen, Unterricht buchen, einfach schreiben.</h2>
+    <div class="kontakt__details">
+      <a class="kontakt__primary" href={`mailto:${email}`}>{email}</a>
+      {
+        phone && (
+          <a class="kontakt__secondary" href={`tel:${phone.replace(/\s+/g, "")}`}>
+            {phone}
+          </a>
+        )
+      }
+      {location && <p class="kontakt__location">{location}</p>}
+    </div>
+    {
+      socialLinks && socialLinks.length > 0 && (
+        <ul class="kontakt__social">
+          {socialLinks.map((link) => (
+            <li>
+              <a href={link.url}>{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .kontakt {
+    padding-block: var(--space-4xl);
+  }
+
+  .section-heading {
+    max-width: 24ch;
+  }
+
+  .kontakt__details {
+    margin-top: var(--space-2xl);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+
+  .kontakt__primary {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    text-decoration: none;
+    color: var(--color-ink);
+  }
+
+  .kontakt__primary:hover,
+  .kontakt__primary:focus-visible {
+    color: var(--color-accent);
+  }
+
+  .kontakt__secondary {
+    font-size: var(--text-lg);
+  }
+
+  .kontakt__location {
+    color: var(--color-ink-muted);
+    margin: 0;
+  }
+
+  .kontakt__social {
+    list-style: none;
+    display: flex;
+    gap: var(--space-lg);
+    padding: 0;
+    margin: var(--space-xl) 0 0;
+  }
+</style>

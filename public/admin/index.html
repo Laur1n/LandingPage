@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Francesca Simone — Inhalte bearbeiten</title>
+    <!-- Never indexed / never linked from public nav (Constitution III / FR-014). -->
+    <meta name="robots" content="noindex, nofollow" />
+  </head>
+  <body>
+    <!-- Decap CMS mounts itself into the body. -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+    <!--
+      FR-018: draft preview, rendered in-app rather than via a deploy-preview URL. GitHub Pages
+      has no per-branch preview deployments (unlike Netlify/Vercel/Cloudflare Pages), so instead
+      of linking out to a live URL, this registers a preview template that renders each entry's
+      fields directly inside the admin screen, styled to loosely match the real site (research.md
+      §2/§5). It won't be pixel-identical to the published page, but gives Francesca a clear,
+      readable sense of what she's about to publish before she does.
+    -->
+    <script>
+      var GenericPreview = createClass({
+        render: function () {
+          var data = this.props.entry.get("data");
+          var getAsset = this.props.getAsset;
+          var children = [];
+
+          var heading = data.get("title") || data.get("name") || data.get("venueName");
+          if (heading) {
+            children.push(h("h1", { key: "heading" }, heading));
+          }
+
+          var tagline = data.get("tagline");
+          if (tagline) {
+            children.push(h("p", { key: "tagline", className: "tagline" }, tagline));
+          }
+
+          ["portrait", "photo", "coverImage"].forEach(function (field) {
+            var image = data.get(field);
+            if (image) {
+              children.push(
+                h("img", {
+                  key: field,
+                  src: getAsset(image).toString(),
+                  alt: data.get(field + "Alt") || "",
+                }),
+              );
+            }
+          });
+
+          if (data.get("date")) {
+            children.push(h("p", { key: "date" }, String(data.get("date"))));
+            children.push(
+              h(
+                "p",
+                { key: "venue" },
+                [data.get("venueName"), data.get("location")].filter(Boolean).join(" · "),
+              ),
+            );
+          }
+          if (data.get("eventLink")) {
+            children.push(h("p", { key: "eventLink" }, data.get("eventLink")));
+          }
+          if (data.get("notes")) {
+            children.push(h("p", { key: "notes" }, data.get("notes")));
+          }
+
+          if (data.get("locations")) {
+            children.push(
+              h(
+                "ul",
+                { key: "locations" },
+                data
+                  .get("locations")
+                  .toJS()
+                  .map(function (location, index) {
+                    return h("li", { key: index }, location);
+                  }),
+              ),
+            );
+          }
+
+          if (data.get("email")) {
+            children.push(h("p", { key: "email" }, data.get("email")));
+          }
+          if (data.get("phone")) {
+            children.push(h("p", { key: "phone" }, data.get("phone")));
+          }
+          if (data.get("location") && !data.get("venueName")) {
+            children.push(h("p", { key: "location" }, data.get("location")));
+          }
+
+          if (data.get("releaseYear")) {
+            children.push(h("p", { key: "releaseYear" }, String(data.get("releaseYear"))));
+          }
+
+          if (data.get("lastUpdated")) {
+            children.push(
+              h(
+                "p",
+                { key: "lastUpdated", className: "meta" },
+                "Zuletzt aktualisiert: " + String(data.get("lastUpdated")),
+              ),
+            );
+          }
+
+          children.push(h("div", { key: "body", className: "body" }, this.props.widgetFor("body")));
+
+          return h("div", { className: "preview" }, children);
+        },
+      });
+
+      [
+        "biography",
+        "projects",
+        "tour_dates",
+        "discography",
+        "teaching",
+        "contact",
+        "legal",
+      ].forEach(function (collectionName) {
+        CMS.registerPreviewTemplate(collectionName, GenericPreview);
+      });
+
+      CMS.registerPreviewStyle(
+        "https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600&display=swap",
+      );
+      CMS.registerPreviewStyle(
+        [
+          "body { font-family: 'Hanken Grotesk', sans-serif; color: oklch(22% 0.02 50); background: oklch(97% 0.012 60); padding: 2rem; }",
+          "h1 { font-family: 'Bodoni Moda', serif; font-weight: 500; font-size: 2rem; margin: 0 0 0.5rem; }",
+          ".tagline { font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 1.25rem; margin: 0 0 1rem; }",
+          "img { max-width: 20rem; border-radius: 0.25rem; margin: 0.5rem 0; }",
+          ".meta { color: oklch(45% 0.02 50); font-size: 0.875rem; }",
+          ".body { margin-top: 1rem; line-height: 1.6; }",
+        ].join("\n"),
+        { raw: true },
+      );
+    </script>
+  </body>
+</html>

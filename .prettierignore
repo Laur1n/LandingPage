@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.astro/
+.netlify/
+coverage/
+playwright-report/
+test-results/
+package-lock.json
+
+# Pre-existing Spec Kit tooling files — not owned by this feature's implementation.
+.cursor/
+.specify/

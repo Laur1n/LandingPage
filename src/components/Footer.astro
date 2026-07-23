@@ -1,0 +1,68 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <p class="site-footer__tagline">
+      Francesca Simone — Sängerin · Songwriterin · Gesangspädagogin
+    </p>
+    <nav aria-label="Rechtliches">
+      <ul class="site-footer__links">
+        <li><a href="#kontakt">Kontakt</a></li>
+        <li><a href="/impressum">Impressum</a></li>
+        <li><a href="/datenschutz">Datenschutz</a></li>
+      </ul>
+    </nav>
+    <p class="site-footer__copyright">© {year} Francesca Simone</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-evening);
+    color: var(--color-evening-contrast);
+    margin-top: var(--space-4xl);
+  }
+
+  .site-footer__inner {
+    padding-block: var(--space-2xl);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+  }
+
+  .site-footer__tagline {
+    margin: 0;
+    font-size: var(--text-sm);
+    max-width: none;
+  }
+
+  .site-footer__links {
+    display: flex;
+    gap: var(--space-lg);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .site-footer__links a {
+    color: var(--color-evening-contrast);
+    font-size: var(--text-sm);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .site-footer__links a:hover,
+  .site-footer__links a:focus-visible {
+    color: var(--color-accent);
+  }
+
+  .site-footer__copyright {
+    margin: 0;
+    font-size: var(--text-sm);
+    opacity: 0.8;
+  }
+</style>

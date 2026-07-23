@@ -1,0 +1,59 @@
+---
+import { getCollection, render } from "astro:content";
+
+const [entry] = await getCollection("teaching");
+const { Content } = await render(entry);
+---
+
+<section id="unterricht" class="unterricht">
+  <div class="container unterricht__grid">
+    <div>
+      <p class="section-eyebrow">Unterricht</p>
+      <h2 class="section-heading">Gesang &amp; Stimmarbeit</h2>
+      <div class="unterricht__body">
+        <Content />
+      </div>
+    </div>
+    <ul class="unterricht__locations">
+      {entry.data.locations.map((location) => <li>{location}</li>)}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .unterricht {
+    padding-block: var(--space-4xl);
+  }
+
+  .unterricht__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: var(--space-3xl);
+    align-items: start;
+  }
+
+  .unterricht__body :global(p) {
+    font-size: var(--text-lg);
+    color: var(--color-ink-muted);
+  }
+
+  .unterricht__locations {
+    list-style: none;
+    margin: 0;
+    padding: var(--space-lg) 0 0;
+    border-top: 1px solid var(--color-border);
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .unterricht__locations li {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+  }
+
+  @media (max-width: 48rem) {
+    .unterricht__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

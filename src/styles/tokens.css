@@ -1,0 +1,50 @@
+/*
+  Design tokens — source of truth is .impeccable.md.
+  Warm, editorial, light theme built around a terracotta accent and a deep
+  "evening sky" ink-teal secondary, on cream (never pure white/black) neutrals.
+*/
+:root {
+  /* Color */
+  --color-surface: oklch(97% 0.012 60);
+  --color-surface-raised: oklch(93% 0.016 55);
+  --color-ink: oklch(22% 0.02 50);
+  --color-ink-muted: oklch(45% 0.02 50);
+  /* Darkened from an earlier oklch(58% 0.14 40) after an automated WCAG 2.1 AA audit found
+     insufficient contrast (4.16:1) for text use against the cream surface; 48%/40% lightness
+     passes AA (>=4.5:1) while keeping the same terracotta hue. */
+  --color-accent: oklch(48% 0.15 38);
+  --color-accent-strong: oklch(40% 0.15 36);
+  --color-evening: oklch(30% 0.06 230);
+  --color-evening-contrast: oklch(95% 0.015 220);
+  --color-border: oklch(88% 0.015 55);
+
+  /* Typography */
+  --font-display: "Bodoni Moda", "Times New Roman", serif;
+  --font-body: "Hanken Grotesk", system-ui, sans-serif;
+
+  --text-sm: clamp(0.875rem, 0.85rem + 0.15vw, 0.95rem);
+  --text-base: clamp(1rem, 0.97rem + 0.2vw, 1.125rem);
+  --text-lg: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --text-xl: clamp(1.75rem, 1.5rem + 1.2vw, 2.5rem);
+  --text-2xl: clamp(2.5rem, 2rem + 2.5vw, 4.25rem);
+
+  /* Spacing (4pt scale) */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-base: 400ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-base: 0ms;
+  }
+}

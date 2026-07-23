@@ -1,0 +1,45 @@
+---
+import { getEntry, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const entry = await getEntry("legal", "impressum");
+const { Content } = await render(entry);
+
+const dateFormatter = new Intl.DateTimeFormat("de-DE", { dateStyle: "long" });
+---
+
+<BaseLayout
+  title={`${entry.data.title} — Francesca Simone`}
+  description="Impressum von Francesca Simone"
+>
+  <Header slot="header" />
+  <article class="container legal-page">
+    <p class="section-eyebrow">Rechtliches</p>
+    <h1 class="section-heading">{entry.data.title}</h1>
+    <p class="legal-page__updated">
+      Zuletzt aktualisiert: {dateFormatter.format(entry.data.lastUpdated)}
+    </p>
+    <div class="legal-page__body">
+      <Content />
+    </div>
+  </article>
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  .legal-page {
+    padding-block: var(--space-3xl) var(--space-4xl);
+    max-width: 65ch;
+  }
+
+  .legal-page__updated {
+    color: var(--color-ink-muted);
+    font-size: var(--text-sm);
+  }
+
+  .legal-page__body :global(p) {
+    color: var(--color-ink);
+  }
+</style>

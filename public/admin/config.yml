@@ -1,0 +1,156 @@
+# Decap CMS configuration — see specs/001-francesca-portfolio-site/contracts/decap-cms-config.md
+# for the full contract this file implements. Hosting is GitHub Pages (see
+# .github/workflows/deploy.yml); this backend config is unaffected by that choice — DecapBridge
+# talks to the GitHub repo directly regardless of where the built site is served from.
+
+backend:
+  name: git-gateway
+  # TODO (deployment step, not covered by this codebase): replace with the real values once
+  # the site is registered with DecapBridge and the GitHub repo exists. See .env.example.
+  repo: OWNER/REPO
+  branch: main
+  identity_url: https://auth.decapbridge.com/sites/SITE_ID
+  gateway_url: https://gateway.decapbridge.com
+
+# FR-018/FR-019: save -> preview -> publish, rather than saves going straight to the live
+# site. Preview is rendered in-app (via registerPreviewTemplate in index.html) rather than a
+# deploy-preview URL, since GitHub Pages has no per-branch preview deployments. See
+# research.md §2 and contracts/decap-cms-config.md.
+publish_mode: editorial_workflow
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+locale: "de"
+
+collections:
+  # --- User Story 2 (T034): tour dates — FR-004, FR-005 ---
+  - name: "tour_dates"
+    label: "Termine"
+    folder: "src/content/tour-dates/de"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Sprache", name: "lang", widget: "hidden", default: "de" }
+      - { label: "Datum & Uhrzeit", name: "date", widget: "datetime" }
+      - { label: "Veranstaltungsort", name: "venueName", widget: "string" }
+      - { label: "Ort", name: "location", widget: "string" }
+      - { label: "Ticket-/Event-Link", name: "eventLink", widget: "string", required: false }
+      - { label: "Hinweis", name: "notes", widget: "string", required: false }
+
+  # --- User Story 3 (T040): biography — FR-006 ---
+  - name: "biography"
+    label: "Vita"
+    files:
+      - name: "biography"
+        label: "Vita"
+        file: "src/content/biography/de/index.md"
+        fields:
+          - { label: "Sprache", name: "lang", widget: "hidden", default: "de" }
+          - { label: "Name", name: "name", widget: "string" }
+          - {
+              label: "Kurzbeschreibung",
+              name: "tagline",
+              widget: "string",
+              pattern: ["^.{1,200}$", "Maximal 200 Zeichen"],
+            }
+          - { label: "Porträtfoto", name: "portrait", widget: "image" }
+          - {
+              label: "Alt-Text für das Foto (Barrierefreiheit)",
+              name: "portraitAlt",
+              widget: "string",
+            }
+          - { label: "Biografie-Text", name: "body", widget: "markdown" }
+
+  # --- User Story 3 (T041): projects/ensembles — FR-007 ---
+  - name: "projects"
+    label: "Projekte"
+    folder: "src/content/projects/de"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Sprache", name: "lang", widget: "hidden", default: "de" }
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Reihenfolge", name: "order", widget: "number", required: false }
+      - { label: "Foto", name: "photo", widget: "image", required: false }
+      - { label: "Alt-Text für das Foto", name: "photoAlt", widget: "string", required: false }
+      - { label: "Beschreibung", name: "body", widget: "markdown" }
+
+  # --- User Story 3 (T042): discography — FR-008 ---
+  - name: "discography"
+    label: "CDs"
+    folder: "src/content/discography/de"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Sprache", name: "lang", widget: "hidden", default: "de" }
+      - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Erscheinungsjahr", name: "releaseYear", widget: "number", required: false }
+      - { label: "Cover", name: "coverImage", widget: "image", required: false }
+      - {
+          label: "Alt-Text für das Cover",
+          name: "coverImageAlt",
+          widget: "string",
+          required: false,
+        }
+      - label: "Links (z. B. Spotify, YouTube)"
+        name: "links"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Beschriftung", name: "label", widget: "string" }
+          - { label: "URL", name: "url", widget: "string" }
+      - { label: "Beschreibung", name: "body", widget: "markdown" }
+
+  # --- User Story 3 (T043): teaching — FR-009 ---
+  - name: "teaching"
+    label: "Unterricht"
+    files:
+      - name: "teaching"
+        label: "Unterricht"
+        file: "src/content/teaching/de/index.md"
+        fields:
+          - { label: "Sprache", name: "lang", widget: "hidden", default: "de" }
+          - { label: "Orte", name: "locations", widget: "list" }
+          - { label: "Beschreibung", name: "body", widget: "markdown" }
+
+  # --- User Story 3 (T044): contact — FR-010, FR-017 ---
+  - name: "contact"
+    label: "Kontakt"
+    files:
+      - name: "contact"
+        label: "Kontakt"
+        file: "src/content/contact/de/index.md"
+        fields:
+          - { label: "Sprache", name: "lang", widget: "hidden", default: "de" }
+          - { label: "E-Mail", name: "email", widget: "string" }
+          - { label: "Telefon", name: "phone", widget: "string", required: false }
+          - { label: "Ort", name: "location", widget: "string", required: false }
+          - label: "Social-/Booking-Links"
+            name: "socialLinks"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "Plattform", name: "platform", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+
+  # --- User Story 3 (T045): legal notice & privacy — FR-020 ---
+  - name: "legal"
+    label: "Rechtliches"
+    files:
+      - name: "impressum"
+        label: "Impressum"
+        file: "src/content/legal/de/impressum.md"
+        fields:
+          - { label: "Sprache", name: "lang", widget: "hidden", default: "de" }
+          - { label: "Titel", name: "title", widget: "string" }
+          - { label: "Zuletzt aktualisiert", name: "lastUpdated", widget: "datetime" }
+          - { label: "Inhalt", name: "body", widget: "markdown" }
+      - name: "datenschutz"
+        label: "Datenschutz"
+        file: "src/content/legal/de/datenschutz.md"
+        fields:
+          - { label: "Sprache", name: "lang", widget: "hidden", default: "de" }
+          - { label: "Titel", name: "title", widget: "string" }
+          - { label: "Zuletzt aktualisiert", name: "lastUpdated", widget: "datetime" }
+          - { label: "Inhalt", name: "body", widget: "markdown" }

@@ -1,0 +1,121 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Vita from "../components/sections/Vita.astro";
+import Projekte from "../components/sections/Projekte.astro";
+import Termine from "../components/sections/Termine.astro";
+import CDs from "../components/sections/CDs.astro";
+import Unterricht from "../components/sections/Unterricht.astro";
+import Kontakt from "../components/sections/Kontakt.astro";
+
+const [biography] = await getCollection("biography");
+---
+
+<BaseLayout
+  title="Francesca Simone — Sängerin, Songwriterin, Gesangspädagogin"
+  description="Francesca Simone verbindet italienische Leichtigkeit, Jazz- und Pop-Sensibilität und eine ausdrucksstarke Bühnenpräsenz zu Konzerten, die berühren."
+>
+  <Header slot="header" />
+
+  <section id="start" class="hero">
+    <div class="container hero__inner">
+      <p class="hero__welcome">Willkommen · Benvenuti</p>
+      <h1 class="hero__name">Francesca Simone</h1>
+      <p class="hero__role">Sängerin · Songwriterin · Gesangspädagogin</p>
+      <p class="hero__intro">{biography.data.tagline}</p>
+      <div class="hero__actions">
+        <a class="hero__cta hero__cta--primary" href="#kontakt">Konzert anfragen</a>
+        <a class="hero__cta hero__cta--secondary" href="#projekte">Programme entdecken</a>
+      </div>
+    </div>
+  </section>
+
+  <Vita />
+  <Projekte />
+  <Termine />
+  <CDs />
+  <Unterricht />
+  <Kontakt />
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--space-4xl) var(--space-3xl);
+  }
+
+  .hero__inner {
+    max-width: 40rem;
+  }
+
+  .hero__welcome {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: var(--text-sm);
+    color: var(--color-ink-muted);
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero__name {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero__role {
+    font-size: var(--text-lg);
+    color: var(--color-ink-muted);
+    margin: 0 0 var(--space-lg);
+  }
+
+  .hero__intro {
+    font-size: var(--text-lg);
+    font-style: italic;
+    font-family: var(--font-display);
+    color: var(--color-ink);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  .hero__cta {
+    display: inline-block;
+    padding: var(--space-sm) var(--space-xl);
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: var(--text-sm);
+    transition:
+      background-color var(--duration-base) var(--ease-out-expo),
+      color var(--duration-base) var(--ease-out-expo);
+  }
+
+  .hero__cta--primary {
+    background: var(--color-accent);
+    color: var(--color-surface);
+  }
+
+  .hero__cta--primary:hover,
+  .hero__cta--primary:focus-visible {
+    background: var(--color-accent-strong);
+    color: var(--color-surface);
+  }
+
+  .hero__cta--secondary {
+    background: transparent;
+    color: var(--color-ink);
+    border: 1px solid var(--color-border);
+  }
+
+  .hero__cta--secondary:hover,
+  .hero__cta--secondary:focus-visible {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+</style>
