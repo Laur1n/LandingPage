@@ -3,14 +3,28 @@
 # .github/workflows/deploy.yml); this backend config is unaffected by that choice — DecapBridge
 # talks to the GitHub repo directly regardless of where the built site is served from.
 
+# Use DecapBridge classic auth (required)
 backend:
   name: git-gateway
-  # TODO (deployment step, not covered by this codebase): replace with the real values once
-  # the site is registered with DecapBridge and the GitHub repo exists. See .env.example.
-  repo: OWNER/REPO
+  repo: mrarno3108/mamaLanding
   branch: main
-  identity_url: https://auth.decapbridge.com/sites/SITE_ID
+  identity_url: https://auth.decapbridge.com/sites/6ce414fb-7b28-4e09-906f-798c9e6517d6
   gateway_url: https://gateway.decapbridge.com
+
+  # See who did what (optional)
+  commit_messages:
+    create: Create {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge
+    update: Update {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge
+    delete: Delete {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge
+    uploadMedia: Upload "{{path}}" - {{author-name}} <{{author-login}}> via DecapBridge
+    deleteMedia: Delete "{{path}}" - {{author-name}} <{{author-login}}> via DecapBridge
+    openAuthoring: Message {{message}} - {{author-name}} <{{author-login}}> via DecapBridge
+
+# Better Decap + Bridge logo (optional)
+logo_url: https://decapbridge.com/decapcms-with-bridge.svg
+
+# Add site links in Decap CMS (optional)
+site_url: https://www.francesca-simone.de
 
 # FR-018/FR-019: save -> preview -> publish, rather than saves going straight to the live
 # site. Preview is rendered in-app (via registerPreviewTemplate in index.html) rather than a

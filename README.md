@@ -67,14 +67,20 @@ need doing once:
    provision HTTPS for it. The domain is already committed in `public/CNAME` — if you use a
    different one, update that file and the `site` value in `astro.config.mjs` to match.
 4. **Register the site with [DecapBridge](https://decapbridge.com/docs)** and invite Francesca as
-   the site's editor by email. DecapBridge gives you an `identity_url` and `gateway_url`.
-5. **Fill in `public/admin/config.yml`**: replace `OWNER/REPO` and `SITE_ID` in the `backend`
-   section with the real values from steps 1 and 4.
+   the site's editor by email. DecapBridge gives you an `identity_url` and `gateway_url`. ✅ Done
+   — `public/admin/config.yml` already has the real values for this site (site id
+   `6ce414fb-7b28-4e09-906f-798c9e6517d6`).
+5. ~~Fill in `public/admin/config.yml` with the real backend values~~ — done as part of step 4
+   above.
 6. **Confirm the Impressum and Datenschutz text** in `/admin/` under "Rechtliches" — the seeded
    copy is a clearly-marked legal placeholder (name/address fields, etc.) and must be completed
    with Francesca's real details, ideally checked by a qualified source, before the site goes
    live (this is a German legal requirement, not optional).
 7. **Replace the placeholder portrait and discography entry** the same way, via `/admin/`.
+
+Still outstanding: step 1 (push to GitHub — nothing has been pushed yet), step 2 (flip Pages
+source to GitHub Actions), step 3 (DNS + custom domain verification), and steps 6-7 (real
+Impressum/Datenschutz/portrait/discography content).
 
 No environment variables or secrets are required anywhere — GitHub Actions deploys using its own
 built-in credentials, and DecapBridge/git-gateway needs no server-held tokens of ours.
