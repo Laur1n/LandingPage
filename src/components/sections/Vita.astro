@@ -1,8 +1,10 @@
 ---
 import { getCollection, render } from "astro:content";
+import { getSiteTexts } from "../../lib/site-texts";
 
 const [entry] = await getCollection("biography");
 const { Content } = await render(entry);
+const { sections } = await getSiteTexts();
 ---
 
 <section id="vita" class="vita">
@@ -11,7 +13,7 @@ const { Content } = await render(entry);
       <img src={entry.data.portrait} alt={entry.data.portraitAlt} loading="lazy" decoding="async" />
     </div>
     <div class="vita__text">
-      <p class="vita__eyebrow">Vita</p>
+      <p class="vita__eyebrow">{sections.vitaEyebrow}</p>
       <h2 class="vita__heading">{entry.data.tagline}</h2>
       <div class="vita__body">
         <Content />

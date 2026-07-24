@@ -1,6 +1,11 @@
 ---
 import { getCollection, render } from "astro:content";
+import { getSiteTexts } from "../../lib/site-texts";
 
+// Photo and alt text are independently optional in the CMS, so a photo can arrive without one.
+// The `?? ""` below marks such an image decorative rather than emitting no alt attribute at all,
+// which would fail WCAG (FR-022) on a page the editor can't tell is broken.
+const { sections } = await getSiteTexts();
 const entries = (await getCollection("projects")).sort(
   (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99),
 );
@@ -11,8 +16,8 @@ const rendered = await Promise.all(
 
 <section id="projekte" class="projekte">
   <div class="container">
-    <p class="section-eyebrow">Projekte</p>
-    <h2 class="section-heading">Auf der Bühne</h2>
+    <p class="section-eyebrow">{sections.projekteEyebrow}</p>
+    <h2 class="section-heading">{sections.projekteHeading}</h2>
     <ol class="projekte__list">
       {
         rendered.map(({ entry, Content }, index) => (
@@ -26,7 +31,7 @@ const rendered = await Promise.all(
               {entry.data.photo && (
                 <img
                   src={entry.data.photo}
-                  alt={entry.data.photoAlt}
+                  alt={entry.data.photoAlt ?? ""}
                   loading="lazy"
                   decoding="async"
                   class="projekte__photo"

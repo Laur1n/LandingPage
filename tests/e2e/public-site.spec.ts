@@ -65,10 +65,10 @@ test.describe("Public portfolio site (User Story 1)", () => {
       const search = "?ref=test";
       const hash = "#section";
       return (
-        "https://www.francesca-simone.de" + pathname.replace(/^\/mamaLanding/, "") + search + hash
+        "https://francesca-simone.com" + pathname.replace(/^\/mamaLanding/, "") + search + hash
       );
     });
-    expect(target).toBe("https://www.francesca-simone.de/impressum?ref=test#section");
+    expect(target).toBe("https://francesca-simone.com/impressum?ref=test#section");
   });
 
   test("navigation and content remain usable on a mobile viewport", async ({ page }) => {

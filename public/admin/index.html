@@ -8,8 +8,12 @@
     <meta name="robots" content="noindex, nofollow" />
   </head>
   <body>
-    <!-- Decap CMS mounts itself into the body. -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <!--
+      Decap CMS mounts itself into the body. The version is pinned rather than using a `^3.0.0`
+      range: this script is fetched fresh by the browser on every visit, so a range would silently
+      roll Francesca's editor forward onto any future 3.x release the moment it is published.
+    -->
+    <script src="https://unpkg.com/decap-cms@3.15.1/dist/decap-cms.js"></script>
 
     <!--
       FR-018: draft preview, rendered in-app rather than via a deploy-preview URL. GitHub Pages
@@ -91,6 +95,20 @@
             children.push(h("p", { key: "location" }, data.get("location")));
           }
 
+          ["links", "socialLinks"].forEach(function (field) {
+            var list = data.get(field);
+            if (!list || !list.size) return;
+            children.push(
+              h(
+                "ul",
+                { key: field },
+                list.toJS().map(function (link, index) {
+                  return h("li", { key: index }, (link.label || "") + " — " + (link.url || ""));
+                }),
+              ),
+            );
+          });
+
           if (data.get("releaseYear")) {
             children.push(h("p", { key: "releaseYear" }, String(data.get("releaseYear"))));
           }
@@ -105,7 +123,20 @@
             );
           }
 
-          children.push(h("div", { key: "body", className: "body" }, this.props.widgetFor("body")));
+          // widgetFor() looks the name up in the collection's own field list and dereferences the
+          // result without a guard, so asking for a field a collection doesn't have (Termine has
+          // no markdown body) throws and takes the whole preview pane down with it.
+          var fields = this.props.fields;
+          var hasBody =
+            fields &&
+            fields.some(function (field) {
+              return field.get("name") === "body";
+            });
+          if (hasBody) {
+            children.push(
+              h("div", { key: "body", className: "body" }, this.props.widgetFor("body")),
+            );
+          }
 
           return h("div", { className: "preview" }, children);
         },

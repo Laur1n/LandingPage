@@ -24,7 +24,7 @@ backend:
 logo_url: https://decapbridge.com/decapcms-with-bridge.svg
 
 # Add site links in Decap CMS (optional)
-site_url: https://www.francesca-simone.de
+site_url: https://francesca-simone.com
 
 # FR-018/FR-019: save -> preview -> publish, rather than saves going straight to the live
 # site. Preview is rendered in-app (via registerPreviewTemplate in index.html) rather than a
@@ -38,18 +38,134 @@ public_folder: "/uploads"
 locale: "de"
 
 collections:
+  # --- Global page texts — everything on the public pages that isn't a content entry ---
+  # Preview is disabled here: these strings are site chrome scattered across every page, so a
+  # single-entry preview pane would show a meaningless fragment rather than a useful draft view.
+  - name: "site"
+    label: "Website-Texte"
+    editor:
+      preview: false
+    files:
+      - name: "site"
+        label: "Website-Texte"
+        file: "src/content/site/de/index.md"
+        fields:
+          - { label: "Sprache", name: "lang", widget: "hidden", default: "de" }
+          - { label: "Seitentitel (für Google & Browser-Tab)", name: "seoTitle", widget: "string" }
+          - { label: "Seitenbeschreibung (für Google)", name: "seoDescription", widget: "text" }
+          - { label: "Name oben links", name: "brand", widget: "string" }
+          - {
+              label: "Sprunglink zum Inhalt (Barrierefreiheit)",
+              name: "skipLinkLabel",
+              widget: "string",
+            }
+          - label: "Menü"
+            name: "nav"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Start", name: "start", widget: "string" }
+              - { label: "Vita", name: "vita", widget: "string" }
+              - { label: "Projekte", name: "projekte", widget: "string" }
+              - { label: "Termine", name: "termine", widget: "string" }
+              - { label: "CDs", name: "cds", widget: "string" }
+              - { label: "Unterricht", name: "unterricht", widget: "string" }
+              - { label: "Kontakt", name: "kontakt", widget: "string" }
+          - label: "Startbereich"
+            name: "hero"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Begrüßung", name: "welcome", widget: "string" }
+              - { label: "Name (große Überschrift)", name: "name", widget: "string" }
+              - { label: "Rollen", name: "role", widget: "string" }
+              - { label: "Button 1", name: "primaryCtaLabel", widget: "string" }
+              - { label: "Button 2", name: "secondaryCtaLabel", widget: "string" }
+          - label: "Abschnitts-Überschriften"
+            name: "sections"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Vita — Kleintitel", name: "vitaEyebrow", widget: "string" }
+              - { label: "Projekte — Kleintitel", name: "projekteEyebrow", widget: "string" }
+              - { label: "Projekte — Überschrift", name: "projekteHeading", widget: "string" }
+              - { label: "Termine — Kleintitel", name: "termineEyebrow", widget: "string" }
+              - { label: "Termine — Überschrift", name: "termineHeading", widget: "string" }
+              - {
+                  label: "Termine — Text, wenn keine Termine anstehen",
+                  name: "termineEmpty",
+                  widget: "text",
+                }
+              - {
+                  label: "Termine — Link-Text darunter",
+                  name: "termineEmptyCtaLabel",
+                  widget: "string",
+                }
+              - {
+                  label: "Termine — Beschriftung des Ticket-Links",
+                  name: "termineTicketLabel",
+                  widget: "string",
+                }
+              - { label: "CDs — Kleintitel", name: "cdsEyebrow", widget: "string" }
+              - { label: "CDs — Überschrift", name: "cdsHeading", widget: "string" }
+              - { label: "Unterricht — Kleintitel", name: "unterrichtEyebrow", widget: "string" }
+              - { label: "Unterricht — Überschrift", name: "unterrichtHeading", widget: "string" }
+              - { label: "Kontakt — Kleintitel", name: "kontaktEyebrow", widget: "string" }
+              - { label: "Kontakt — Überschrift", name: "kontaktHeading", widget: "string" }
+          - label: "Impressum & Datenschutz"
+            name: "legalPages"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Kleintitel", name: "eyebrow", widget: "string" }
+              - {
+                  label: "Beschriftung „Zuletzt aktualisiert“",
+                  name: "updatedLabel",
+                  widget: "string",
+                }
+              - {
+                  label: "Impressum — Beschreibung für Google",
+                  name: "impressumDescription",
+                  widget: "string",
+                }
+              - {
+                  label: "Datenschutz — Beschreibung für Google",
+                  name: "datenschutzDescription",
+                  widget: "string",
+                }
+          - label: "Fußzeile"
+            name: "footer"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Text links", name: "tagline", widget: "string" }
+              - { label: "Name nach dem ©", name: "copyright", widget: "string" }
+
   # --- User Story 2 (T034): tour dates — FR-004, FR-005 ---
+  # `identifier_field` is required: Decap only auto-detects `title`/`path`, and without it the
+  # "new entry" slug cannot be generated, so creating a Termin fails before it ever reaches git.
   - name: "tour_dates"
     label: "Termine"
+    label_singular: "Termin"
     folder: "src/content/tour-dates/de"
     create: true
+    identifier_field: "venueName"
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{date}} — {{venueName}}, {{location}}"
+    sortable_fields: ["date", "venueName"]
     fields:
       - { label: "Sprache", name: "lang", widget: "hidden", default: "de" }
       - { label: "Datum & Uhrzeit", name: "date", widget: "datetime" }
       - { label: "Veranstaltungsort", name: "venueName", widget: "string" }
       - { label: "Ort", name: "location", widget: "string" }
-      - { label: "Ticket-/Event-Link", name: "eventLink", widget: "string", required: false }
+      - {
+          label: "Ticket-/Event-Link",
+          name: "eventLink",
+          widget: "string",
+          required: false,
+          hint: "Vollständige Adresse inklusive https://",
+          pattern: ["^https?://.+", "Bitte eine vollständige Adresse mit https:// eingeben"],
+        }
       - { label: "Hinweis", name: "notes", widget: "string", required: false }
 
   # --- User Story 3 (T040): biography — FR-006 ---
@@ -79,23 +195,35 @@ collections:
   # --- User Story 3 (T041): projects/ensembles — FR-007 ---
   - name: "projects"
     label: "Projekte"
+    label_singular: "Projekt"
     folder: "src/content/projects/de"
     create: true
+    identifier_field: "name"
     slug: "{{slug}}"
+    sortable_fields: ["order", "name"]
     fields:
       - { label: "Sprache", name: "lang", widget: "hidden", default: "de" }
       - { label: "Name", name: "name", widget: "string" }
       - { label: "Reihenfolge", name: "order", widget: "number", required: false }
       - { label: "Foto", name: "photo", widget: "image", required: false }
-      - { label: "Alt-Text für das Foto", name: "photoAlt", widget: "string", required: false }
+      - {
+          label: "Alt-Text für das Foto",
+          name: "photoAlt",
+          widget: "string",
+          required: false,
+          hint: "Kurz beschreiben, was auf dem Foto zu sehen ist — für blinde Besucherinnen und Besucher.",
+        }
       - { label: "Beschreibung", name: "body", widget: "markdown" }
 
   # --- User Story 3 (T042): discography — FR-008 ---
   - name: "discography"
     label: "CDs"
+    label_singular: "CD"
     folder: "src/content/discography/de"
     create: true
+    identifier_field: "title"
     slug: "{{slug}}"
+    sortable_fields: ["releaseYear", "title"]
     fields:
       - { label: "Sprache", name: "lang", widget: "hidden", default: "de" }
       - { label: "Titel", name: "title", widget: "string" }
@@ -106,6 +234,7 @@ collections:
           name: "coverImageAlt",
           widget: "string",
           required: false,
+          hint: "Kurz beschreiben, was auf dem Cover zu sehen ist — für blinde Besucherinnen und Besucher.",
         }
       - label: "Links (z. B. Spotify, YouTube)"
         name: "links"
@@ -113,7 +242,13 @@ collections:
         required: false
         fields:
           - { label: "Beschriftung", name: "label", widget: "string" }
-          - { label: "URL", name: "url", widget: "string" }
+          - {
+              label: "URL",
+              name: "url",
+              widget: "string",
+              hint: "Vollständige Adresse inklusive https://",
+              pattern: ["^https?://.+", "Bitte eine vollständige Adresse mit https:// eingeben"],
+            }
       - { label: "Beschreibung", name: "body", widget: "markdown" }
 
   # --- User Story 3 (T043): teaching — FR-009 ---
@@ -137,16 +272,31 @@ collections:
         file: "src/content/contact/de/index.md"
         fields:
           - { label: "Sprache", name: "lang", widget: "hidden", default: "de" }
-          - { label: "E-Mail", name: "email", widget: "string" }
+          - {
+              label: "E-Mail",
+              name: "email",
+              widget: "string",
+              pattern:
+                ["^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$", "Bitte eine gültige E-Mail-Adresse eingeben"],
+            }
           - { label: "Telefon", name: "phone", widget: "string", required: false }
           - { label: "Ort", name: "location", widget: "string", required: false }
+          # `label`, not `platform`: the site reads this key (src/content.config.ts → linkSchema).
           - label: "Social-/Booking-Links"
             name: "socialLinks"
             widget: "list"
             required: false
             fields:
-              - { label: "Plattform", name: "platform", widget: "string" }
-              - { label: "URL", name: "url", widget: "string" }
+              - { label: "Plattform", name: "label", widget: "string" }
+              - {
+                  label: "URL",
+                  name: "url",
+                  widget: "string",
+                  hint: "Vollständige Adresse inklusive https://",
+                  pattern:
+                    ["^https?://.+", "Bitte eine vollständige Adresse mit https:// eingeben"],
+                }
+          - { label: "Einleitungstext", name: "body", widget: "markdown", required: false }
 
   # --- User Story 3 (T045): legal notice & privacy — FR-020 ---
   - name: "legal"

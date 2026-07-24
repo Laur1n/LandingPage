@@ -9,25 +9,24 @@ import Termine from "../components/sections/Termine.astro";
 import CDs from "../components/sections/CDs.astro";
 import Unterricht from "../components/sections/Unterricht.astro";
 import Kontakt from "../components/sections/Kontakt.astro";
+import { getSiteTexts } from "../lib/site-texts";
 
 const [biography] = await getCollection("biography");
+const { seoTitle, seoDescription, hero } = await getSiteTexts();
 ---
 
-<BaseLayout
-  title="Francesca Simone — Sängerin, Songwriterin, Gesangspädagogin"
-  description="Francesca Simone verbindet italienische Leichtigkeit, Jazz- und Pop-Sensibilität und eine ausdrucksstarke Bühnenpräsenz zu Konzerten, die berühren."
->
+<BaseLayout title={seoTitle} description={seoDescription}>
   <Header slot="header" />
 
   <section id="start" class="hero">
     <div class="container hero__inner">
-      <p class="hero__welcome">Willkommen · Benvenuti</p>
-      <h1 class="hero__name">Francesca Simone</h1>
-      <p class="hero__role">Sängerin · Songwriterin · Gesangspädagogin</p>
+      <p class="hero__welcome">{hero.welcome}</p>
+      <h1 class="hero__name">{hero.name}</h1>
+      <p class="hero__role">{hero.role}</p>
       <p class="hero__intro">{biography.data.tagline}</p>
       <div class="hero__actions">
-        <a class="hero__cta hero__cta--primary" href="#kontakt">Konzert anfragen</a>
-        <a class="hero__cta hero__cta--secondary" href="#projekte">Programme entdecken</a>
+        <a class="hero__cta hero__cta--primary" href="#kontakt">{hero.primaryCtaLabel}</a>
+        <a class="hero__cta hero__cta--secondary" href="#projekte">{hero.secondaryCtaLabel}</a>
       </div>
     </div>
   </section>

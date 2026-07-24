@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { getSiteTexts } from "../lib/site-texts";
 
 interface Props {
   title: string;
@@ -8,6 +9,7 @@ interface Props {
 }
 
 const { title, description, noindex = false } = Astro.props;
+const { skipLinkLabel } = await getSiteTexts();
 ---
 
 <!doctype html>
@@ -19,7 +21,7 @@ const { title, description, noindex = false } = Astro.props;
     <!--
       GitHub Pages serves this exact build at two URLs: the default
       https://mrarno3108.github.io/mamaLanding/ (subpath) and the custom domain
-      https://www.francesca-simone.de/ (root) once DNS is configured. Every asset link in this
+      https://francesca-simone.com/ (root) once DNS is configured. Every asset link in this
       build is root-relative (correct for the custom domain), so visiting the subpath URL
       directly would 404 every CSS/font/image. Rather than picking one via Astro's `base` config
       (which would just break the other), redirect the subpath URL straight to the real domain —
@@ -29,7 +31,7 @@ const { title, description, noindex = false } = Astro.props;
     <script is:inline>
       if (window.location.hostname === "mrarno3108.github.io") {
         window.location.replace(
-          "https://www.francesca-simone.de" +
+          "https://francesca-simone.com" +
             window.location.pathname.replace(/^\/mamaLanding/, "") +
             window.location.search +
             window.location.hash,
@@ -56,7 +58,7 @@ const { title, description, noindex = false } = Astro.props;
     <meta property="og:type" content="website" />
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
+    <a class="skip-link" href="#main-content">{skipLinkLabel}</a>
     <slot name="header" />
     <main id="main-content">
       <slot />

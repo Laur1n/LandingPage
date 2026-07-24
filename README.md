@@ -61,15 +61,29 @@ need doing once:
 2. **Enable GitHub Pages**: repo Settings → Pages → Source → "GitHub Actions". The included
    workflow (`.github/workflows/deploy.yml`) handles the rest — it builds and deploys on every
    push to `main`, on a daily schedule, and on demand.
-3. **Point your custom domain at it**: at your DNS provider, add a `CNAME` record for
-   `www.francesca-simone.de` (or whichever subdomain you use) pointing to `<your-github-username>.github.io`.
-   Then, in repo Settings → Pages → Custom domain, enter the same domain and let GitHub verify and
-   provision HTTPS for it. The domain is already committed in `public/CNAME` — if you use a
-   different one, update that file and the `site` value in `astro.config.mjs` to match.
+3. **Point your custom domain at it**: at your DNS provider, add an `A` record (apex domain) and/or
+   a `CNAME` record (`www` subdomain) pointing to `<your-github-username>.github.io`. Then, in repo
+   Settings → Pages → Custom domain, enter the domain and let GitHub verify and provision HTTPS for
+   it. The domain is already committed in `public/CNAME` — if you use a different one, update that
+   file and the `site` value in `astro.config.mjs` to match. Note: since this repo publishes via a
+   custom GitHub Actions workflow (not "Deploy from a branch"), GitHub Pages ignores `public/CNAME`
+   entirely for routing — the Settings → Pages → Custom domain field is the actual source of truth.
+   Keeping `public/CNAME` in sync is just for clarity/backup in case you ever switch publishing
+   modes.
 4. **Register the site with [DecapBridge](https://decapbridge.com/docs)** and invite Francesca as
    the site's editor by email. DecapBridge gives you an `identity_url` and `gateway_url`. ✅ Done
    — `public/admin/config.yml` already has the real values for this site (site id
    `6ce414fb-7b28-4e09-906f-798c9e6517d6`).
+
+   ⚠️ **The GitHub token you gave DecapBridge needs _two_ permissions, not one.** Because this
+   site uses `publish_mode: editorial_workflow`, every save opens a pull request, so the token
+   needs **Contents: Read and write** _and_ **Pull requests: Read and write**. With only
+   Contents, saving gets far enough to push a `cms/...` branch and then dies on the pull request
+   with the very unhelpful `Failed to persist entry: API_ERROR: Unexpected end of JSON input` —
+   the gateway returns an empty body, so Decap has nothing to report. Fix it under
+   [github.com/settings/tokens](https://github.com/settings/tokens) and re-paste the token into
+   the DecapBridge site settings.
+
 5. ~~Fill in `public/admin/config.yml` with the real backend values~~ — done as part of step 4
    above.
 6. **Confirm the Impressum and Datenschutz text** in `/admin/` under "Rechtliches" — the seeded
@@ -92,7 +106,9 @@ for the full validation walkthrough.
 ## Editing content (for Francesca)
 
 1. Go to `yoursite.com/admin/` (with the trailing slash) and log in.
-2. Pick a section on the left (Vita, Projekte, Termine, CDs, Unterricht, Kontakt, Rechtliches).
+2. Pick a section on the left (Website-Texte, Vita, Projekte, Termine, CDs, Unterricht, Kontakt,
+   Rechtliches). "Website-Texte" holds the wording that isn't part of any one entry — the menu,
+   the big welcome block, every section heading, the footer, and the text Google shows.
 3. Make your change and click **Save** — this creates a draft, it is not live yet.
 4. Click **Preview** to see your change laid out with the site's real fonts and colors, right
    inside this screen (it won't look 100% identical to the finished page, but it's enough to
@@ -113,6 +129,7 @@ needs to reset it for you.
 src/
 ├── content.config.ts   # Content schema — what fields each section has
 ├── content/             # The actual content files (what /admin/ edits)
+│   └── site/            # Menu, headings, footer, SEO text — the strings outside the entries
 ├── components/           # Reusable page pieces (nav, footer, each section)
 ├── layouts/              # Shared page shell
 └── pages/                # index.astro (the whole one-page site), impressum, datenschutz

@@ -1,15 +1,17 @@
 ---
 import { getCollection, render } from "astro:content";
+import { getSiteTexts } from "../../lib/site-texts";
 
 const [entry] = await getCollection("teaching");
 const { Content } = await render(entry);
+const { sections } = await getSiteTexts();
 ---
 
 <section id="unterricht" class="unterricht">
   <div class="container unterricht__grid">
     <div>
-      <p class="section-eyebrow">Unterricht</p>
-      <h2 class="section-heading">Gesang &amp; Stimmarbeit</h2>
+      <p class="section-eyebrow">{sections.unterrichtEyebrow}</p>
+      <h2 class="section-heading">{sections.unterrichtHeading}</h2>
       <div class="unterricht__body">
         <Content />
       </div>

@@ -84,6 +84,88 @@ test.describe("Content management contract (User Story 3)", () => {
     expect(filePaths).toContain("src/content/legal/de/datenschutz.md");
   });
 
+  test("every folder collection can generate a slug for a new entry", async ({ request }) => {
+    const response = await request.get("/admin/config.yml");
+    const config = parse(await response.text());
+
+    // Decap only auto-detects `title` and `path` as entry identifiers. A folder collection whose
+    // fields use any other name (venueName, name, ...) must declare `identifier_field`, or
+    // "new entry" throws "Collection must have a field name that is a valid entry identifier"
+    // before the entry ever reaches git — i.e. Francesca cannot add a Termin or a Projekt at all.
+    interface DecapCollection {
+      name: string;
+      folder?: string;
+      identifier_field?: string;
+      fields?: Array<{ name: string }>;
+    }
+
+    const folderCollections = (config.collections as DecapCollection[]).filter((c) => c.folder);
+    expect(folderCollections.length).toBeGreaterThan(0);
+
+    for (const collection of folderCollections) {
+      const fieldNames = (collection.fields ?? []).map((f) => f.name);
+      const identifier =
+        collection.identifier_field ?? ["title", "path"].find((n) => fieldNames.includes(n));
+
+      expect(identifier, `${collection.name} has no usable entry identifier`).toBeTruthy();
+      expect(fieldNames, `${collection.name}.identifier_field points at a missing field`).toContain(
+        identifier,
+      );
+    }
+  });
+
+  test("link lists in config.yml use the field names the site renders", async ({ request }) => {
+    const response = await request.get("/admin/config.yml");
+    const config = parse(await response.text());
+
+    // src/content.config.ts validates every link as { label, url }. A CMS field named anything
+    // else (this was `platform` for socialLinks) saves fine but fails the next build, so the
+    // site silently stops updating after an editor touches contact details.
+    interface DecapField {
+      name: string;
+      widget?: string;
+      fields?: DecapField[];
+    }
+
+    function everyFieldSet(collection: {
+      fields?: DecapField[];
+      files?: Array<{ fields: DecapField[] }>;
+    }): DecapField[][] {
+      if (collection.fields) return [collection.fields];
+      if (collection.files) return collection.files.map((f) => f.fields);
+      return [];
+    }
+
+    const linkListNames = ["links", "socialLinks"];
+    let checked = 0;
+
+    for (const collection of config.collections) {
+      for (const fields of everyFieldSet(collection)) {
+        for (const field of fields.filter((f) => linkListNames.includes(f.name))) {
+          const subFieldNames = (field.fields ?? []).map((f) => f.name).sort();
+          expect(subFieldNames, `${collection.name}.${field.name}`).toEqual(["label", "url"]);
+          checked += 1;
+        }
+      }
+    }
+
+    expect(checked).toBeGreaterThan(0);
+  });
+
+  test("page chrome is editable through the site-texts collection", async ({ request }) => {
+    const response = await request.get("/admin/config.yml");
+    const config = parse(await response.text());
+    const site = config.collections.find((c: { name: string }) => c.name === "site");
+
+    expect(site, "no collection for the strings outside content entries").toBeTruthy();
+    expect(site.files[0].file).toBe("src/content/site/de/index.md");
+
+    const fieldNames = site.files[0].fields.map((f: { name: string }) => f.name);
+    for (const group of ["seoTitle", "brand", "nav", "hero", "sections", "footer"]) {
+      expect(fieldNames).toContain(group);
+    }
+  });
+
   test("discography content renders on the public CDs section", async ({ page }) => {
     await page.goto("/#cds");
     await expect(page.getByRole("heading", { name: "Diskografie" })).toBeVisible();

@@ -3,23 +3,22 @@ import { getEntry, render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { getSiteTexts } from "../lib/site-texts";
 
 const entry = await getEntry("legal", "impressum");
 const { Content } = await render(entry);
+const { brand, legalPages } = await getSiteTexts();
 
 const dateFormatter = new Intl.DateTimeFormat("de-DE", { dateStyle: "long" });
 ---
 
-<BaseLayout
-  title={`${entry.data.title} — Francesca Simone`}
-  description="Impressum von Francesca Simone"
->
+<BaseLayout title={`${entry.data.title} — ${brand}`} description={legalPages.impressumDescription}>
   <Header slot="header" />
   <article class="container legal-page">
-    <p class="section-eyebrow">Rechtliches</p>
+    <p class="section-eyebrow">{legalPages.eyebrow}</p>
     <h1 class="section-heading">{entry.data.title}</h1>
     <p class="legal-page__updated">
-      Zuletzt aktualisiert: {dateFormatter.format(entry.data.lastUpdated)}
+      {legalPages.updatedLabel}: {dateFormatter.format(entry.data.lastUpdated)}
     </p>
     <div class="legal-page__body">
       <Content />

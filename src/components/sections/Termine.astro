@@ -1,7 +1,9 @@
 ---
 import { getCollection } from "astro:content";
 import { getUpcomingTourDates } from "../../lib/tour-dates";
+import { getSiteTexts } from "../../lib/site-texts";
 
+const { sections } = await getSiteTexts();
 const allDates = await getCollection("tour-dates");
 const upcoming = getUpcomingTourDates(allDates);
 
@@ -18,14 +20,13 @@ const timeFormatter = new Intl.DateTimeFormat("de-DE", {
 
 <section id="termine" class="termine">
   <div class="container">
-    <p class="section-eyebrow">Termine</p>
-    <h2 class="section-heading">Nächste Konzerte</h2>
+    <p class="section-eyebrow">{sections.termineEyebrow}</p>
+    <h2 class="section-heading">{sections.termineHeading}</h2>
 
     {
       upcoming.length === 0 ? (
         <p class="termine__empty">
-          Aktuell sind keine Termine geplant — schauen Sie bald wieder vorbei, oder{" "}
-          <a href="#kontakt">nehmen Sie direkt Kontakt auf</a>.
+          {sections.termineEmpty} <a href="#kontakt">{sections.termineEmptyCtaLabel}</a>
         </p>
       ) : (
         <ul class="termine__list">
@@ -42,7 +43,7 @@ const timeFormatter = new Intl.DateTimeFormat("de-DE", {
               </div>
               {entry.data.eventLink && (
                 <a class="termine__link" href={entry.data.eventLink}>
-                  Details / Tickets
+                  {sections.termineTicketLabel}
                 </a>
               )}
             </li>

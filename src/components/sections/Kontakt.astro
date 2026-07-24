@@ -1,14 +1,20 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
+import { getSiteTexts } from "../../lib/site-texts";
 
 const [entry] = await getCollection("contact");
 const { email, phone, location, socialLinks } = entry.data;
+const { Content } = await render(entry);
+const { sections } = await getSiteTexts();
 ---
 
 <section id="kontakt" class="kontakt">
   <div class="container">
-    <p class="section-eyebrow">Kontakt</p>
-    <h2 class="section-heading">Konzert anfragen, Unterricht buchen, einfach schreiben.</h2>
+    <p class="section-eyebrow">{sections.kontaktEyebrow}</p>
+    <h2 class="section-heading">{sections.kontaktHeading}</h2>
+    <div class="kontakt__intro">
+      <Content />
+    </div>
     <div class="kontakt__details">
       <a class="kontakt__primary" href={`mailto:${email}`}>{email}</a>
       {
@@ -41,6 +47,15 @@ const { email, phone, location, socialLinks } = entry.data;
 
   .section-heading {
     max-width: 24ch;
+  }
+
+  .kontakt__intro {
+    margin-top: var(--space-xl);
+  }
+
+  .kontakt__intro :global(p) {
+    color: var(--color-ink-muted);
+    margin: 0 0 var(--space-sm);
   }
 
   .kontakt__details {

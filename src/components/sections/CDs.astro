@@ -1,6 +1,8 @@
 ---
 import { getCollection, render } from "astro:content";
+import { getSiteTexts } from "../../lib/site-texts";
 
+const { sections } = await getSiteTexts();
 const entries = (await getCollection("discography")).sort(
   (a, b) => (b.data.releaseYear ?? 0) - (a.data.releaseYear ?? 0),
 );
@@ -11,8 +13,8 @@ const rendered = await Promise.all(
 
 <section id="cds" class="cds">
   <div class="container">
-    <p class="section-eyebrow">CDs</p>
-    <h2 class="section-heading">Diskografie</h2>
+    <p class="section-eyebrow">{sections.cdsEyebrow}</p>
+    <h2 class="section-heading">{sections.cdsHeading}</h2>
     <ul class="cds__list">
       {
         rendered.map(({ entry, Content }) => (
@@ -20,7 +22,7 @@ const rendered = await Promise.all(
             {entry.data.coverImage && (
               <img
                 src={entry.data.coverImage}
-                alt={entry.data.coverImageAlt}
+                alt={entry.data.coverImageAlt ?? ""}
                 loading="lazy"
                 decoding="async"
                 class="cds__cover"

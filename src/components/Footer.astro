@@ -1,20 +1,28 @@
 ---
+import { getEntry } from "astro:content";
+import { getSiteTexts } from "../lib/site-texts";
+
+const { nav, footer, legalPages } = await getSiteTexts();
+
+// The two legal links take their labels from the legal entries themselves, so renaming a page
+// in the CMS renames its footer link too.
+const impressum = await getEntry("legal", "impressum");
+const datenschutz = await getEntry("legal", "datenschutz");
+
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
   <div class="container site-footer__inner">
-    <p class="site-footer__tagline">
-      Francesca Simone — Sängerin · Songwriterin · Gesangspädagogin
-    </p>
-    <nav aria-label="Rechtliches">
+    <p class="site-footer__tagline">{footer.tagline}</p>
+    <nav aria-label={legalPages.eyebrow}>
       <ul class="site-footer__links">
-        <li><a href="#kontakt">Kontakt</a></li>
-        <li><a href="/impressum">Impressum</a></li>
-        <li><a href="/datenschutz">Datenschutz</a></li>
+        <li><a href="#kontakt">{nav.kontakt}</a></li>
+        <li><a href="/impressum">{impressum.data.title}</a></li>
+        <li><a href="/datenschutz">{datenschutz.data.title}</a></li>
       </ul>
     </nav>
-    <p class="site-footer__copyright">© {year} Francesca Simone</p>
+    <p class="site-footer__copyright">© {year} {footer.copyright}</p>
   </div>
 </footer>
 

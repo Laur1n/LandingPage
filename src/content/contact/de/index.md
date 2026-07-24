@@ -4,5 +4,5 @@ email: francesca-simone@onlinehome.de
 location: Köln / Lindlar
 ---
 
-_Platzhalter-Kontaktdaten — bitte E-Mail, Telefon und Social-Links über den Login unter
-`/admin` (Kollektion „contact") mit den echten Angaben aktualisieren._
+Für Konzertanfragen, Unterricht oder einfach ein paar Zeilen — schreiben Sie mir gern. Ich melde
+mich in der Regel innerhalb weniger Tage zurück.
