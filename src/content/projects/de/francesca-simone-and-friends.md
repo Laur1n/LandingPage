@@ -1,29 +1,29 @@
 ---
 lang: de
-name: "Francesca Simone & Friends"
+name: Francesca Simone & Friends
 order: 1
-programName: "„When I was Young“ – Songs of the 70s"
+programName: „When I was Young“ – Songs of the 70s
 members:
-  - name: "Francesca Simone"
-    role: "Gesang"
-  - name: "Florian Offermann"
-    role: "Piano"
-  - name: "Axel Fabry"
-    role: "Gitarre / Bass"
-  - name: "Andreas Lasonczyk"
-    role: "Percussion / Drums"
+  - name: Francesca Simone
+    role: Gesang
+  - name: Florian Offermann
+    role: Piano
+  - name: Axel Fabry
+    role: Gitarre / Bass
+  - name: Andreas Lasonczyk
+    role: Percussion / Drums
 links:
-  - label: "Canzoni italiane entdecken"
-    url: "/canzoni-italiane/"
-  - label: "YouTube anhören"
-    url: "https://www.youtube.com/watch?v=GeXVWCsDG4k"
+  - label: Italienische Canzoni entdecken
+    url: /canzoni-italiane/
+  - label: YouTube anhören
+    url: https://www.youtube.com/watch?v=GeXVWCsDG4k
 flyers:
-  - label: "Flyer Italienische Canzoni"
-    file: "/uploads/flyer-canzoni-italiane.pdf"
-  - label: "Flyer Projekt 70.2"
-    file: "/uploads/flyer-projekt-70-2.pdf"
-  - label: "Flyer Francesca Simone & Friends"
-    file: "/uploads/flyer-francesca-simone-friends.pdf"
+  - label: Flyer Italienische Canzoni
+    file: /uploads/flyer-canzoni-italiane.pdf
+  - label: Flyer Projekt 70.2
+    file: /uploads/flyer-projekt-70-2.pdf
+  - label: Flyer Francesca Simone & Friends
+    file: /uploads/flyer-francesca-simone-friends.pdf
 ---
 
 Das Projekt besteht seit 2013 und hat Francesca Simone mit Axel Fabry und Florian Offermann
