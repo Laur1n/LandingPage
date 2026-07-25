@@ -1,13 +1,9 @@
 ---
 lang: de
-title: "Datenschutz"
+title: Datenschutz
 lastUpdated: 2026-07-23
 ---
-
-_Platzhalter — bitte vor Veröffentlichung prüfen und über den Login unter `/admin` (Kollektion
-„legal") mit den endgültigen Angaben aktualisieren._
-
-**Verantwortlicher**
+**Verantwortliche**
 
 Francesca Simone, siehe [Impressum](/impressum).
 
@@ -29,7 +25,7 @@ Sie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung und Einschr�
 Verarbeitung Ihrer personenbezogenen Daten sowie ein Beschwerderecht bei einer
 Datenschutz-Aufsichtsbehörde.
 
-_Hinweis: Dieser Text ist ein Platzhalter und ersetzt keine rechtliche Prüfung. Bitte vor dem
+*Hinweis: Dieser Text ist ein Platzhalter und ersetzt keine rechtliche Prüfung. Bitte vor dem
 Livegang von einer sachkundigen Stelle prüfen lassen, insbesondere falls künftig Cookies,
 Analyse-Tools oder eingebettete Inhalte Dritter (z. B. Spotify-/YouTube-Player) hinzugefügt
-werden._
+werden.*
