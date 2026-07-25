@@ -19,7 +19,7 @@ hero:
   name: Francesca Simone
   role: Sängerin · Songwriterin · Gesangspädagogin . Chorleiterin
   primaryCtaLabel: Konzert anfragen
-  secondaryCtaLabel: Programme entdecken
+  secondaryCtaLabel: Projekte entdecken
   image: /uploads/hero.jpg
   imageAlt: Francesca Simone auf der Bühne
 sections:
@@ -35,7 +35,9 @@ sections:
   projekteEyebrow: Projekte
   cdsEyebrow: CDs
   unterrichtEyebrow: Unterricht
-  termineEmpty: Aktuell sind keine Termine geplant — schauen Sie bald wieder vorbei.
+  termineEmpty: Am 2.10.2026 um 19.30h ist Premiere des neuen Programms
+    „Italienische Canzoni“ in Lindlar mit Francesca Simone & Friends! ( siehe
+    Termine)
   termineEmptyCtaLabel: Oder nehmen Sie direkt Kontakt auf.
 legalPages:
   eyebrow: Rechtliches
