@@ -5,18 +5,23 @@ songwriter, and vocal teacher — built so she can maintain every word of it her
 developer in the loop for routine updates.
 
 Full requirements, architecture decisions, and design rationale live in
-[`specs/001-francesca-portfolio-site/`](specs/001-francesca-portfolio-site/) (spec, plan,
-research, data model, contracts, and tasks) and in [`.specify/memory/constitution.md`](.specify/memory/constitution.md)
-(the project's governing principles). This README is the practical "how do I run/deploy this"
-guide; see those documents for the "why."
+[`specs/001-francesca-portfolio-site/`](specs/001-francesca-portfolio-site/) (the original build)
+and [`specs/002-content-migration-redesign/`](specs/002-content-migration-redesign/) (full content
+migration from the old site + the scroll-storytelling redesign), plus
+[`.specify/memory/constitution.md`](.specify/memory/constitution.md) (the project's governing
+principles) and [`.impeccable.md`](.impeccable.md) (the design context/tokens). This README is the
+practical "how do I run/deploy this" guide; see those documents for the "why."
 
 ## How it works, in one paragraph
 
 The public site is a fully static [Astro](https://astro.build) build hosted on **GitHub Pages** —
-every page is pre-rendered HTML, no server needed to display it. Content (biography, tour dates,
-projects, discography, teaching info, contact details, legal notices) lives as Markdown/YAML files
-under `src/content/` and is edited through [Decap CMS](https://decapcms.org) at `/admin/`,
-authenticated via [DecapBridge](https://decapbridge.com) — Francesca never needs a GitHub account.
+every page is pre-rendered HTML, no server needed to display it. The landing page is a scrolling
+overview; each area (Vita, Projekte, Termine incl. archive, CDs, Unterricht, Kontakt) has its own
+subpage, and stage programs (e.g. `/canzoni-italiane/`) are pages Francesca can create herself.
+Content (biography, tour dates, projects, programs, discography, teaching info, contact details,
+legal notices) lives as Markdown/YAML files under `src/content/` and is edited through
+[Decap CMS](https://decapcms.org) at `/admin/`, authenticated via
+[DecapBridge](https://decapbridge.com) — Francesca never needs a GitHub account.
 Saving a change creates a draft she can preview before publishing; publishing merges it into the
 live branch, and a **GitHub Actions** workflow automatically rebuilds and redeploys the site — no
 manual deploy step, ever. That same workflow also runs once a day on a schedule, purely so a tour
@@ -86,15 +91,19 @@ need doing once:
 
 5. ~~Fill in `public/admin/config.yml` with the real backend values~~ — done as part of step 4
    above.
-6. **Confirm the Impressum and Datenschutz text** in `/admin/` under "Rechtliches" — the seeded
-   copy is a clearly-marked legal placeholder (name/address fields, etc.) and must be completed
-   with Francesca's real details, ideally checked by a qualified source, before the site goes
-   live (this is a German legal requirement, not optional).
-7. **Replace the placeholder portrait and discography entry** the same way, via `/admin/`.
+6. **Confirm the Datenschutz text** in `/admin/` under "Rechtliches" — that seeded copy is still
+   a clearly-marked legal placeholder and must be completed, ideally checked by a qualified
+   source, before the site goes live (German legal requirement, not optional). The Impressum now
+   carries the real data migrated from the old site (address, credits, copyright) — give it a
+   final read too.
+7. ~~Replace the placeholder portrait and discography entry~~ — done: feature 002 migrated the
+   real portraits, all six CDs (covers + Info-PDFs), flyers, and the full old-site content. See
+   [`specs/002-content-migration-redesign/launch-checklist.md`](specs/002-content-migration-redesign/launch-checklist.md)
+   for the few assets worth re-supplying in higher quality (e.g. the small re:call cover).
 
 Still outstanding: step 1 (push to GitHub — nothing has been pushed yet), step 2 (flip Pages
-source to GitHub Actions), step 3 (DNS + custom domain verification), and steps 6-7 (real
-Impressum/Datenschutz/portrait/discography content).
+source to GitHub Actions), step 3 (DNS + custom domain verification), and step 6 (real
+Datenschutz text).
 
 No environment variables or secrets are required anywhere — GitHub Actions deploys using its own
 built-in credentials, and DecapBridge/git-gateway needs no server-held tokens of ours.
@@ -106,9 +115,11 @@ for the full validation walkthrough.
 ## Editing content (for Francesca)
 
 1. Go to `yoursite.com/admin/` (with the trailing slash) and log in.
-2. Pick a section on the left (Website-Texte, Vita, Projekte, Termine, CDs, Unterricht, Kontakt,
-   Rechtliches). "Website-Texte" holds the wording that isn't part of any one entry — the menu,
-   the big welcome block, every section heading, the footer, and the text Google shows.
+2. Pick a section on the left (Website-Texte, Vita, Projekte, Programme, Termine, CDs,
+   Unterricht, Kontakt, Rechtliches). "Website-Texte" holds the wording that isn't part of any
+   one entry — the menu, the big welcome block, every heading, the footer, and the text Google
+   shows. "Programme" entries each become their own page on the site (e.g. „Canzoni italiane")
+   — you can add a new program without any developer.
 3. Make your change and click **Save** — this creates a draft, it is not live yet.
 4. Click **Preview** to see your change laid out with the site's real fonts and colors, right
    inside this screen (it won't look 100% identical to the finished page, but it's enough to
@@ -129,15 +140,21 @@ needs to reset it for you.
 src/
 ├── content.config.ts   # Content schema — what fields each section has
 ├── content/             # The actual content files (what /admin/ edits)
+│   ├── programs/        # Stage programs — each entry becomes a page (e.g. /canzoni-italiane/)
 │   └── site/            # Menu, headings, footer, SEO text — the strings outside the entries
-├── components/           # Reusable page pieces (nav, footer, each section)
-├── layouts/              # Shared page shell
-└── pages/                # index.astro (the whole one-page site), impressum, datenschutz
+├── components/
+│   ├── sections/         # Landing-page teaser sections
+│   └── blocks/           # Shared subpage building blocks (hero, prose, CD card, date list …)
+├── layouts/              # Shared page shell (self-hosted fonts — no Google Fonts request)
+├── scripts/              # scroll-story.ts — GSAP scroll choreography (reduced-motion aware)
+└── pages/                # index.astro + one page per area + [program].astro dynamic route
 
 public/admin/              # Decap CMS (the "/admin/" login + editor)
+public/uploads/            # Media library (photos, CD covers, flyer/info PDFs, audio sample)
+scripts/                   # harvest-old-site.mjs — dev-only old-site capture & pre-launch re-check
 .github/workflows/         # Build + deploy to GitHub Pages, incl. the daily scheduled rebuild
-tests/                     # Unit (Vitest) and end-to-end (Playwright) tests
-specs/                     # Feature spec, plan, and design docs for this project
+tests/                     # Unit (Vitest) and end-to-end (Playwright + axe) tests
+specs/                     # Feature specs, plans, and design docs for this project
 ```
 
 ## License

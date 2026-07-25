@@ -8,6 +8,9 @@ const { nav, footer, legalPages } = await getSiteTexts();
 // in the CMS renames its footer link too.
 const impressum = await getEntry("legal", "impressum");
 const datenschutz = await getEntry("legal", "datenschutz");
+if (!impressum || !datenschutz) {
+  throw new Error("Legal entries (impressum, datenschutz) must exist — see src/content/legal/de");
+}
 
 const year = new Date().getFullYear();
 ---
@@ -17,9 +20,9 @@ const year = new Date().getFullYear();
     <p class="site-footer__tagline">{footer.tagline}</p>
     <nav aria-label={legalPages.eyebrow}>
       <ul class="site-footer__links">
-        <li><a href="#kontakt">{nav.kontakt}</a></li>
-        <li><a href="/impressum">{impressum.data.title}</a></li>
-        <li><a href="/datenschutz">{datenschutz.data.title}</a></li>
+        <li><a href="/kontakt/">{nav.kontakt}</a></li>
+        <li><a href="/impressum/">{impressum.data.title}</a></li>
+        <li><a href="/datenschutz/">{datenschutz.data.title}</a></li>
       </ul>
     </nav>
     <p class="site-footer__copyright">© {year} {footer.copyright}</p>

@@ -2,20 +2,13 @@
 import { getCollection } from "astro:content";
 import { getUpcomingTourDates } from "../../lib/tour-dates";
 import { getSiteTexts } from "../../lib/site-texts";
+import DateList from "../blocks/DateList.astro";
+import TeaserCta from "../blocks/TeaserCta.astro";
 
-const { sections } = await getSiteTexts();
+// Landing teaser (hybrid IA): the next few dates; the full list + archive lives on /termine/.
+const { sections, teasers, downloads } = await getSiteTexts();
 const allDates = await getCollection("tour-dates");
-const upcoming = getUpcomingTourDates(allDates);
-
-const dateFormatter = new Intl.DateTimeFormat("de-DE", {
-  day: "2-digit",
-  month: "2-digit",
-  year: "numeric",
-});
-const timeFormatter = new Intl.DateTimeFormat("de-DE", {
-  hour: "2-digit",
-  minute: "2-digit",
-});
+const upcoming = getUpcomingTourDates(allDates).slice(0, 3);
 ---
 
 <section id="termine" class="termine">
@@ -25,32 +18,23 @@ const timeFormatter = new Intl.DateTimeFormat("de-DE", {
 
     {
       upcoming.length === 0 ? (
-        <p class="termine__empty">
-          {sections.termineEmpty} <a href="#kontakt">{sections.termineEmptyCtaLabel}</a>
+        <p class="termine__empty" data-reveal>
+          {sections.termineEmpty} <a href="/kontakt/">{sections.termineEmptyCtaLabel}</a>
         </p>
       ) : (
-        <ul class="termine__list">
-          {upcoming.map((entry) => (
-            <li class="termine__item">
-              <time datetime={entry.data.date.toISOString()} class="termine__date">
-                <span class="termine__day">{dateFormatter.format(entry.data.date)}</span>
-                <span class="termine__time">{timeFormatter.format(entry.data.date)} Uhr</span>
-              </time>
-              <div class="termine__details">
-                <p class="termine__venue">{entry.data.venueName}</p>
-                <p class="termine__location">{entry.data.location}</p>
-                {entry.data.notes && <p class="termine__notes">{entry.data.notes}</p>}
-              </div>
-              {entry.data.eventLink && (
-                <a class="termine__link" href={entry.data.eventLink}>
-                  {sections.termineTicketLabel}
-                </a>
-              )}
-            </li>
-          ))}
-        </ul>
+        <div class="termine__list">
+          <DateList
+            dates={upcoming}
+            ticketLabel={sections.termineTicketLabel}
+            externalLinkHint={downloads.externalLinkHint}
+          />
+        </div>
       )
     }
+
+    <p class="termine__cta" data-reveal>
+      <TeaserCta href="/termine/" label={teasers.termineCtaLabel} />
+    </p>
   </div>
 </section>
 
@@ -66,63 +50,10 @@ const timeFormatter = new Intl.DateTimeFormat("de-DE", {
   }
 
   .termine__list {
-    list-style: none;
-    margin: var(--space-2xl) 0 0;
-    padding: 0;
-    display: grid;
-    gap: 0;
+    margin-top: var(--space-2xl);
   }
 
-  .termine__item {
-    display: grid;
-    grid-template-columns: 8rem 1fr auto;
-    align-items: baseline;
-    gap: var(--space-lg);
-    padding-block: var(--space-lg);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .termine__item:last-child {
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .termine__date {
-    display: flex;
-    flex-direction: column;
-    font-family: var(--font-display);
-  }
-
-  .termine__day {
-    font-size: var(--text-lg);
-  }
-
-  .termine__time {
-    font-size: var(--text-sm);
-    color: var(--color-ink-muted);
-    font-family: var(--font-body);
-  }
-
-  .termine__venue {
-    font-weight: 600;
-    margin: 0;
-  }
-
-  .termine__location,
-  .termine__notes {
-    margin: 0;
-    color: var(--color-ink-muted);
-    font-size: var(--text-sm);
-  }
-
-  .termine__link {
-    white-space: nowrap;
-    font-weight: 600;
-  }
-
-  @media (max-width: 40rem) {
-    .termine__item {
-      grid-template-columns: 1fr;
-      gap: var(--space-sm);
-    }
+  .termine__cta {
+    margin-top: var(--space-xl);
   }
 </style>

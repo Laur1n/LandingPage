@@ -5,27 +5,32 @@ const { brand, nav } = await getSiteTexts();
 
 // Public site navigation. MUST NOT link to /admin (Constitution III / FR-014) —
 // the admin surface is reached only by typing the URL directly. Labels are editable in the
-// CMS; the anchors stay in code so a renamed label can never break a link.
+// CMS; the paths stay in code so a renamed label can never break a link.
+// 002 (hybrid IA): absolute subpage paths so navigation works from any route depth.
 const navItems = [
-  { href: "#start", label: nav.start },
-  { href: "#vita", label: nav.vita },
-  { href: "#projekte", label: nav.projekte },
-  { href: "#termine", label: nav.termine },
-  { href: "#cds", label: nav.cds },
-  { href: "#unterricht", label: nav.unterricht },
-  { href: "#kontakt", label: nav.kontakt },
+  { href: "/", label: nav.start },
+  { href: "/vita/", label: nav.vita },
+  { href: "/projekte/", label: nav.projekte },
+  { href: "/termine/", label: nav.termine },
+  { href: "/cds/", label: nav.cds },
+  { href: "/unterricht/", label: nav.unterricht },
+  { href: "/kontakt/", label: nav.kontakt },
 ];
+
+const currentPath = Astro.url.pathname.replace(/\/?$/, "/");
 ---
 
 <header class="site-header">
   <div class="container site-header__inner">
-    <a class="site-header__brand" href="#start">{brand}</a>
+    <a class="site-header__brand" href="/">{brand}</a>
     <nav aria-label="Hauptnavigation">
       <ul class="site-header__nav">
         {
           navItems.map((item) => (
             <li>
-              <a href={item.href}>{item.label}</a>
+              <a href={item.href} aria-current={currentPath === item.href ? "page" : undefined}>
+                {item.label}
+              </a>
             </li>
           ))
         }
@@ -80,6 +85,10 @@ const navItems = [
 
   .site-header__nav a:hover,
   .site-header__nav a:focus-visible {
+    color: var(--color-accent);
+  }
+
+  .site-header__nav a[aria-current="page"] {
     color: var(--color-accent);
   }
 

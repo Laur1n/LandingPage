@@ -1,14 +1,13 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
 import Vita from "../components/sections/Vita.astro";
 import Projekte from "../components/sections/Projekte.astro";
 import Termine from "../components/sections/Termine.astro";
 import CDs from "../components/sections/CDs.astro";
 import Unterricht from "../components/sections/Unterricht.astro";
 import Kontakt from "../components/sections/Kontakt.astro";
+import PullQuote from "../components/blocks/PullQuote.astro";
 import { getSiteTexts } from "../lib/site-texts";
 
 const [biography] = await getCollection("biography");
@@ -16,64 +15,108 @@ const { seoTitle, seoDescription, hero } = await getSiteTexts();
 ---
 
 <BaseLayout title={seoTitle} description={seoDescription}>
-  <Header slot="header" />
-
   <section id="start" class="hero">
-    <div class="container hero__inner">
-      <p class="hero__welcome">{hero.welcome}</p>
-      <h1 class="hero__name">{hero.name}</h1>
-      <p class="hero__role">{hero.role}</p>
-      <p class="hero__intro">{biography.data.tagline}</p>
-      <div class="hero__actions">
-        <a class="hero__cta hero__cta--primary" href="#kontakt">{hero.primaryCtaLabel}</a>
-        <a class="hero__cta hero__cta--secondary" href="#projekte">{hero.secondaryCtaLabel}</a>
+    <div class="container hero__grid">
+      <div class="hero__inner">
+        <p class="hero__welcome" data-hero-line>{hero.welcome}</p>
+        <h1 class="hero__name" data-hero-line>{hero.name}</h1>
+        <p class="hero__role" data-hero-line>{hero.role}</p>
+        <p class="hero__intro" data-hero-line>{biography.data.tagline}</p>
+        <div class="hero__actions" data-hero-line>
+          <a class="cta-pill" href="/kontakt/">{hero.primaryCtaLabel}</a>
+          <a class="hero__cta--secondary" href="/projekte/">{hero.secondaryCtaLabel}</a>
+        </div>
       </div>
+      <figure class="hero__figure">
+        <img
+          src={hero.image}
+          alt={hero.imageAlt}
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          data-hero-image
+        />
+      </figure>
     </div>
   </section>
 
   <Vita />
+
+  {
+    biography.data.pullQuote && (
+      <div class="container" data-scene="quote-scene">
+        <PullQuote quote={biography.data.pullQuote} />
+      </div>
+    )
+  }
+
   <Projekte />
   <Termine />
   <CDs />
   <Unterricht />
   <Kontakt />
-
-  <Footer slot="footer" />
 </BaseLayout>
 
 <style>
   .hero {
-    padding-block: var(--space-4xl) var(--space-3xl);
+    padding-block: var(--space-3xl);
+    overflow: clip;
+  }
+
+  .hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: var(--space-3xl);
+    align-items: center;
+    min-height: min(88svh, 56rem);
   }
 
   .hero__inner {
     max-width: 40rem;
   }
 
+  .hero__figure {
+    margin: 0;
+    align-self: stretch;
+    display: flex;
+  }
+
+  .hero__figure img {
+    width: 100%;
+    height: 100%;
+    max-height: min(78svh, 52rem);
+    object-fit: cover;
+    border-radius: 0.25rem;
+  }
+
   .hero__welcome {
     text-transform: uppercase;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.18em;
     font-size: var(--text-sm);
-    color: var(--color-ink-muted);
+    color: var(--color-accent);
+    font-weight: 600;
     margin-bottom: var(--space-lg);
   }
 
   .hero__name {
-    font-size: var(--text-2xl);
-    margin-bottom: var(--space-sm);
+    font-size: var(--text-3xl);
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin-bottom: var(--space-md);
   }
 
   .hero__role {
     font-size: var(--text-lg);
+    font-family: var(--font-display);
+    font-style: italic;
     color: var(--color-ink-muted);
     margin: 0 0 var(--space-lg);
   }
 
   .hero__intro {
     font-size: var(--text-lg);
-    font-style: italic;
-    font-family: var(--font-display);
-    color: var(--color-ink);
+    color: var(--color-ink-muted);
+    max-width: 44ch;
     margin-bottom: var(--space-2xl);
   }
 
@@ -83,38 +126,35 @@ const { seoTitle, seoDescription, hero } = await getSiteTexts();
     gap: var(--space-md);
   }
 
-  .hero__cta {
+  .hero__cta--secondary {
     display: inline-block;
     padding: var(--space-sm) var(--space-xl);
     border-radius: 999px;
     text-decoration: none;
     font-weight: 600;
     font-size: var(--text-sm);
-    transition:
-      background-color var(--duration-base) var(--ease-out-expo),
-      color var(--duration-base) var(--ease-out-expo);
-  }
-
-  .hero__cta--primary {
-    background: var(--color-accent);
-    color: var(--color-surface);
-  }
-
-  .hero__cta--primary:hover,
-  .hero__cta--primary:focus-visible {
-    background: var(--color-accent-strong);
-    color: var(--color-surface);
-  }
-
-  .hero__cta--secondary {
     background: transparent;
     color: var(--color-ink);
     border: 1px solid var(--color-border);
+    transition:
+      border-color var(--duration-base) var(--ease-out-expo),
+      color var(--duration-base) var(--ease-out-expo);
   }
 
   .hero__cta--secondary:hover,
   .hero__cta--secondary:focus-visible {
     border-color: var(--color-accent);
     color: var(--color-accent);
+  }
+
+  @media (max-width: 56rem) {
+    .hero__grid {
+      grid-template-columns: 1fr;
+      min-height: 0;
+    }
+
+    .hero__figure img {
+      max-height: 52svh;
+    }
   }
 </style>

@@ -1,0 +1,131 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SubpageHero from "../components/blocks/SubpageHero.astro";
+import Prose from "../components/blocks/Prose.astro";
+import TeaserCta from "../components/blocks/TeaserCta.astro";
+import { getSiteTexts } from "../lib/site-texts";
+import { paragraphs } from "../lib/format";
+
+// FR-007: full teaching offer, methods (Stimmarbeit), Weiterbildung, locations & scheduling.
+const [teaching] = await getCollection("teaching");
+const { Content } = await render(teaching);
+const { brand, nav, subpages, teasers } = await getSiteTexts();
+
+const intro = teaching.data.subtitle ?? subpages.unterrichtIntro;
+const textSections = [
+  { heading: teaching.data.methodsHeading, body: paragraphs(teaching.data.methodsText) },
+  { heading: teaching.data.educationHeading, body: paragraphs(teaching.data.educationText) },
+].filter((section) => section.heading && section.body.length > 0);
+---
+
+<BaseLayout title={`${nav.unterricht} · ${brand}`} description={intro}>
+  <SubpageHero
+    eyebrow={subpages.unterrichtEyebrow}
+    heading={subpages.unterrichtHeading}
+    intro={intro}
+  />
+
+  <div class="container unterricht-page__grid">
+    <div>
+      <Prose>
+        <Content />
+      </Prose>
+
+      {
+        teaching.data.offerings.length > 0 && (
+          <ul class="unterricht-page__offerings" data-reveal>
+            {teaching.data.offerings.map((offering) => (
+              <li>{offering}</li>
+            ))}
+          </ul>
+        )
+      }
+
+      {
+        teaching.data.schedulingText && (
+          <p class="unterricht-page__scheduling" data-reveal>
+            {teaching.data.schedulingText}
+          </p>
+        )
+      }
+
+      {
+        textSections.map((section) => (
+          <section class="unterricht-page__section" data-reveal>
+            <h2>{section.heading}</h2>
+            {section.body.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </section>
+        ))
+      }
+
+      <p class="unterricht-page__cta" data-reveal>
+        <TeaserCta href="/kontakt/" label={teasers.kontaktCtaLabel} />
+      </p>
+    </div>
+
+    <aside class="unterricht-page__locations" aria-label="Unterrichtsorte">
+      <ul>
+        {teaching.data.locations.map((location) => <li>{location}</li>)}
+      </ul>
+    </aside>
+  </div>
+</BaseLayout>
+
+<style>
+  .unterricht-page__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr);
+    gap: var(--space-3xl);
+    align-items: start;
+  }
+
+  .unterricht-page__offerings {
+    padding-left: 1.2em;
+    margin: 0 0 var(--space-xl);
+    max-width: 70ch;
+  }
+
+  .unterricht-page__offerings li {
+    margin-bottom: var(--space-sm);
+  }
+
+  .unterricht-page__scheduling {
+    color: var(--color-ink-muted);
+  }
+
+  .unterricht-page__section {
+    margin-top: var(--space-2xl);
+  }
+
+  .unterricht-page__section h2 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-lg);
+  }
+
+  .unterricht-page__cta {
+    margin-top: var(--space-2xl);
+  }
+
+  .unterricht-page__locations ul {
+    list-style: none;
+    margin: 0;
+    padding: var(--space-lg) 0 0;
+    border-top: 1px solid var(--color-border);
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .unterricht-page__locations li {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+  }
+
+  @media (max-width: 48rem) {
+    .unterricht-page__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

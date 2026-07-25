@@ -1,0 +1,39 @@
+---
+/**
+ * Owner-replaceable document download (flyer, CD info sheet) — FR-017: the accessible name
+ * names the document type so „PDF" is never conveyed by styling alone.
+ */
+interface Props {
+  href: string;
+  label: string;
+}
+
+const { href, label } = Astro.props;
+---
+
+<a class="download-link" href={href}>
+  <span class="download-link__badge" aria-hidden="true">PDF</span>
+  <span>{label}</span>
+</a>
+
+<style>
+  .download-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+  }
+
+  .download-link__badge {
+    font-size: 0.7em;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    border: 1px solid currentColor;
+    border-radius: 0.2rem;
+    padding: 0.1em 0.35em;
+  }
+</style>

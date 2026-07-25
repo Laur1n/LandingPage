@@ -1,11 +1,15 @@
 ---
 import { getCollection, render } from "astro:content";
 import { getSiteTexts } from "../../lib/site-texts";
+import { telHref } from "../../lib/format";
+import TeaserCta from "../blocks/TeaserCta.astro";
 
 const [entry] = await getCollection("contact");
-const { email, phone, location, socialLinks } = entry.data;
+const { email, phone, phoneMobile, location, socialLinks } = entry.data;
 const { Content } = await render(entry);
-const { sections } = await getSiteTexts();
+const { sections, teasers } = await getSiteTexts();
+
+const phones = [phone, phoneMobile].filter((value): value is string => Boolean(value));
 ---
 
 <section id="kontakt" class="kontakt">
@@ -15,16 +19,19 @@ const { sections } = await getSiteTexts();
     <div class="kontakt__intro">
       <Content />
     </div>
-    <div class="kontakt__details">
+    <div class="kontakt__details" data-reveal>
       <a class="kontakt__primary" href={`mailto:${email}`}>{email}</a>
       {
-        phone && (
-          <a class="kontakt__secondary" href={`tel:${phone.replace(/\s+/g, "")}`}>
-            {phone}
+        phones.map((value) => (
+          <a class="kontakt__secondary" href={telHref(value)}>
+            {value}
           </a>
-        )
+        ))
       }
       {location && <p class="kontakt__location">{location}</p>}
+      <p class="kontakt__cta">
+        <TeaserCta href="/kontakt/" label={teasers.kontaktCtaLabel} />
+      </p>
     </div>
     {
       socialLinks && socialLinks.length > 0 && (
@@ -85,6 +92,10 @@ const { sections } = await getSiteTexts();
   .kontakt__location {
     color: var(--color-ink-muted);
     margin: 0;
+  }
+
+  .kontakt__cta {
+    margin: var(--space-md) 0 0;
   }
 
   .kontakt__social {

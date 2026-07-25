@@ -18,4 +18,18 @@ export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   ...astro.configs.recommended,
+  {
+    // Dev-only Node scripts (e.g. the old-site harvest) — plain .mjs, so the TS ruleset's
+    // no-undef exemption doesn't apply; declare the Node/runtime globals they use.
+    files: ["scripts/**/*.mjs"],
+    languageOptions: {
+      globals: {
+        console: "readonly",
+        process: "readonly",
+        fetch: "readonly",
+        Buffer: "readonly",
+        URL: "readonly",
+      },
+    },
+  },
 );

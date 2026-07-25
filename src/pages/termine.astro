@@ -1,0 +1,88 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SubpageHero from "../components/blocks/SubpageHero.astro";
+import DateList from "../components/blocks/DateList.astro";
+import { getSiteTexts } from "../lib/site-texts";
+import { getUpcomingTourDates, groupPastByYear } from "../lib/tour-dates";
+
+// FR-006: upcoming first, then the year-grouped archive („Aktuelle und vergangene Termine").
+// Past/upcoming split happens at build time; the daily scheduled rebuild keeps it current.
+const { brand, nav, sections, subpages, archive, downloads } = await getSiteTexts();
+const allDates = await getCollection("tour-dates");
+const upcoming = getUpcomingTourDates(allDates);
+const pastByYear = groupPastByYear(allDates);
+---
+
+<BaseLayout title={`${nav.termine} · ${brand}`} description={subpages.termineIntro}>
+  <SubpageHero
+    eyebrow={subpages.termineEyebrow}
+    heading={subpages.termineHeading}
+    intro={subpages.termineIntro}
+  />
+
+  <section class="container termine-page__section" aria-labelledby="upcoming-heading">
+    <h2 class="termine-page__heading" id="upcoming-heading">{sections.termineHeading}</h2>
+    {
+      upcoming.length === 0 ? (
+        <p class="termine-page__empty">
+          {sections.termineEmpty} <a href="/kontakt/">{sections.termineEmptyCtaLabel}</a>
+        </p>
+      ) : (
+        <DateList
+          dates={upcoming}
+          ticketLabel={sections.termineTicketLabel}
+          externalLinkHint={downloads.externalLinkHint}
+        />
+      )
+    }
+  </section>
+
+  <section class="container termine-page__section" aria-labelledby="archive-heading">
+    <h2 class="termine-page__heading" id="archive-heading">{archive.heading}</h2>
+    {
+      pastByYear.length === 0 ? (
+        <p class="termine-page__empty">{archive.empty}</p>
+      ) : (
+        pastByYear.map((group) => (
+          <div class="termine-page__year-group">
+            <h3 class="termine-page__year" data-year-heading>
+              {group.year}
+            </h3>
+            <DateList
+              dates={group.dates}
+              ticketLabel={sections.termineTicketLabel}
+              externalLinkHint={downloads.externalLinkHint}
+            />
+          </div>
+        ))
+      )
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .termine-page__section {
+    padding-block: var(--space-2xl);
+  }
+
+  .termine-page__heading {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-xl);
+  }
+
+  .termine-page__empty {
+    font-size: var(--text-lg);
+    color: var(--color-ink-muted);
+  }
+
+  .termine-page__year-group {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .termine-page__year {
+    font-size: var(--text-lg);
+    color: var(--color-ink-muted);
+    margin-bottom: var(--space-md);
+  }
+</style>

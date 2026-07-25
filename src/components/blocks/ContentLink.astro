@@ -1,0 +1,34 @@
+---
+/**
+ * Renders a CMS-entered link (`linkSchema`): site-relative URLs become plain same-tab links,
+ * everything else gets the full outbound treatment via ExternalLink (FR-017). The
+ * internal-vs-external decision lives only here.
+ */
+import ExternalLink from "./ExternalLink.astro";
+
+interface Props {
+  href: string;
+  label: string;
+  /** Screen-reader hint for outbound links (site texts: downloads.externalLinkHint). */
+  hint: string;
+}
+
+const { href, label, hint } = Astro.props;
+---
+
+{
+  href.startsWith("/") ? (
+    <a class="content-link" href={href}>
+      {label}
+    </a>
+  ) : (
+    <ExternalLink href={href} label={label} hint={hint} />
+  )
+}
+
+<style>
+  .content-link {
+    font-weight: 600;
+    font-size: var(--text-sm);
+  }
+</style>

@@ -13,6 +13,12 @@ const sections = [
 ];
 
 test.describe("Public portfolio site (User Story 1)", () => {
+  // 002: scroll reveals would keep below-fold sections hidden until scrolled into view;
+  // reduced-motion emulation shows everything immediately (motion covered in motion.spec.ts).
+  test.beforeEach(async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+  });
+
   test("every baseline section is present and reachable from the homepage", async ({ page }) => {
     await page.goto("/");
 

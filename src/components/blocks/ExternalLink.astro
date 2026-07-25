@@ -1,0 +1,42 @@
+---
+/**
+ * Outbound link (YouTube, SoundCloud, venue sites) — FR-017: clearly marked, opens in a new
+ * tab, never loads third-party content into the page itself.
+ */
+interface Props {
+  href: string;
+  label: string;
+  /** Visually hidden suffix for screen readers, from site texts (downloads.externalLinkHint). */
+  hint: string;
+}
+
+const { href, label, hint } = Astro.props;
+---
+
+<a class="external-link" href={href} target="_blank" rel="noopener external">
+  <span>{label}</span>
+  <span class="external-link__arrow" aria-hidden="true">↗</span>
+  <span class="visually-hidden">({hint})</span>
+</a>
+
+<style>
+  .external-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+  }
+
+  .external-link__arrow {
+    transition: transform var(--duration-base) var(--ease-out-expo);
+  }
+
+  .external-link:hover .external-link__arrow,
+  .external-link:focus-visible .external-link__arrow {
+    transform: translate(2px, -2px);
+  }
+</style>

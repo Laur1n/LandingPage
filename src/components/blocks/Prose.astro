@@ -1,0 +1,47 @@
+---
+/**
+ * Long-form markdown text (Vita, project descriptions, program sections). Children come from
+ * <Content /> renders; typography is inherited from global styles, this block sets measure,
+ * rhythm, and the reveal hook (motion.md S2).
+ */
+const { class: className, ...rest } = Astro.props;
+---
+
+<div class:list={["prose", className]} data-reveal {...rest}>
+  <slot />
+</div>
+
+<style>
+  .prose {
+    max-width: 70ch;
+  }
+
+  .prose :global(p) {
+    margin-bottom: var(--space-lg);
+  }
+
+  .prose :global(h2),
+  .prose :global(h3) {
+    font-size: var(--text-xl);
+    margin-block: var(--space-2xl) var(--space-lg);
+    max-width: 24ch;
+  }
+
+  .prose :global(ul) {
+    padding-left: 1.2em;
+    margin: 0 0 var(--space-lg);
+  }
+
+  .prose :global(li) {
+    margin-bottom: var(--space-sm);
+  }
+
+  .prose :global(blockquote) {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-style: italic;
+    border: none;
+    margin: var(--space-xl) 0;
+    padding: 0;
+  }
+</style>
