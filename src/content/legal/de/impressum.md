@@ -1,9 +1,8 @@
 ---
 lang: de
-title: "Impressum"
+title: Impressum
 lastUpdated: 2026-07-24
 ---
-
 **Angaben gemäß § 5 TMG**
 
 francesca-simone.com ist die Internetpräsenz von
@@ -28,6 +27,7 @@ distanziert.
 
 **Bildnachweis & Gestaltung**
 
-Fotos: Dorina Köb. Webdesign ursprüngliche Seite: Jörg Mehlhorn.
+Fotos: Dorina Köbl; Jörg Mehlhorn\
+Webdesign: Jörg Mehlhorn.
 
-© 2016 / modernisierte Fassung 2026
+© 2016 / aktualisierte Fassung 2026
