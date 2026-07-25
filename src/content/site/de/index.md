@@ -17,7 +17,7 @@ nav:
 hero:
   welcome: Willkommen · Benvenuti
   name: Francesca Simone
-  role: Sängerin · Songwriterin · Gesangspädagogin
+  role: Sängerin · Songwriterin · Gesangspädagogin . Chorleiterin
   primaryCtaLabel: Konzert anfragen
   secondaryCtaLabel: Programme entdecken
   image: /uploads/hero.jpg
