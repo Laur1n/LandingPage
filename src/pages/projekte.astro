@@ -1,0 +1,132 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SubpageHero from "../components/blocks/SubpageHero.astro";
+import Prose from "../components/blocks/Prose.astro";
+import DownloadLink from "../components/blocks/DownloadLink.astro";
+import ContentLink from "../components/blocks/ContentLink.astro";
+import { getSiteTexts } from "../lib/site-texts";
+import { sortByOrder } from "../lib/order";
+
+// FR-003: all projects with full descriptions, members, program names, flyers, and links.
+const { brand, nav, subpages, downloads } = await getSiteTexts();
+const entries = sortByOrder(await getCollection("projects"));
+const rendered = await Promise.all(
+  entries.map(async (entry) => ({ entry, ...(await render(entry)) })),
+);
+---
+
+<BaseLayout title={`${nav.projekte} · ${brand}`} description={subpages.projekteIntro}>
+  <SubpageHero
+    eyebrow={subpages.projekteEyebrow}
+    heading={subpages.projekteHeading}
+    intro={subpages.projekteIntro}
+  />
+
+  <div class="container">
+    {
+      rendered.map(({ entry, Content }, index) => (
+        <article class="project" id={entry.id}>
+          <header class="project__header" data-reveal>
+            <span class="index-numeral" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <h2 class="project__name">{entry.data.name}</h2>
+            {entry.data.programName && (
+              <p class="project__program">
+                {subpages.projekteProgramLabel}: <strong>{entry.data.programName}</strong>
+              </p>
+            )}
+          </header>
+
+          <div class="project__body">
+            {entry.data.photo && (
+              <img
+                class="project__photo"
+                src={entry.data.photo}
+                alt={entry.data.photoAlt ?? ""}
+                loading="lazy"
+                decoding="async"
+                data-reveal
+              />
+            )}
+            <Prose>
+              <Content />
+            </Prose>
+
+            {entry.data.members && entry.data.members.length > 0 && (
+              <p class="project__members" data-reveal>
+                {entry.data.members.map((m) => `${m.role}: ${m.name}`).join(" · ")}
+              </p>
+            )}
+
+            <ul class="project__actions" data-reveal>
+              {(entry.data.flyers ?? []).map((flyer) => (
+                <li>
+                  <DownloadLink href={flyer.file} label={flyer.label} />
+                </li>
+              ))}
+              {(entry.data.links ?? []).map((link) => (
+                <li>
+                  <ContentLink
+                    href={link.url}
+                    label={link.label}
+                    hint={downloads.externalLinkHint}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .project {
+    padding-block: var(--space-3xl);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .project__header {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: var(--space-md) var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .project__name {
+    font-size: var(--text-xl);
+    font-weight: 500;
+  }
+
+  .project__program {
+    margin: 0;
+    width: 100%;
+    color: var(--color-ink-muted);
+  }
+
+  .project__photo {
+    max-width: 24rem;
+    border-radius: 0.25rem;
+    margin-bottom: var(--space-xl);
+  }
+
+  .project__members {
+    color: var(--color-ink-muted);
+    font-size: var(--text-sm);
+    letter-spacing: 0.02em;
+    margin-top: var(--space-lg);
+  }
+
+  .project__actions {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md) var(--space-lg);
+    padding: 0;
+    margin: var(--space-lg) 0 0;
+  }
+</style>

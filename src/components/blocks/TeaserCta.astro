@@ -1,0 +1,27 @@
+---
+/**
+ * The "→"-suffixed teaser link used by every landing section and subpage cross-link — one
+ * place for the arrow convention and the link typography.
+ */
+interface Props {
+  href: string;
+  label: string;
+  /** Slightly larger variant for the one CTA a section wants to lead with. */
+  prominent?: boolean;
+}
+
+const { href, label, prominent = false } = Astro.props;
+---
+
+<a class:list={["teaser-cta", { "teaser-cta--prominent": prominent }]} href={href}>{label} →</a>
+
+<style>
+  .teaser-cta {
+    font-weight: 600;
+    font-size: var(--text-sm);
+  }
+
+  .teaser-cta--prominent {
+    font-size: var(--text-base);
+  }
+</style>

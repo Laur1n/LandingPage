@@ -11,6 +11,18 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+/* Anchor jumps glide; the media query kills it for reduced-motion users (motion.md rule 4). */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-surface);
+}
+
 body {
   margin: 0;
   background: var(--color-surface);
@@ -89,6 +101,35 @@ img {
   max-width: 72rem;
   margin-inline: auto;
   padding-inline: var(--space-lg);
+}
+
+/* Pill call-to-action — landing hero and program pages share the exact same button. */
+.cta-pill {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-xl);
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  background: var(--color-accent);
+  color: var(--color-surface);
+  transition:
+    background-color var(--duration-base) var(--ease-out-expo),
+    color var(--duration-base) var(--ease-out-expo);
+}
+
+.cta-pill:hover,
+.cta-pill:focus-visible {
+  background: var(--color-accent-strong);
+  color: var(--color-surface);
+}
+
+/* Oversized accent numeral used by the numbered project lists (teaser + subpage). */
+.index-numeral {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: var(--color-accent);
+  line-height: 1;
 }
 
 /* Shared section heading pattern, reused across Projekte/Termine/CDs/Unterricht/Kontakt. */

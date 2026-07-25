@@ -1,0 +1,132 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SubpageHero from "../components/blocks/SubpageHero.astro";
+import { getSiteTexts } from "../lib/site-texts";
+import { telHref } from "../lib/format";
+
+// FR-008: landline, mobile, and email exactly as on the old site, plus the invitation text.
+const [contact] = await getCollection("contact");
+const { email, phone, phoneMobile, location, socialLinks } = contact.data;
+const { Content } = await render(contact);
+const { brand, nav, subpages, footer, contactLabels } = await getSiteTexts();
+
+const details = [
+  ...(phone ? [{ label: contactLabels.phone, value: phone, href: telHref(phone) }] : []),
+  ...(phoneMobile
+    ? [{ label: contactLabels.mobile, value: phoneMobile, href: telHref(phoneMobile) }]
+    : []),
+  { label: contactLabels.email, value: email, href: `mailto:${email}` },
+  ...(location ? [{ label: contactLabels.location, value: location }] : []),
+];
+---
+
+<BaseLayout title={`${nav.kontakt} · ${brand}`} description={subpages.kontaktHeading}>
+  <SubpageHero eyebrow={subpages.kontaktEyebrow} heading={subpages.kontaktHeading} />
+
+  <div class="container kontakt-page">
+    <div class="kontakt-page__intro" data-reveal>
+      <Content />
+    </div>
+
+    <div class="kontakt-page__card" data-reveal>
+      <p class="kontakt-page__name">{brand}</p>
+      <p class="kontakt-page__roles">{footer.tagline}</p>
+      <dl class="kontakt-page__details">
+        {
+          details.map((detail) => (
+            <div>
+              <dt>{detail.label}</dt>
+              <dd>{detail.href ? <a href={detail.href}>{detail.value}</a> : detail.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      {
+        socialLinks && socialLinks.length > 0 && (
+          <ul class="kontakt-page__social">
+            {socialLinks.map((link) => (
+              <li>
+                <a href={link.url}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .kontakt-page {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-3xl);
+    align-items: start;
+  }
+
+  .kontakt-page__intro :global(p) {
+    font-size: var(--text-lg);
+    color: var(--color-ink-muted);
+  }
+
+  .kontakt-page__card {
+    background: var(--color-surface-raised);
+    border-radius: 0.25rem;
+    padding: var(--space-xl);
+  }
+
+  .kontakt-page__name {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    margin: 0;
+  }
+
+  .kontakt-page__roles {
+    color: var(--color-ink-muted);
+    font-size: var(--text-sm);
+    margin: var(--space-xs) 0 var(--space-xl);
+  }
+
+  .kontakt-page__details {
+    margin: 0;
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .kontakt-page__details dt {
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-ink-muted);
+  }
+
+  .kontakt-page__details dd {
+    margin: var(--space-xs) 0 0;
+    font-size: var(--text-lg);
+  }
+
+  .kontakt-page__details a {
+    text-decoration: none;
+    color: var(--color-ink);
+  }
+
+  .kontakt-page__details a:hover,
+  .kontakt-page__details a:focus-visible {
+    color: var(--color-accent);
+  }
+
+  .kontakt-page__social {
+    list-style: none;
+    display: flex;
+    gap: var(--space-lg);
+    padding: 0;
+    margin: var(--space-xl) 0 0;
+  }
+
+  @media (max-width: 48rem) {
+    .kontakt-page {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

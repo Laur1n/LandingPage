@@ -1,0 +1,72 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SubpageHero from "../components/blocks/SubpageHero.astro";
+import Prose from "../components/blocks/Prose.astro";
+import PullQuote from "../components/blocks/PullQuote.astro";
+import { getSiteTexts } from "../lib/site-texts";
+
+// FR-002: the complete Kurzvita from the old site, with the Vita portrait.
+const [biography] = await getCollection("biography");
+const { Content } = await render(biography);
+const { brand, nav, subpages } = await getSiteTexts();
+
+const portrait = biography.data.portraitVita ?? biography.data.portrait;
+const portraitAlt = biography.data.portraitVitaAlt ?? biography.data.portraitAlt;
+---
+
+<BaseLayout title={`${nav.vita} · ${brand}`} description={biography.data.tagline}>
+  <SubpageHero
+    eyebrow={subpages.vitaEyebrow}
+    heading={subpages.vitaHeading}
+    intro={biography.data.tagline}
+  />
+
+  <div class="container vita-page__grid">
+    <figure class="vita-page__portrait" data-scene="vita-portrait">
+      <img src={portrait} alt={portraitAlt} loading="eager" decoding="async" />
+    </figure>
+    <Prose>
+      <Content />
+    </Prose>
+  </div>
+
+  {
+    biography.data.pullQuote && (
+      <div class="container">
+        <PullQuote quote={biography.data.pullQuote} />
+      </div>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .vita-page__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: var(--space-3xl);
+    align-items: start;
+  }
+
+  .vita-page__portrait {
+    margin: 0;
+    position: sticky;
+    top: var(--space-3xl);
+  }
+
+  .vita-page__portrait img {
+    border-radius: 0.25rem;
+    width: 100%;
+  }
+
+  @media (max-width: 56rem) {
+    .vita-page__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .vita-page__portrait {
+      position: static;
+      max-width: 22rem;
+    }
+  }
+</style>

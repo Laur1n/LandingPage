@@ -1,0 +1,54 @@
+---
+/**
+ * Band line-up („Besetzung") — FR-004. Definition list keeps role↔name programmatically
+ * associated for screen readers.
+ */
+interface Props {
+  heading: string;
+  members: { name: string; role: string }[];
+}
+
+const { heading, members } = Astro.props;
+---
+
+<section class="lineup" data-reveal>
+  <h2 class="lineup__heading">{heading}</h2>
+  <dl class="lineup__list">
+    {
+      members.map((member) => (
+        <div class="lineup__member" data-lineup-member>
+          <dt class="lineup__role">{member.role}</dt>
+          <dd class="lineup__name">{member.name}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</section>
+
+<style>
+  .lineup__heading {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-xl);
+  }
+
+  .lineup__list {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .lineup__role {
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .lineup__name {
+    margin: var(--space-xs) 0 0;
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+  }
+</style>

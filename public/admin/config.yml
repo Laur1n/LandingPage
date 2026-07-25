@@ -81,6 +81,8 @@ collections:
               - { label: "Rollen", name: "role", widget: "string" }
               - { label: "Button 1", name: "primaryCtaLabel", widget: "string" }
               - { label: "Button 2", name: "secondaryCtaLabel", widget: "string" }
+              - { label: "Foto", name: "image", widget: "image" }
+              - { label: "Alt-Text für das Foto", name: "imageAlt", widget: "string" }
           - label: "Abschnitts-Überschriften"
             name: "sections"
             widget: "object"
@@ -140,6 +142,78 @@ collections:
             fields:
               - { label: "Text links", name: "tagline", widget: "string" }
               - { label: "Name nach dem ©", name: "copyright", widget: "string" }
+          - label: "Startseite — „Mehr“-Links"
+            name: "teasers"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Vita", name: "vitaCtaLabel", widget: "string" }
+              - { label: "Projekte", name: "projekteCtaLabel", widget: "string" }
+              - { label: "Termine", name: "termineCtaLabel", widget: "string" }
+              - { label: "CDs", name: "cdsCtaLabel", widget: "string" }
+              - { label: "Unterricht", name: "unterrichtCtaLabel", widget: "string" }
+              - { label: "Kontakt", name: "kontaktCtaLabel", widget: "string" }
+              - { label: "Programm-Seite", name: "programCtaLabel", widget: "string" }
+          - label: "Unterseiten — Überschriften"
+            name: "subpages"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Vita — Kleintitel", name: "vitaEyebrow", widget: "string" }
+              - { label: "Vita — Überschrift", name: "vitaHeading", widget: "string" }
+              - { label: "Projekte — Kleintitel", name: "projekteEyebrow", widget: "string" }
+              - { label: "Projekte — Überschrift", name: "projekteHeading", widget: "string" }
+              - { label: "Projekte — Einleitung", name: "projekteIntro", widget: "text" }
+              - {
+                  label: "Projekte — Beschriftung „Aktuelles Programm“",
+                  name: "projekteProgramLabel",
+                  widget: "string",
+                }
+              - { label: "Termine — Kleintitel", name: "termineEyebrow", widget: "string" }
+              - { label: "Termine — Überschrift", name: "termineHeading", widget: "string" }
+              - { label: "Termine — Einleitung", name: "termineIntro", widget: "string" }
+              - { label: "CDs — Kleintitel", name: "cdsEyebrow", widget: "string" }
+              - { label: "CDs — Überschrift", name: "cdsHeading", widget: "string" }
+              - { label: "CDs — Einleitung", name: "cdsIntro", widget: "text" }
+              - { label: "Unterricht — Kleintitel", name: "unterrichtEyebrow", widget: "string" }
+              - { label: "Unterricht — Überschrift", name: "unterrichtHeading", widget: "string" }
+              - { label: "Unterricht — Einleitung", name: "unterrichtIntro", widget: "text" }
+              - { label: "Kontakt — Kleintitel", name: "kontaktEyebrow", widget: "string" }
+              - { label: "Kontakt — Überschrift", name: "kontaktHeading", widget: "string" }
+          - label: "Termine — Archiv"
+            name: "archive"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Überschrift", name: "heading", widget: "string" }
+              - { label: "Text, wenn leer", name: "empty", widget: "string" }
+          - label: "Downloads & externe Links"
+            name: "downloads"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Beschriftung Info-PDF", name: "infoPdfLabel", widget: "string" }
+              - { label: "Hinweis bei externen Links", name: "externalLinkHint", widget: "string" }
+              - { label: "Beschriftung Hörprobe", name: "audioLabel", widget: "string" }
+          - label: "Programm-Seiten"
+            name: "program"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Überschrift Besetzung", name: "lineupHeading", widget: "string" }
+              - { label: "Button „Konzert anfragen“", name: "bookingCtaLabel", widget: "string" }
+              - { label: "Button „E-Mail schreiben“", name: "emailCtaLabel", widget: "string" }
+              - { label: "Beschriftung Projektflyer", name: "flyerCtaLabel", widget: "string" }
+              - { label: "E-Mail-Betreff (Präfix)", name: "emailSubjectPrefix", widget: "string" }
+          - label: "Kontakt — Beschriftungen"
+            name: "contactLabels"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Telefon", name: "phone", widget: "string" }
+              - { label: "Mobil", name: "mobile", widget: "string" }
+              - { label: "E-Mail", name: "email", widget: "string" }
+              - { label: "Ort", name: "location", widget: "string" }
 
   # --- User Story 2 (T034): tour dates — FR-004, FR-005 ---
   # `identifier_field` is required: Decap only auto-detects `title`/`path`, and without it the
@@ -158,6 +232,13 @@ collections:
       - { label: "Datum & Uhrzeit", name: "date", widget: "datetime" }
       - { label: "Veranstaltungsort", name: "venueName", widget: "string" }
       - { label: "Ort", name: "location", widget: "string" }
+      - {
+          label: "Ensemble / Besetzung",
+          name: "ensemble",
+          widget: "string",
+          required: false,
+          hint: "Leer lassen = „Francesca Simone & Friends“",
+        }
       - {
           label: "Ticket-/Event-Link",
           name: "eventLink",
@@ -184,13 +265,38 @@ collections:
               widget: "string",
               pattern: ["^.{1,200}$", "Maximal 200 Zeichen"],
             }
-          - { label: "Porträtfoto", name: "portrait", widget: "image" }
+          - { label: "Porträtfoto (Startseite)", name: "portrait", widget: "image" }
           - {
               label: "Alt-Text für das Foto (Barrierefreiheit)",
               name: "portraitAlt",
               widget: "string",
             }
-          - { label: "Biografie-Text", name: "body", widget: "markdown" }
+          - {
+              label: "Porträtfoto für die Vita-Seite",
+              name: "portraitVita",
+              widget: "image",
+              required: false,
+            }
+          - {
+              label: "Alt-Text für das Vita-Foto",
+              name: "portraitVitaAlt",
+              widget: "string",
+              required: false,
+              hint: "Bitte ausfüllen, wenn ein Vita-Foto gesetzt ist.",
+            }
+          - {
+              label: "Kurzer Text für die Startseite",
+              name: "teaser",
+              widget: "text",
+              hint: "Erscheint auf der Startseite; der vollständige Text steht auf der Vita-Seite.",
+            }
+          - {
+              label: "Zitat (groß dargestellt)",
+              name: "pullQuote",
+              widget: "string",
+              required: false,
+            }
+          - { label: "Vita-Text (vollständig)", name: "body", widget: "markdown" }
 
   # --- User Story 3 (T041): projects/ensembles — FR-007 ---
   - name: "projects"
@@ -213,7 +319,96 @@ collections:
           required: false,
           hint: "Kurz beschreiben, was auf dem Foto zu sehen ist — für blinde Besucherinnen und Besucher.",
         }
+      - { label: "Aktuelles Programm", name: "programName", widget: "string", required: false }
+      - label: "Mitwirkende"
+        name: "members"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Name", name: "name", widget: "string" }
+          - { label: "Rolle / Instrument", name: "role", widget: "string" }
+      - label: "Links (YouTube, SoundCloud …)"
+        name: "links"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Beschriftung", name: "label", widget: "string" }
+          - {
+              label: "URL",
+              name: "url",
+              widget: "string",
+              hint: "Vollständige Adresse inklusive https:// — oder ein interner Pfad wie /canzoni-italiane/",
+              pattern:
+                [
+                  "^(https?://.+|/.*)$",
+                  "Bitte eine Adresse mit https:// oder einen internen Pfad mit / eingeben",
+                ],
+            }
+      - label: "Flyer (PDF)"
+        name: "flyers"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Beschriftung", name: "label", widget: "string" }
+          - { label: "Datei", name: "file", widget: "file" }
       - { label: "Beschreibung", name: "body", widget: "markdown" }
+
+  # --- 002 (T028): stage programs, e.g. „Canzoni italiane" — FR-004/FR-012 ---
+  # Each entry becomes its own page at /<slug>/. Owner-creatable without a developer.
+  - name: "programs"
+    label: "Programme"
+    label_singular: "Programm"
+    folder: "src/content/programs/de"
+    create: true
+    identifier_field: "title"
+    slug: "{{slug}}"
+    sortable_fields: ["order", "title"]
+    summary: "{{title}} — {{subtitle}}"
+    fields:
+      - { label: "Sprache", name: "lang", widget: "hidden", default: "de" }
+      - {
+          label: "Titel",
+          name: "title",
+          widget: "string",
+          hint: "Wird auch zur Adresse der Seite (z. B. /canzoni-italiane/). Bitte NICHT verwenden: vita, projekte, termine, cds, unterricht, kontakt, impressum, datenschutz, admin.",
+        }
+      - { label: "Untertitel / Ensemble", name: "subtitle", widget: "string", required: false }
+      - { label: "Einleitung", name: "intro", widget: "text" }
+      - { label: "Pressezitat", name: "quote", widget: "text", required: false }
+      - {
+          label: "Zitat — Quelle",
+          name: "quoteAttribution",
+          widget: "string",
+          required: false,
+          hint: "Erscheint immer zusammen mit dem Zitat.",
+        }
+      - { label: "Foto", name: "heroImage", widget: "image", required: false }
+      - { label: "Alt-Text für das Foto", name: "heroImageAlt", widget: "string", required: false }
+      - { label: "Hörprobe (MP3)", name: "audioSample", widget: "file", required: false }
+      - label: "Projektflyer"
+        name: "flyer"
+        widget: "object"
+        required: false
+        collapsed: true
+        fields:
+          - { label: "Beschriftung", name: "label", widget: "string", required: false }
+          - { label: "Datei (PDF)", name: "file", widget: "file", required: false }
+      - label: "Besetzung"
+        name: "lineup"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Name", name: "name", widget: "string" }
+          - { label: "Instrument / Rolle", name: "role", widget: "string" }
+      - {
+          label: "Abschluss — Überschrift",
+          name: "pitchHeading",
+          widget: "string",
+          required: false,
+        }
+      - { label: "Abschluss — Text", name: "pitchText", widget: "text", required: false }
+      - { label: "Reihenfolge", name: "order", widget: "number", required: false }
+      - { label: "Programmtext", name: "body", widget: "markdown" }
 
   # --- User Story 3 (T042): discography — FR-008 ---
   - name: "discography"
@@ -223,11 +418,13 @@ collections:
     create: true
     identifier_field: "title"
     slug: "{{slug}}"
-    sortable_fields: ["releaseYear", "title"]
+    sortable_fields: ["order", "releaseYear", "title"]
     fields:
       - { label: "Sprache", name: "lang", widget: "hidden", default: "de" }
       - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Reihenfolge", name: "order", widget: "number", required: false }
       - { label: "Erscheinungsjahr", name: "releaseYear", widget: "number", required: false }
+      - { label: "Info-PDF", name: "infoPdf", widget: "file", required: false }
       - { label: "Cover", name: "coverImage", widget: "image", required: false }
       - {
           label: "Alt-Text für das Cover",
@@ -261,7 +458,34 @@ collections:
         fields:
           - { label: "Sprache", name: "lang", widget: "hidden", default: "de" }
           - { label: "Orte", name: "locations", widget: "list" }
-          - { label: "Beschreibung", name: "body", widget: "markdown" }
+          - { label: "Untertitel", name: "subtitle", widget: "string", required: false }
+          - {
+              label: "Angebot (Liste)",
+              name: "offerings",
+              widget: "list",
+              hint: "Ein Eintrag pro Angebot, z. B. „Einzelunterricht … im Bereich Pop und Jazz“",
+            }
+          - {
+              label: "Überschrift Stimmarbeit",
+              name: "methodsHeading",
+              widget: "string",
+              required: false,
+            }
+          - { label: "Text Stimmarbeit", name: "methodsText", widget: "text", required: false }
+          - {
+              label: "Unterrichtszeiten & Orte (Satz)",
+              name: "schedulingText",
+              widget: "string",
+              required: false,
+            }
+          - {
+              label: "Überschrift Weiterbildung",
+              name: "educationHeading",
+              widget: "string",
+              required: false,
+            }
+          - { label: "Text Weiterbildung", name: "educationText", widget: "text", required: false }
+          - { label: "Einleitung (z. B. „Seit 1994 …“)", name: "body", widget: "markdown" }
 
   # --- User Story 3 (T044): contact — FR-010, FR-017 ---
   - name: "contact"
@@ -279,7 +503,8 @@ collections:
               pattern:
                 ["^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$", "Bitte eine gültige E-Mail-Adresse eingeben"],
             }
-          - { label: "Telefon", name: "phone", widget: "string", required: false }
+          - { label: "Telefon (Festnetz)", name: "phone", widget: "string", required: false }
+          - { label: "Mobil", name: "phoneMobile", widget: "string", required: false }
           - { label: "Ort", name: "location", widget: "string", required: false }
           # `label`, not `platform`: the site reads this key (src/content.config.ts → linkSchema).
           - label: "Social-/Booking-Links"

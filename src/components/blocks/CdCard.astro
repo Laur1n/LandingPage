@@ -1,0 +1,87 @@
+---
+/**
+ * One CD release — FR-005: cover (or placeholder), title, optional year/description slot,
+ * Info-PDF download, optional listening links. Animated once by the S7 tilt-settle scene
+ * (data-cd-card) — deliberately NOT also data-reveal, which would double-animate it.
+ */
+import CdCover from "./CdCover.astro";
+import ContentLink from "./ContentLink.astro";
+import DownloadLink from "./DownloadLink.astro";
+
+interface Props {
+  title: string;
+  coverImage?: string;
+  coverImageAlt?: string;
+  releaseYear?: number;
+  infoPdf?: string;
+  infoPdfLabel: string;
+  externalLinkHint: string;
+  links?: { label: string; url: string }[];
+}
+
+const {
+  title,
+  coverImage,
+  coverImageAlt,
+  releaseYear,
+  infoPdf,
+  infoPdfLabel,
+  externalLinkHint,
+  links,
+} = Astro.props;
+---
+
+<article class="cd-card" data-cd-card>
+  <CdCover title={title} coverImage={coverImage} coverImageAlt={coverImageAlt} />
+  <h3 class="cd-card__title">
+    {title}
+    {releaseYear && <span class="cd-card__year"> · {releaseYear}</span>}
+  </h3>
+  <div class="cd-card__description">
+    <slot />
+  </div>
+  <ul class="cd-card__actions">
+    {
+      infoPdf && (
+        <li>
+          <DownloadLink href={infoPdf} label={infoPdfLabel} />
+        </li>
+      )
+    }
+    {
+      (links ?? []).map((link) => (
+        <li>
+          <ContentLink href={link.url} label={link.label} hint={externalLinkHint} />
+        </li>
+      ))
+    }
+  </ul>
+</article>
+
+<style>
+  .cd-card__title {
+    font-size: var(--text-lg);
+    font-weight: 500;
+    margin-top: var(--space-md);
+  }
+
+  .cd-card__year {
+    color: var(--color-ink-muted);
+    font-weight: 400;
+  }
+
+  .cd-card__description :global(p) {
+    color: var(--color-ink-muted);
+    font-size: var(--text-sm);
+    margin: var(--space-xs) 0 0;
+  }
+
+  .cd-card__actions {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    padding: 0;
+    margin: var(--space-md) 0 0;
+  }
+</style>

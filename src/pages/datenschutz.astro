@@ -1,11 +1,12 @@
 ---
 import { getEntry, render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
 import { getSiteTexts } from "../lib/site-texts";
 
 const entry = await getEntry("legal", "datenschutz");
+if (!entry) {
+  throw new Error("Legal entry 'datenschutz' must exist — see src/content/legal/de");
+}
 const { Content } = await render(entry);
 const { brand, legalPages } = await getSiteTexts();
 
@@ -16,7 +17,6 @@ const dateFormatter = new Intl.DateTimeFormat("de-DE", { dateStyle: "long" });
   title={`${entry.data.title} — ${brand}`}
   description={legalPages.datenschutzDescription}
 >
-  <Header slot="header" />
   <article class="container legal-page">
     <p class="section-eyebrow">{legalPages.eyebrow}</p>
     <h1 class="section-heading">{entry.data.title}</h1>
@@ -27,7 +27,6 @@ const dateFormatter = new Intl.DateTimeFormat("de-DE", { dateStyle: "long" });
       <Content />
     </div>
   </article>
-  <Footer slot="footer" />
 </BaseLayout>
 
 <style>

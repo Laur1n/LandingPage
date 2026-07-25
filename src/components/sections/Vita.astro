@@ -1,23 +1,23 @@
 ---
-import { getCollection, render } from "astro:content";
+import { getCollection } from "astro:content";
 import { getSiteTexts } from "../../lib/site-texts";
+import TeaserCta from "../blocks/TeaserCta.astro";
 
+// Landing teaser (hybrid IA): short excerpt + link — the full Kurzvita lives on /vita/.
 const [entry] = await getCollection("biography");
-const { Content } = await render(entry);
-const { sections } = await getSiteTexts();
+const { sections, teasers } = await getSiteTexts();
 ---
 
 <section id="vita" class="vita">
   <div class="container vita__grid">
-    <div class="vita__portrait">
+    <div class="vita__portrait" data-scene="portrait-parallax">
       <img src={entry.data.portrait} alt={entry.data.portraitAlt} loading="lazy" decoding="async" />
     </div>
-    <div class="vita__text">
+    <div class="vita__text" data-reveal>
       <p class="vita__eyebrow">{sections.vitaEyebrow}</p>
       <h2 class="vita__heading">{entry.data.tagline}</h2>
-      <div class="vita__body">
-        <Content />
-      </div>
+      <p class="vita__teaser">{entry.data.teaser}</p>
+      <TeaserCta href="/vita/" label={teasers.vitaCtaLabel} />
     </div>
   </div>
 </section>
@@ -31,7 +31,7 @@ const { sections } = await getSiteTexts();
     display: grid;
     grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
     gap: var(--space-3xl);
-    align-items: start;
+    align-items: center;
   }
 
   .vita__portrait img {
@@ -56,14 +56,9 @@ const { sections } = await getSiteTexts();
     max-width: 20ch;
   }
 
-  .vita__body :global(blockquote) {
-    font-family: var(--font-display);
+  .vita__teaser {
+    color: var(--color-ink-muted);
     font-size: var(--text-lg);
-    font-style: italic;
-    color: var(--color-ink);
-    border: none;
-    margin: var(--space-xl) 0 0;
-    padding: 0;
   }
 
   @media (max-width: 56rem) {

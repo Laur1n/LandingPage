@@ -10,10 +10,26 @@ const langField = z.enum(["de"]).default("de");
 
 const linkSchema = z.object({
   label: z.string(),
-  url: z.string().url(),
+  // Allows site-relative URLs ("/canzoni-italiane/") alongside absolute ones — a project may
+  // link to an internal program page as well as to YouTube/SoundCloud.
+  url: z.string().refine((v) => /^https?:\/\/.+/.test(v) || v.startsWith("/"), {
+    message: "URL muss mit https:// oder / beginnen",
+  }),
 });
 
-// --- Biography (singleton) — FR-006 ---
+// Owner-replaceable document (flyer, CD info sheet) — FR-011, research.md §7.
+const fileLinkSchema = z.object({
+  label: z.string(),
+  file: z.string(),
+});
+
+// Band/line-up entry, e.g. { name: "Florian Offermann", role: "Piano" } — FR-003/FR-004.
+const memberSchema = z.object({
+  name: z.string(),
+  role: z.string(),
+});
+
+// --- Biography (singleton) — 001 FR-006; 002 FR-002 (full Vita + landing teaser split) ---
 const biography = defineCollection({
   loader: glob({ pattern: "index.md", base: "./src/content/biography/de" }),
   schema: z.object({
@@ -22,10 +38,20 @@ const biography = defineCollection({
     tagline: z.string().max(200),
     portrait: z.string(),
     portraitAlt: z.string(),
+    // Vita-page portrait (old site's portrait2); falls back to `portrait` when unset.
+    portraitVita: z.string().optional(),
+    portraitVitaAlt: z.string().optional(),
+    // Short landing-page excerpt; the markdown body carries the full Kurzvita (002 FR-002).
+    teaser: z
+      .string()
+      .default(
+        "Francesca Simone verbindet italienische Leichtigkeit, Jazz- und Pop-Sensibilität und eine ausdrucksstarke Bühnenpräsenz zu Konzerten, die berühren.",
+      ),
+    pullQuote: z.string().optional(),
   }),
 });
 
-// --- Project / Ensemble (repeatable) — FR-007 ---
+// --- Project / Ensemble (repeatable) — 001 FR-007; 002 FR-003 (full descriptions + media) ---
 const projects = defineCollection({
   loader: glob({ pattern: "*.md", base: "./src/content/projects/de" }),
   schema: z.object({
@@ -34,6 +60,35 @@ const projects = defineCollection({
     order: z.number().optional(),
     photo: z.string().optional(),
     photoAlt: z.string().optional(),
+    programName: z.string().optional(),
+    members: z.array(memberSchema).optional(),
+    links: z.array(linkSchema).optional(),
+    flyers: z.array(fileLinkSchema).optional(),
+  }),
+});
+
+// --- Stage program, e.g. „Canzoni italiane" (repeatable) — 002 FR-004/FR-012 ---
+// Folder collection so the owner can add future program pages herself (research.md §4);
+// each entry becomes a page at /<slug>/ via src/pages/[program].astro.
+const programs = defineCollection({
+  loader: glob({ pattern: "*.md", base: "./src/content/programs/de" }),
+  schema: z.object({
+    lang: langField,
+    title: z.string(),
+    subtitle: z.string().optional(),
+    intro: z.string(),
+    quote: z.string().optional(),
+    // Rendered together with `quote`, never separately (spec edge case: attribution).
+    quoteAttribution: z.string().optional(),
+    heroImage: z.string().optional(),
+    heroImageAlt: z.string().optional(),
+    // Self-hosted audio sample („Hörprobe") — native <audio>, no third-party embed (FR-017).
+    audioSample: z.string().optional(),
+    flyer: fileLinkSchema.optional(),
+    lineup: z.array(memberSchema).optional(),
+    pitchHeading: z.string().optional(),
+    pitchText: z.string().optional(),
+    order: z.number().optional(),
   }),
 });
 
@@ -47,6 +102,8 @@ const tourDates = defineCollection({
     location: z.string(),
     eventLink: z.string().url().optional(),
     notes: z.string().optional(),
+    // 002 FR-006: who performs; rendering falls back to DEFAULT_ENSEMBLE when unset.
+    ensemble: z.string().optional(),
   }),
 });
 
@@ -60,15 +117,26 @@ const discography = defineCollection({
     coverImage: z.string().optional(),
     coverImageAlt: z.string().optional(),
     links: z.array(linkSchema).optional(),
+    // 002 FR-005: per-CD info sheet („Info-PDF") + explicit display order on /cds/.
+    infoPdf: z.string().optional(),
+    order: z.number().optional(),
   }),
 });
 
-// --- Teaching Offering (singleton) — FR-009 ---
+// --- Teaching Offering (singleton) — 001 FR-009; 002 FR-007 (full offer + methods) ---
 const teaching = defineCollection({
   loader: glob({ pattern: "index.md", base: "./src/content/teaching/de" }),
   schema: z.object({
     lang: langField,
     locations: z.array(z.string()),
+    subtitle: z.string().optional(),
+    offerings: z.array(z.string()).default([]),
+    methodsHeading: z.string().optional(),
+    methodsText: z.string().optional(),
+    schedulingText: z.string().optional(),
+    // „Musikalische Weiterbildung" section (harvest find, old unterricht.html).
+    educationHeading: z.string().optional(),
+    educationText: z.string().optional(),
   }),
 });
 
@@ -79,6 +147,8 @@ const contact = defineCollection({
     lang: langField,
     email: z.string().email(),
     phone: z.string().optional(),
+    // 002 FR-008: the old site lists landline AND mobile.
+    phoneMobile: z.string().optional(),
     location: z.string().optional(),
     socialLinks: z.array(linkSchema).optional(),
   }),
@@ -91,6 +161,10 @@ const contact = defineCollection({
  * so nothing on the site is only changeable by editing code. Each field carries a default so a
  * partially-filled file can never break the build — a CMS save that drops a field degrades to
  * the shipped wording instead of a failed deploy.
+ *
+ * Group-level fallbacks use `.prefault({})`, not `.default({})`: under Zod v4 (Astro 7) a
+ * `.default()` value is returned as-is without parsing, so `{}` would silently skip every
+ * inner field default; `.prefault()` parses the fallback and fills them in.
  */
 const site = defineCollection({
   loader: glob({ pattern: "index.md", base: "./src/content/site/de" }),
@@ -110,7 +184,7 @@ const site = defineCollection({
         unterricht: z.string().default("Unterricht"),
         kontakt: z.string().default("Kontakt"),
       })
-      .default({}),
+      .prefault({}),
     hero: z
       .object({
         welcome: z.string().default("Willkommen · Benvenuti"),
@@ -118,8 +192,11 @@ const site = defineCollection({
         role: z.string().default("Sängerin · Songwriterin · Gesangspädagogin"),
         primaryCtaLabel: z.string().default("Konzert anfragen"),
         secondaryCtaLabel: z.string().default("Programme entdecken"),
+        // 002 US3: hero photo (old site's stage image), owner-replaceable like all media.
+        image: z.string().default("/uploads/hero.jpg"),
+        imageAlt: z.string().default("Francesca Simone auf der Bühne"),
       })
-      .default({}),
+      .prefault({}),
     sections: z
       .object({
         vitaEyebrow: z.string().default("Vita"),
@@ -141,7 +218,7 @@ const site = defineCollection({
           .string()
           .default("Konzert anfragen, Unterricht buchen, einfach schreiben."),
       })
-      .default({}),
+      .prefault({}),
     legalPages: z
       .object({
         eyebrow: z.string().default("Rechtliches"),
@@ -149,7 +226,7 @@ const site = defineCollection({
         impressumDescription: z.string().default("Impressum von Francesca Simone"),
         datenschutzDescription: z.string().default("Datenschutzerklärung von Francesca Simone"),
       })
-      .default({}),
+      .prefault({}),
     footer: z
       .object({
         tagline: z
@@ -157,7 +234,80 @@ const site = defineCollection({
           .default("Francesca Simone — Sängerin · Songwriterin · Gesangspädagogin"),
         copyright: z.string().default("Francesca Simone"),
       })
-      .default({}),
+      .prefault({}),
+    // --- 002: hybrid IA & new surfaces. Defaults ship the old site's wording. ---
+    teasers: z
+      .object({
+        vitaCtaLabel: z.string().default("Zur Vita"),
+        projekteCtaLabel: z.string().default("Alle Projekte"),
+        termineCtaLabel: z.string().default("Alle Termine"),
+        cdsCtaLabel: z.string().default("Alle CDs"),
+        unterrichtCtaLabel: z.string().default("Unterricht ansehen"),
+        kontaktCtaLabel: z.string().default("Kontakt aufnehmen"),
+        programCtaLabel: z.string().default("Canzoni italiane entdecken"),
+      })
+      .prefault({}),
+    subpages: z
+      .object({
+        vitaEyebrow: z.string().default("Vita"),
+        vitaHeading: z.string().default("Francesca Simone"),
+        projekteEyebrow: z.string().default("Projekte"),
+        projekteHeading: z.string().default("Programme mit Charakter."),
+        projekteProgramLabel: z.string().default("Aktuelles Programm"),
+        projekteIntro: z
+          .string()
+          .default(
+            "Von italienischen Chansons über Songs der 70er bis zu mehrstimmigen Arrangements.",
+          ),
+        termineEyebrow: z.string().default("News & Termine"),
+        termineHeading: z.string().default("Live erleben."),
+        termineIntro: z.string().default("Aktuelle und vergangene Termine"),
+        cdsEyebrow: z.string().default("CDs"),
+        cdsHeading: z.string().default("Musik zum Mitnehmen."),
+        cdsIntro: z
+          .string()
+          .default("Cover und Beschreibungen der vorhandenen CD-Veröffentlichungen."),
+        unterrichtEyebrow: z.string().default("Unterricht & Stimme"),
+        unterrichtHeading: z.string().default("Die eigene Stimme entdecken."),
+        unterrichtIntro: z
+          .string()
+          .default(
+            "Gesang, Stimmarbeit, Chorleitung, Workshops und Klangarbeit — für Anfänger, Fortgeschrittene, Gruppen und Teams.",
+          ),
+        kontaktEyebrow: z.string().default("Kontakt"),
+        kontaktHeading: z.string().default("Anfragen & Buchungen."),
+      })
+      .prefault({}),
+    archive: z
+      .object({
+        heading: z.string().default("Vergangene Termine"),
+        empty: z.string().default("Noch keine vergangenen Termine."),
+      })
+      .prefault({}),
+    downloads: z
+      .object({
+        infoPdfLabel: z.string().default("Info-PDF"),
+        externalLinkHint: z.string().default("öffnet externe Seite"),
+        audioLabel: z.string().default("Hörprobe"),
+      })
+      .prefault({}),
+    program: z
+      .object({
+        lineupHeading: z.string().default("Besetzung"),
+        bookingCtaLabel: z.string().default("Konzert anfragen"),
+        emailCtaLabel: z.string().default("E-Mail schreiben"),
+        flyerCtaLabel: z.string().default("Projektflyer herunterladen"),
+        emailSubjectPrefix: z.string().default("Anfrage"),
+      })
+      .prefault({}),
+    contactLabels: z
+      .object({
+        phone: z.string().default("Telefon"),
+        mobile: z.string().default("Mobil"),
+        email: z.string().default("E-Mail"),
+        location: z.string().default("Ort"),
+      })
+      .prefault({}),
   }),
 });
 
@@ -175,6 +325,7 @@ export const collections = {
   site,
   biography,
   projects,
+  programs,
   "tour-dates": tourDates,
   discography,
   teaching,

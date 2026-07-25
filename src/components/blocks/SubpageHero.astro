@@ -1,0 +1,48 @@
+---
+/**
+ * Shared subpage hero (contracts/motion.md S1): eyebrow → heading → intro, staggered by the
+ * motion layer. Server-rendered and fully visible without JS (motion.md rule 1).
+ */
+interface Props {
+  eyebrow: string;
+  heading: string;
+  intro?: string;
+}
+
+const { eyebrow, heading, intro } = Astro.props;
+---
+
+<header class="subpage-hero">
+  <div class="container">
+    <p class="section-eyebrow" data-hero-line>{eyebrow}</p>
+    <h1 class="subpage-hero__heading" data-hero-line>{heading}</h1>
+    {
+      intro && (
+        <p class="subpage-hero__intro" data-hero-line>
+          {intro}
+        </p>
+      )
+    }
+    <slot />
+  </div>
+</header>
+
+<style>
+  .subpage-hero {
+    padding-block: var(--space-4xl) var(--space-3xl);
+  }
+
+  .subpage-hero__heading {
+    font-size: var(--text-2xl);
+    font-weight: 500;
+    max-width: 16ch;
+    text-wrap: balance;
+  }
+
+  .subpage-hero__intro {
+    margin-top: var(--space-lg);
+    font-size: var(--text-lg);
+    color: var(--color-ink-muted);
+    max-width: 55ch;
+  }
+</style>

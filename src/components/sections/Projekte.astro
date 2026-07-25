@@ -1,17 +1,14 @@
 ---
-import { getCollection, render } from "astro:content";
+import { getCollection } from "astro:content";
 import { getSiteTexts } from "../../lib/site-texts";
+import { firstParagraph } from "../../lib/format";
+import { sortByOrder } from "../../lib/order";
+import TeaserCta from "../blocks/TeaserCta.astro";
 
-// Photo and alt text are independently optional in the CMS, so a photo can arrive without one.
-// The `?? ""` below marks such an image decorative rather than emitting no alt attribute at all,
-// which would fail WCAG (FR-022) on a page the editor can't tell is broken.
-const { sections } = await getSiteTexts();
-const entries = (await getCollection("projects")).sort(
-  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99),
-);
-const rendered = await Promise.all(
-  entries.map(async (entry) => ({ entry, ...(await render(entry)) })),
-);
+// Landing teaser (hybrid IA): name + first paragraph per project; depth lives on /projekte/
+// and the program pages. The first body paragraph is authored to stand alone as a teaser.
+const { sections, teasers } = await getSiteTexts();
+const entries = sortByOrder(await getCollection("projects"));
 ---
 
 <section id="projekte" class="projekte">
@@ -20,28 +17,23 @@ const rendered = await Promise.all(
     <h2 class="section-heading">{sections.projekteHeading}</h2>
     <ol class="projekte__list">
       {
-        rendered.map(({ entry, Content }, index) => (
-          <li class="projekte__item">
-            <span class="projekte__index">{String(index + 1).padStart(2, "0")}</span>
+        entries.map((entry, index) => (
+          <li class="projekte__item" data-reveal>
+            <span class="index-numeral" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
+            </span>
             <div>
               <h3 class="projekte__name">{entry.data.name}</h3>
-              <div class="projekte__description">
-                <Content />
-              </div>
-              {entry.data.photo && (
-                <img
-                  src={entry.data.photo}
-                  alt={entry.data.photoAlt ?? ""}
-                  loading="lazy"
-                  decoding="async"
-                  class="projekte__photo"
-                />
-              )}
+              <p class="projekte__excerpt">{firstParagraph(entry.body)}</p>
             </div>
           </li>
         ))
       }
     </ol>
+    <div class="projekte__actions" data-reveal>
+      <TeaserCta href="/canzoni-italiane/" label={teasers.programCtaLabel} prominent />
+      <TeaserCta href="/projekte/" label={teasers.projekteCtaLabel} />
+    </div>
   </div>
 </section>
 
@@ -56,7 +48,7 @@ const rendered = await Promise.all(
     margin: var(--space-2xl) 0 0;
     padding: 0;
     display: grid;
-    gap: var(--space-2xl);
+    gap: 0;
   }
 
   .projekte__item {
@@ -67,27 +59,22 @@ const rendered = await Promise.all(
     border-top: 1px solid var(--color-border);
   }
 
-  .projekte__index {
-    font-family: var(--font-display);
-    font-size: var(--text-xl);
-    color: var(--color-accent);
-    line-height: 1;
-  }
-
   .projekte__name {
     font-size: var(--text-lg);
     font-weight: 500;
     margin-bottom: var(--space-sm);
   }
 
-  .projekte__description :global(p) {
+  .projekte__excerpt {
     color: var(--color-ink-muted);
     margin: 0;
   }
 
-  .projekte__photo {
-    margin-top: var(--space-md);
-    max-width: 20rem;
-    border-radius: 0.25rem;
+  .projekte__actions {
+    margin-top: var(--space-xl);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-md) var(--space-xl);
   }
 </style>

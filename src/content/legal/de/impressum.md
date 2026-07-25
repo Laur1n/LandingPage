@@ -1,31 +1,33 @@
 ---
 lang: de
 title: "Impressum"
-lastUpdated: 2026-07-23
+lastUpdated: 2026-07-24
 ---
-
-_Platzhalter — bitte vor Veröffentlichung mit den echten Angaben über den Login unter `/admin`
-(Kollektion „legal") ausfüllen. Angaben gemäß § 5 TMG:_
 
 **Angaben gemäß § 5 TMG**
 
+francesca-simone.com ist die Internetpräsenz von
+
 Francesca Simone
-[Straße und Hausnummer]
-[PLZ und Ort]
+Im Winkel 6
+51789 Lindlar
 
 **Kontakt**
 
-E-Mail: info@francesca-simone.de
-Telefon: [bitte ergänzen]
+E-Mail: francesca-simone@onlinehome.de
+Telefon: +49 (0) 2266 / 46 30 25
 
-**Umsatzsteuer-ID**
+**Urheberrecht / Haftung**
 
-[Falls vorhanden: Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz]
+Der Inhalt dieser Internetpräsenz ist urheberrechtlich geschützt. Alle Rechte sind vorbehalten,
+auch die der Übersetzung, des Nachdrucks und der Vervielfältigung des Inhalts oder Teilen daraus.
 
-**Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV**
+Für Links und/oder nicht von Francesca Simone verfasste Inhalte wird keinerlei Haftung
+übernommen. Es wird sich ausdrücklich von Inhalt und Gestaltung fremdverlinkter Seiten
+distanziert.
 
-Francesca Simone (Anschrift wie oben)
+**Bildnachweis & Gestaltung**
 
-_Hinweis: Dieser Text ist ein Platzhalter und ersetzt keine rechtliche Prüfung. Bitte vor dem
-Livegang von einer sachkundigen Stelle (z. B. einem Impressums-Generator oder einer
-Rechtsberatung) prüfen lassen._
+Fotos: Dorina Köb. Webdesign ursprüngliche Seite: Jörg Mehlhorn.
+
+© 2016 / modernisierte Fassung 2026

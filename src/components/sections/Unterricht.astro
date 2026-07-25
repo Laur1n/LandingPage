@@ -1,22 +1,26 @@
 ---
 import { getCollection, render } from "astro:content";
 import { getSiteTexts } from "../../lib/site-texts";
+import TeaserCta from "../blocks/TeaserCta.astro";
 
+// Landing teaser (hybrid IA): one line + locations; the full offer lives on /unterricht/.
 const [entry] = await getCollection("teaching");
 const { Content } = await render(entry);
-const { sections } = await getSiteTexts();
+const { sections, teasers } = await getSiteTexts();
 ---
 
 <section id="unterricht" class="unterricht">
   <div class="container unterricht__grid">
-    <div>
+    <div data-reveal>
       <p class="section-eyebrow">{sections.unterrichtEyebrow}</p>
       <h2 class="section-heading">{sections.unterrichtHeading}</h2>
+      {entry.data.subtitle && <p class="unterricht__subtitle">{entry.data.subtitle}</p>}
       <div class="unterricht__body">
         <Content />
       </div>
+      <TeaserCta href="/unterricht/" label={teasers.unterrichtCtaLabel} />
     </div>
-    <ul class="unterricht__locations">
+    <ul class="unterricht__locations" data-reveal>
       {entry.data.locations.map((location) => <li>{location}</li>)}
     </ul>
   </div>
@@ -34,8 +38,13 @@ const { sections } = await getSiteTexts();
     align-items: start;
   }
 
-  .unterricht__body :global(p) {
+  .unterricht__subtitle {
+    margin-top: var(--space-xl);
     font-size: var(--text-lg);
+    color: var(--color-ink-muted);
+  }
+
+  .unterricht__body :global(p) {
     color: var(--color-ink-muted);
   }
 

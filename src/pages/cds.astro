@@ -1,0 +1,57 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SubpageHero from "../components/blocks/SubpageHero.astro";
+import CdCard from "../components/blocks/CdCard.astro";
+import { getSiteTexts } from "../lib/site-texts";
+import { byGermanTitle, sortByOrder } from "../lib/order";
+
+// FR-005: all six releases with cover and Info-PDF, owner-ordered via `order`.
+const { brand, nav, subpages, downloads } = await getSiteTexts();
+const entries = sortByOrder(await getCollection("discography"), byGermanTitle);
+const rendered = await Promise.all(
+  entries.map(async (entry) => ({ entry, ...(await render(entry)) })),
+);
+---
+
+<BaseLayout title={`${nav.cds} · ${brand}`} description={subpages.cdsIntro}>
+  <SubpageHero
+    eyebrow={subpages.cdsEyebrow}
+    heading={subpages.cdsHeading}
+    intro={subpages.cdsIntro}
+  />
+
+  <div class="container">
+    <ul class="cds-page__grid">
+      {
+        rendered.map(({ entry, Content }) => (
+          <li>
+            <CdCard
+              title={entry.data.title}
+              coverImage={entry.data.coverImage}
+              coverImageAlt={entry.data.coverImageAlt}
+              releaseYear={entry.data.releaseYear}
+              infoPdf={entry.data.infoPdf}
+              infoPdfLabel={downloads.infoPdfLabel}
+              externalLinkHint={downloads.externalLinkHint}
+              links={entry.data.links}
+            >
+              <Content />
+            </CdCard>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</BaseLayout>
+
+<style>
+  .cds-page__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: var(--space-2xl);
+  }
+</style>

@@ -35,23 +35,46 @@
             children.push(h("h1", { key: "heading" }, heading));
           }
 
-          var tagline = data.get("tagline");
-          if (tagline) {
-            children.push(h("p", { key: "tagline", className: "tagline" }, tagline));
-          }
-
-          ["portrait", "photo", "coverImage"].forEach(function (field) {
-            var image = data.get(field);
-            if (image) {
-              children.push(
-                h("img", {
-                  key: field,
-                  src: getAsset(image).toString(),
-                  alt: data.get(field + "Alt") || "",
-                }),
-              );
+          ["tagline", "subtitle", "intro"].forEach(function (field) {
+            var value = data.get(field);
+            if (value) {
+              children.push(h("p", { key: field, className: "tagline" }, value));
             }
           });
+
+          if (data.get("programName")) {
+            children.push(
+              h("p", { key: "programName" }, "Aktuelles Programm: " + data.get("programName")),
+            );
+          }
+
+          // 002: quote + attribution render together, never separately.
+          var quote = data.get("quote") || data.get("pullQuote");
+          if (quote) {
+            var attribution = data.get("quoteAttribution");
+            children.push(
+              h(
+                "blockquote",
+                { key: "quote" },
+                "„" + quote + "“" + (attribution ? " — " + attribution : ""),
+              ),
+            );
+          }
+
+          ["portrait", "portraitVita", "photo", "coverImage", "heroImage"].forEach(
+            function (field) {
+              var image = data.get(field);
+              if (image) {
+                children.push(
+                  h("img", {
+                    key: field,
+                    src: getAsset(image).toString(),
+                    alt: data.get(field + "Alt") || "",
+                  }),
+                );
+              }
+            },
+          );
 
           if (data.get("date")) {
             children.push(h("p", { key: "date" }, String(data.get("date"))));
@@ -89,10 +112,98 @@
             children.push(h("p", { key: "email" }, data.get("email")));
           }
           if (data.get("phone")) {
-            children.push(h("p", { key: "phone" }, data.get("phone")));
+            children.push(h("p", { key: "phone" }, "Telefon: " + data.get("phone")));
+          }
+          if (data.get("phoneMobile")) {
+            children.push(h("p", { key: "phoneMobile" }, "Mobil: " + data.get("phoneMobile")));
           }
           if (data.get("location") && !data.get("venueName")) {
             children.push(h("p", { key: "location" }, data.get("location")));
+          }
+          if (data.get("ensemble")) {
+            children.push(h("p", { key: "ensemble" }, data.get("ensemble")));
+          }
+
+          // 002: teaching structure (offerings list + methods/education/scheduling texts).
+          var offerings = data.get("offerings");
+          if (offerings && offerings.size) {
+            children.push(
+              h(
+                "ul",
+                { key: "offerings" },
+                offerings.toJS().map(function (offering, index) {
+                  return h("li", { key: index }, offering);
+                }),
+              ),
+            );
+          }
+          [
+            ["methodsHeading", "methodsText"],
+            ["educationHeading", "educationText"],
+          ].forEach(function (pair) {
+            var heading = data.get(pair[0]);
+            var text = data.get(pair[1]);
+            if (heading || text) {
+              children.push(h("h2", { key: pair[0] }, heading || ""));
+              children.push(h("p", { key: pair[1] }, text || ""));
+            }
+          });
+          if (data.get("schedulingText")) {
+            children.push(h("p", { key: "schedulingText" }, data.get("schedulingText")));
+          }
+
+          // 002: band line-up (programs `lineup`, projects `members`).
+          ["lineup", "members"].forEach(function (field) {
+            var list = data.get(field);
+            if (!list || !list.size) return;
+            children.push(
+              h(
+                "ul",
+                { key: field },
+                list.toJS().map(function (member, index) {
+                  return h("li", { key: index }, (member.role || "") + ": " + (member.name || ""));
+                }),
+              ),
+            );
+          });
+
+          // 002: attached documents (flyers list, single flyer object, CD info sheet).
+          var flyers = data.get("flyers");
+          if (flyers && flyers.size) {
+            children.push(
+              h(
+                "ul",
+                { key: "flyers" },
+                flyers.toJS().map(function (flyer, index) {
+                  return h("li", { key: index }, "📄 " + (flyer.label || flyer.file || ""));
+                }),
+              ),
+            );
+          }
+          var flyer = data.get("flyer");
+          if (flyer && flyer.get && (flyer.get("label") || flyer.get("file"))) {
+            children.push(
+              h("p", { key: "flyer" }, "📄 " + (flyer.get("label") || flyer.get("file"))),
+            );
+          }
+          if (data.get("infoPdf")) {
+            children.push(h("p", { key: "infoPdf" }, "📄 Info-PDF: " + data.get("infoPdf")));
+          }
+          if (data.get("audioSample")) {
+            children.push(
+              h("p", { key: "audioSample" }, "🎵 Hörprobe: " + data.get("audioSample")),
+            );
+          }
+
+          if (data.get("pitchHeading") || data.get("pitchText")) {
+            children.push(h("h2", { key: "pitchHeading" }, data.get("pitchHeading") || ""));
+            children.push(h("p", { key: "pitchText" }, data.get("pitchText") || ""));
+          }
+
+          if (data.get("teaser")) {
+            children.push(
+              h("p", { key: "teaser", className: "meta" }, "Startseite: " + data.get("teaser")),
+            );
           }
 
           ["links", "socialLinks"].forEach(function (field) {
@@ -145,6 +256,7 @@
       [
         "biography",
         "projects",
+        "programs",
         "tour_dates",
         "discography",
         "teaching",
@@ -154,14 +266,15 @@
         CMS.registerPreviewTemplate(collectionName, GenericPreview);
       });
 
-      CMS.registerPreviewStyle(
-        "https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600&display=swap",
-      );
+      // System font stacks only — no Google Fonts request, consistent with the public site's
+      // self-hosted fonts (002 research.md §2). The preview approximates, it doesn't replicate.
       CMS.registerPreviewStyle(
         [
-          "body { font-family: 'Hanken Grotesk', sans-serif; color: oklch(22% 0.02 50); background: oklch(97% 0.012 60); padding: 2rem; }",
-          "h1 { font-family: 'Bodoni Moda', serif; font-weight: 500; font-size: 2rem; margin: 0 0 0.5rem; }",
-          ".tagline { font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 1.25rem; margin: 0 0 1rem; }",
+          "body { font-family: 'Hanken Grotesk', system-ui, sans-serif; color: oklch(22% 0.02 50); background: oklch(97% 0.012 60); padding: 2rem; }",
+          "h1, h2 { font-family: 'Bodoni Moda', Didot, 'Times New Roman', serif; font-weight: 500; margin: 1rem 0 0.5rem; }",
+          "h1 { font-size: 2rem; margin-top: 0; }",
+          "blockquote { font-family: 'Bodoni Moda', Didot, 'Times New Roman', serif; font-style: italic; font-size: 1.15rem; margin: 1rem 0; }",
+          ".tagline { font-family: 'Bodoni Moda', Didot, 'Times New Roman', serif; font-style: italic; font-size: 1.25rem; margin: 0 0 1rem; }",
           "img { max-width: 20rem; border-radius: 0.25rem; margin: 0.5rem 0; }",
           ".meta { color: oklch(45% 0.02 50); font-size: 0.875rem; }",
           ".body { margin-top: 1rem; line-height: 1.6; }",
