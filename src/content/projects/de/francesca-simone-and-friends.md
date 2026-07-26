@@ -2,7 +2,7 @@
 lang: de
 name: Francesca Simone & Friends
 order: 1
-programName: "„Italienische Canzoni“ "
+programName: „Canzoni dall‘ Italia“
 members:
   - name: Francesca Simone
     role: Gesang
