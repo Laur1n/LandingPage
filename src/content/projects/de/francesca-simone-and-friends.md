@@ -13,7 +13,7 @@ members:
   - name: Andreas Lasonczyk
     role: Percussion / Drums
 links:
-  - label: Italienische Canzoni entdecken
+  - label: Canzoni dall‘ Italia entdecken
     url: /canzoni-italiane/
   - label: YouTube anhören
     url: https://www.youtube.com/watch?v=GeXVWCsDG4k
