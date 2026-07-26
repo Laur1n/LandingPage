@@ -29,10 +29,10 @@ Das Projekt besteht seit 2013 und hat Francesca Simone mit Axel Fabry und Floria
 bereits an den Comersee nach Italien geführt. Bei den Konzerten widmen sich die Musiker ihren
 Lieblingssongs; seit 2015 unterstützt Andreas Lasonczyk an der Percussion.
 
-2026:Nach einigen Aufenthalten in Italien in den letzten Jahren hatte ich den Wunsch, gemeinsam mit
+**2026:** Nach einigen Aufenthalten in Italien in den letzten Jahren hatte ich den Wunsch, gemeinsam mit
 der Band ein neues Programm mit italienischen Songs zu entwickeln, auch inspiriert durch
 latein-amerikanische Rhythmen. Am 2. Oktober 2026 ist Premiere!
 
-2023: Die Idee, sich mit der Musik aus den 70er Jahren auseinanderzusetzen, wurde noch einmalaufgegriffen und mit der Band komplett überarbeitet.
+**2023:** Die Idee, sich mit der Musik aus den 70er Jahren auseinanderzusetzen, wurde noch einmal aufgegriffen und mit der Band komplett überarbeitet.
 
 Programm: „When I was Young“ – Songs of the 70s.
