@@ -53,7 +53,7 @@ teasers:
   cdsCtaLabel: Alle CDs
   unterrichtCtaLabel: Unterricht ansehen
   kontaktCtaLabel: Kontakt aufnehmen
-  programCtaLabel: Canzoni italiane entdecken
+  programCtaLabel: „Canzoni dall‘Italia“ entdecken
 subpages:
   vitaHeading: Francesca Simone
   kontaktHeading: Anfragen & Buchungen.
