@@ -14,7 +14,7 @@ Im Winkel 6
 **Kontakt**
 
 E-Mail: francesca-simone@onlinehome.de
-Telefon: +49 (0) 2266 / 46 30 25
+Telefon: +49 (0) 2266 / 46 30 25;                Mobil: +49 (0)162-8292323
 
 **Urheberrecht / Haftung**
 
@@ -27,7 +27,7 @@ distanziert.
 
 **Bildnachweis & Gestaltung**
 
-Fotos: Dorina Köbl; Jörg Mehlhorn\
+Fotos: Dorina Köbele-Milas, Jörg Mehlhorn\
 Webdesign: Jörg Mehlhorn.
 
 © 2016 / aktualisierte Fassung 2026
