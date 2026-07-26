@@ -19,7 +19,7 @@ links:
     url: https://www.youtube.com/watch?v=GeXVWCsDG4k
 flyers:
   - label: Flyer Italienische Canzoni
-    file: /uploads/flyer-canzoni-italiane.pdf
+    file: /uploads/canzoni_flyer_digital_klein.pdf
   - label: Flyer Projekt 70.2
     file: /uploads/flyer-projekt-70-2.pdf
   - label: Flyer Francesca Simone & Friends
