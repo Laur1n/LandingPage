@@ -10,7 +10,7 @@ teaser: >-
   Francesca Simone arbeitete in vielen Projekten vom Duo über A-cappella bis zur
   Bigband, mit  Liedern in italienischer, englischer und deutscher Sprache.
 
-  Aktuell arbeitet sie mit ihrer Band „Francesca Simone & Friends“ am Programm „Italienische Canzoni“.
+  Aktuell arbeitet sie mit ihrer Band „Francesca Simone & Friends“ am Programm „Canzoni dall‘Italia“.
 pullQuote: Musik darf erinnern, verführen, trösten — und manchmal einfach nach
   einem Abend in Italien klingen.
 ---
