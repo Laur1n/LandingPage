@@ -14,7 +14,6 @@ teaser: >-
 pullQuote: Musik darf erinnern, verführen, trösten — und manchmal einfach nach
   einem Abend in Italien klingen.
 ---
-
 Deutsch-italienische Sängerin, Songwriterin, Gesangspädagogin und Chorleiterin mit Wurzeln in
 Jazz, Pop und italienischer Liedkunst.
 
@@ -25,9 +24,11 @@ Bigband mitgearbeitet, bis sie 1995 ihr eigenes Trio gründete. 15 Jahre trat di
 Deutsch-Italienerin mit ihrem Trio auf, für das sie Songs und Texte in italienischer, englischer
 und deutscher Sprache schrieb.
 
-In ihrem späteren „Projekt 70“ ging sie zurück zu ihren musikalischen Wurzeln und widmete sich
-Songs aus den 70er Jahren. Heute arbeitet sie in Projekten mit Musikern der „Jazzfabryk“ sowie
-mit den Sängerinnen von „re:call“ zusammen.
+Mit den Sängerinnen von re:call veröffentlichte sie die CD „ Heart of Gold“ mit dreistimmigen Arrangements geliebter Songs.
+
+In ihrem späteren „Projekt 70“ ging sie zurück zu ihren musikalischen Wurzeln und widmete sich Songs aus den 70er Jahren, unterstützt von ihrer Band „ Francesca Simone and Friends“.
+
+Zur Zeit erarbeitet sie mit der Band ein Programm mit italienischen Canzoni.
 
 Mit wandlungsfähiger Stimme und ausdrucksstarker Gestik und Mimik gestaltet sie ihre Lieder auf
 eine Art, die inzwischen zum Stil herangereift ist. Francesca Simone studierte an der
