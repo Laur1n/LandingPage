@@ -18,10 +18,10 @@ links:
   - label: YouTube anhören
     url: https://www.youtube.com/watch?v=GeXVWCsDG4k
 flyers:
-  - label: Flyer Canzoni dall‘ Italia
-    file: /uploads/canzoni_flyer_digital_klein.pdf
   - label: Flyer Projekt 70.2
     file: /uploads/flyer-projekt-70-2.pdf
+  - label: Flyer Canzoni dall‘ Italia
+    file: /uploads/canzoni_flyer_digital_klein.pdf
   - label: Flyer Francesca Simone & Friends
     file: /uploads/flyer-francesca-simone-friends.pdf
 ---
