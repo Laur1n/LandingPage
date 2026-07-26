@@ -6,4 +6,4 @@ infoPdf: /uploads/cd-this-info.pdf
 coverImage: /uploads/cd-this-cover.jpg
 coverImageAlt: "CD-Cover: This & Jazz"
 ---
-erstes Album des Trios
+Erstes Album des Trios, erschienen 1997
