@@ -68,7 +68,7 @@ subpages:
   termineEyebrow: News & Termine
   projekteEyebrow: Projekte
   cdsEyebrow: CDs
-  projekteIntro: Von italienischen Chansons über Songs der 70er bis zu
+  projekteIntro: Von italienischen Canzoni über Songs der 70er bis zu
     mehrstimmigen Arrangements.
   termineIntro: Aktuelle und vergangene Termine
   unterrichtEyebrow: Unterricht & Stimme
