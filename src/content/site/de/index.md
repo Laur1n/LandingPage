@@ -35,9 +35,8 @@ sections:
   projekteEyebrow: Projekte
   cdsEyebrow: CDs
   unterrichtEyebrow: Unterricht
-  termineEmpty: Am 2.10.2026 um 19.30h ist Premiere des neuen Programms
-    „Italienische Canzoni“ in Lindlar mit Francesca Simone & Friends! ( siehe
-    Termine)
+  termineEmpty: Am 2.10.2026 um 19.30h ist Premiere des neuen Programms „Canzoni
+    dall‘ Italia“ in Lindlar mit Francesca Simone & Friends! ( siehe Termine)
   termineEmptyCtaLabel: Oder nehmen Sie direkt Kontakt auf.
 legalPages:
   eyebrow: Rechtliches
