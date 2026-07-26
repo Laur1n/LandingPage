@@ -1,7 +1,7 @@
 ---
 lang: de
 name: Francesca Simone & Friends
-order: 2
+order: 1
 programName: "„Italienische Canzoni“ "
 members:
   - name: Francesca Simone
