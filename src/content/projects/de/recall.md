@@ -18,7 +18,7 @@ flyers:
   - label: Flyer re:call
     file: /uploads/flyer-recall.pdf
 ---
-Mit Alexandra Naumann und Eva Mayerhofer zu singen machte große Freude — die Stimmen passenwunderbar zusammen. Unterstützt wurde das Ensemble von Gitarrist Johannes Behr. Zwischen 2013 und 2017 entstand
+Mit Alexandra Naumann und Eva Mayerhofer zu singen machte große Freude — die Stimmen passen wunderbar zusammen. Unterstützt wurde das Ensemble von Gitarrist Johannes Behr. Zwischen 2013 und 2017 entstand
 ein abwechslungsreiches Repertoire.
 
 CD: re:call – heart of gold
