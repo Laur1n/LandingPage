@@ -1,30 +1,29 @@
 ---
 lang: de
-title: "Canzoni italiane"
-subtitle: "Francesca Simone & Friends"
-intro: >-
-  Vertraute italienische Lieder, neu gehört: poetisch, vielschichtig und mit mediterranem Zauber.
-quote: >-
-  Es ist, als küsse Francesca Simone die alte Italo-Schnulze wach. Ach was, als hauche sie ihr
-  überhaupt das erste Leben ein.
-quoteAttribution: "A. Fasel"
-heroImage: "/uploads/program-canzoni-italiane.jpg"
-heroImageAlt: "Francesca Simone auf der Bühne — Programm Canzoni italiane"
-audioSample: "/uploads/canzoni-hoerprobe.mp3"
+title: Canzoni dall‘ Italia
+subtitle: Francesca Simone & Friends
+intro: "Vertraute italienische Lieder, neu gehört: poetisch, vielschichtig und
+  mit mediterranem Zauber."
+quote: Es ist, als küsse Francesca Simone die alte Italo-Schnulze wach. Ach was,
+  als hauche sie ihr überhaupt das erste Leben ein.
+quoteAttribution: A. Fasel
+heroImage: /uploads/program-canzoni-italiane.jpg
+heroImageAlt: Francesca Simone auf der Bühne — Programm Canzoni italiane
+audioSample: /uploads/canzoni-hoerprobe.mp3
 flyer:
-  label: "Projektflyer herunterladen"
-  file: "/uploads/flyer-canzoni-italiane.pdf"
+  label: Projektflyer herunterladen
+  file: /uploads/flyer-canzoni-italiane.pdf
 lineup:
-  - name: "Francesca Simone"
-    role: "Gesang"
-  - name: "Florian Offermann"
-    role: "Piano"
-  - name: "Axel Fabry"
-    role: "Gitarre / Bass"
-  - name: "Andreas Lasonczyk"
-    role: "Percussion / Drums"
-pitchHeading: "Ein Abend wie in Italien."
-pitchText: "Für Konzertveranstaltungen, Kulturprogramme und besondere Abende."
+  - name: Francesca Simone
+    role: Gesang
+  - name: Florian Offermann
+    role: Piano
+  - name: Axel Fabry
+    role: Gitarre / Bass
+  - name: Andreas Lasonczyk
+    role: Percussion / Drums
+pitchHeading: Ein Abend wie in Italien.
+pitchText: Für Konzertveranstaltungen, Kulturprogramme und besondere Abende.
 order: 1
 ---
 
