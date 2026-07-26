@@ -1,7 +1,7 @@
 ---
 lang: de
 name: re:call
-order: 3
+order: 2
 members:
   - name: Francesca Simone
     role: Gesang
