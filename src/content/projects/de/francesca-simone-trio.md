@@ -1,7 +1,7 @@
 ---
 lang: de
 name: Francesca Simone Trio
-order: 3
+order: 4
 photo: ""
 photoAlt: Francesca Simone bei einem Auftritt mit ihrem Trio
 links:
