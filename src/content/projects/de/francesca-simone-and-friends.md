@@ -18,7 +18,7 @@ links:
   - label: YouTube anhören
     url: https://www.youtube.com/watch?v=GeXVWCsDG4k
 flyers:
-  - label: Flyer Italienische Canzoni
+  - label: Flyer Canzoni dall‘ Italia
     file: /uploads/canzoni_flyer_digital_klein.pdf
   - label: Flyer Projekt 70.2
     file: /uploads/flyer-projekt-70-2.pdf
