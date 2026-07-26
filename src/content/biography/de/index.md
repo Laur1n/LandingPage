@@ -1,18 +1,18 @@
 ---
 lang: de
-name: "Francesca Simone"
-tagline: "Eine Stimme zwischen Jazz und mediterraner Poesie."
-portrait: "/uploads/portrait-1.jpg"
-portraitAlt: "Porträt von Francesca Simone"
-portraitVita: "/uploads/portrait-2.jpg"
-portraitVitaAlt: "Porträt von Francesca Simone"
+name: Francesca Simone
+tagline: Eine Stimme zwischen Jazz und mediterraner Poesie.
+portrait: /uploads/portrait-1.jpg
+portraitAlt: Porträt von Francesca Simone
+portraitVita: /uploads/portrait-2.jpg
+portraitVitaAlt: Porträt von Francesca Simone
 teaser: >-
-  Francesca Simone arbeitete in vielen Projekten vom Duo über A-cappella bis zur Bigband. Mit
-  ihrem eigenen Trio, mit „Francesca Simone & Friends“ und mit re:call gestaltet sie Lieder in
-  italienischer, englischer und deutscher Sprache.
-pullQuote: >-
-  Musik darf erinnern, verführen, trösten — und manchmal einfach nach einem Abend in Italien
-  klingen.
+  Francesca Simone arbeitete in vielen Projekten vom Duo über A-cappella bis zur
+  Bigband, mit  Liedern in italienischer, englischer und deutscher Sprache.
+
+  Aktuell arbeitet sie mit ihrer Band „Francesca Simone & Friends“ am Programm „Italienische Canzoni“.
+pullQuote: Musik darf erinnern, verführen, trösten — und manchmal einfach nach
+  einem Abend in Italien klingen.
 ---
 
 Deutsch-italienische Sängerin, Songwriterin, Gesangspädagogin und Chorleiterin mit Wurzeln in
