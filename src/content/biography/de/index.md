@@ -28,7 +28,7 @@ Mit den Sängerinnen von re:call veröffentlichte sie die CD „ Heart of Gold�
 
 In ihrem späteren „Projekt 70“ ging sie zurück zu ihren musikalischen Wurzeln und widmete sich Songs aus den 70er Jahren, unterstützt von ihrer Band „ Francesca Simone and Friends“.
 
-Zur Zeit erarbeitet sie mit der Band ein Programm mit italienischen Canzoni.
+Zur Zeit erarbeitet sie mit der Band ein Programm mit italienischen Songs.
 
 Mit wandlungsfähiger Stimme und ausdrucksstarker Gestik und Mimik gestaltet sie ihre Lieder auf
 eine Art, die inzwischen zum Stil herangereift ist. Francesca Simone studierte an der
@@ -36,7 +36,6 @@ Musikhochschule Köln Jazz- und Popgesang.
 
 ## Italienisch für Fortgeschrittene
 
-Auf ihrer CD belebt Francesca Simone Klassiker wie „Azzurro“ oder „Volare“ neu — nicht als
+Auf ihren CDs belebt Francesca Simone Klassiker wie „Azzurro“ oder „Volare“ neu — nicht als
 nostalgische Reproduktion, sondern als persönliche, poetische Interpretation. Die bekannten
-Melodien werden entschleunigt, verdichtet und mit einer Stimme erzählt, die Sehnsucht, Ironie und
-Wärme zugleich tragen kann.
+Melodien werden entschleunigt, verdichtet und mit einer Stimme erzählt, die Sehnsucht, Ironie und Wärme zugleich tragen kann.
