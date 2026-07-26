@@ -11,7 +11,7 @@ flyers:
   - label: Flyer Francesca Simone Trio
     file: /uploads/flyer-francesca-simone-trio.pdf
 ---
-
 Das Trio war über viele Jahre ein zentraler Bestandteil der musikalischen Arbeit von Francesca
-Simone — mit eigenen Songs, italienischen, englischen und deutschen Texten und einer intimen,
-wandlungsfähigen Besetzung.
+Simone — mit eigenen Songs, italienischen, englischen und deutschen Texten und einer intimen,wandlungsfähigen Besetzung.
+
+Das Trio hat 5 CDs veröffentlicht.
