@@ -5,6 +5,7 @@
  */
 import type { CollectionEntry } from "astro:content";
 import { DEFAULT_ENSEMBLE } from "../../lib/tour-dates";
+import { formatEventDate, formatEventTime } from "../../lib/format";
 import ExternalLink from "./ExternalLink.astro";
 
 interface Props {
@@ -14,16 +15,6 @@ interface Props {
 }
 
 const { dates, ticketLabel, externalLinkHint } = Astro.props;
-
-const dateFormatter = new Intl.DateTimeFormat("de-DE", {
-  day: "2-digit",
-  month: "2-digit",
-  year: "numeric",
-});
-const timeFormatter = new Intl.DateTimeFormat("de-DE", {
-  hour: "2-digit",
-  minute: "2-digit",
-});
 ---
 
 <ul class="date-list">
@@ -31,8 +22,8 @@ const timeFormatter = new Intl.DateTimeFormat("de-DE", {
     dates.map((entry) => (
       <li class="date-list__item" data-reveal>
         <time datetime={entry.data.date.toISOString()} class="date-list__date">
-          <span class="date-list__day">{dateFormatter.format(entry.data.date)}</span>
-          <span class="date-list__time">{timeFormatter.format(entry.data.date)} Uhr</span>
+          <span class="date-list__day">{formatEventDate(entry.data.date)}</span>
+          <span class="date-list__time">{formatEventTime(entry.data.date)} Uhr</span>
         </time>
         <div class="date-list__details">
           <p class="date-list__ensemble">{entry.data.ensemble ?? DEFAULT_ENSEMBLE}</p>
