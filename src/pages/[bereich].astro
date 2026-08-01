@@ -1,0 +1,199 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Prose from "../components/blocks/Prose.astro";
+import PullQuote from "../components/blocks/PullQuote.astro";
+import ExternalLink from "../components/blocks/ExternalLink.astro";
+import { getSiteTexts } from "../lib/site-texts";
+import { RESERVED_SLUGS } from "../lib/routes";
+
+export async function getStaticPaths() {
+  const offerings = await getCollection("offerings");
+  for (const entry of offerings) {
+    if ((RESERVED_SLUGS as readonly string[]).includes(entry.id)) {
+      throw new Error(
+        `Offering slug "${entry.id}" collides with a core page. Reserved: ${RESERVED_SLUGS.join(", ")}`,
+      );
+    }
+  }
+  return offerings.map((entry) => ({ params: { bereich: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { brand, offering: offeringTexts } = await getSiteTexts();
+const [contact] = await getCollection("contact");
+
+const emailHref = `mailto:${contact.data.email}?subject=${encodeURIComponent(
+  `${offeringTexts.emailSubjectPrefix} ${entry.data.title}`,
+)}`;
+---
+
+<BaseLayout title={`${entry.data.title} · ${brand}`} description={entry.data.intro}>
+  <header class="offering-hero">
+    <div class="container offering-hero__grid">
+      <div>
+        {
+          entry.data.subtitle && (
+            <p class="section-eyebrow" data-hero-line>
+              {entry.data.subtitle}
+            </p>
+          )
+        }
+        <h1 class="offering-hero__title" data-hero-line>{entry.data.title}</h1>
+        <p class="offering-hero__intro" data-hero-line>{entry.data.intro}</p>
+        <div class="offering-hero__actions" data-hero-line>
+          <a class="cta-pill" href="/kontakt/">
+            {entry.data.ctaLabel ?? offeringTexts.contactCtaLabel}
+          </a>
+        </div>
+      </div>
+      {
+        entry.data.heroImage && (
+          <figure class="offering-hero__figure">
+            <img
+              src={entry.data.heroImage}
+              alt={entry.data.heroImageAlt ?? ""}
+              loading="eager"
+              decoding="async"
+              data-program-hero-image
+            />
+          </figure>
+        )
+      }
+    </div>
+  </header>
+
+  {
+    entry.data.quote && (
+      <div class="container">
+        <PullQuote quote={entry.data.quote} attribution={entry.data.quoteAttribution} />
+      </div>
+    )
+  }
+
+  <div class="container">
+    <Prose>
+      <Content />
+    </Prose>
+  </div>
+
+  {
+    entry.data.links && entry.data.links.length > 0 && (
+      <div class="container offering-page__links" data-reveal>
+        <ul class="offering-page__link-list">
+          {entry.data.links.map((link) => (
+            <li>
+              <ExternalLink href={link.url} label={link.label} hint={offeringTexts.externalLinkHint} />
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+
+  {
+    (entry.data.pitchHeading || entry.data.pitchText) && (
+      <section class="offering-page__pitch" data-reveal>
+        <div class="container">
+          {entry.data.pitchHeading && (
+            <h2 class="offering-page__pitch-heading">{entry.data.pitchHeading}</h2>
+          )}
+          {entry.data.pitchText && <p class="offering-page__pitch-text">{entry.data.pitchText}</p>}
+          <div class="offering-page__pitch-actions">
+            <a class="cta-pill" href={emailHref}>
+              {offeringTexts.emailCtaLabel}
+            </a>
+          </div>
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .offering-hero {
+    padding-block: var(--space-4xl) var(--space-3xl);
+    overflow: clip;
+  }
+
+  .offering-hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: var(--space-3xl);
+    align-items: center;
+  }
+
+  .offering-hero__title {
+    font-size: var(--text-2xl);
+    max-width: 16ch;
+    text-wrap: balance;
+  }
+
+  .offering-hero__intro {
+    margin-top: var(--space-lg);
+    font-size: var(--text-lg);
+    color: var(--color-ink-muted);
+    max-width: 45ch;
+  }
+
+  .offering-hero__actions {
+    margin-top: var(--space-xl);
+  }
+
+  .offering-hero__figure {
+    margin: 0;
+  }
+
+  .offering-hero__figure img {
+    border-radius: 0.25rem;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+  }
+
+  .offering-page__links {
+    padding-block: var(--space-2xl);
+  }
+
+  .offering-page__link-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md) var(--space-xl);
+  }
+
+  .offering-page__pitch {
+    margin-top: var(--space-3xl);
+    padding-block: var(--space-3xl);
+    background: var(--color-evening);
+    color: var(--color-evening-contrast);
+  }
+
+  .offering-page__pitch-heading {
+    color: var(--color-evening-contrast);
+    font-size: var(--text-xl);
+  }
+
+  .offering-page__pitch-text {
+    margin-top: var(--space-md);
+    color: var(--color-evening-contrast);
+    opacity: 0.85;
+  }
+
+  .offering-page__pitch-actions {
+    margin-top: var(--space-xl);
+  }
+
+  @media (max-width: 56rem) {
+    .offering-hero__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .offering-hero__figure {
+      max-width: 24rem;
+    }
+  }
+</style>

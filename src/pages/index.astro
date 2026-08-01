@@ -1,16 +1,13 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Vita from "../components/sections/Vita.astro";
-import Projekte from "../components/sections/Projekte.astro";
-import Termine from "../components/sections/Termine.astro";
-import CDs from "../components/sections/CDs.astro";
-import Unterricht from "../components/sections/Unterricht.astro";
+import Bereiche from "../components/sections/Bereiche.astro";
+import About from "../components/sections/About.astro";
 import Kontakt from "../components/sections/Kontakt.astro";
 import PullQuote from "../components/blocks/PullQuote.astro";
 import { getSiteTexts } from "../lib/site-texts";
 
-const [biography] = await getCollection("biography");
+const [about] = await getCollection("about");
 const { seoTitle, seoDescription, hero } = await getSiteTexts();
 ---
 
@@ -21,10 +18,10 @@ const { seoTitle, seoDescription, hero } = await getSiteTexts();
         <p class="hero__welcome" data-hero-line>{hero.welcome}</p>
         <h1 class="hero__name" data-hero-line>{hero.name}</h1>
         <p class="hero__role" data-hero-line>{hero.role}</p>
-        <p class="hero__intro" data-hero-line>{biography.data.tagline}</p>
+        <p class="hero__intro" data-hero-line>{about.data.tagline}</p>
         <div class="hero__actions" data-hero-line>
           <a class="cta-pill" href="/kontakt/">{hero.primaryCtaLabel}</a>
-          <a class="hero__cta--secondary" href="/projekte/">{hero.secondaryCtaLabel}</a>
+          <a class="hero__cta--secondary" href="#bereiche">{hero.secondaryCtaLabel}</a>
         </div>
       </div>
       <figure class="hero__figure">
@@ -40,20 +37,17 @@ const { seoTitle, seoDescription, hero } = await getSiteTexts();
     </div>
   </section>
 
-  <Vita />
+  <Bereiche />
 
   {
-    biography.data.pullQuote && (
+    about.data.pullQuote && (
       <div class="container" data-scene="quote-scene">
-        <PullQuote quote={biography.data.pullQuote} />
+        <PullQuote quote={about.data.pullQuote} />
       </div>
     )
   }
 
-  <Projekte />
-  <Termine />
-  <CDs />
-  <Unterricht />
+  <About />
   <Kontakt />
 </BaseLayout>
 

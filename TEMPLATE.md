@@ -37,8 +37,9 @@ One-time manual setup outside the codebase — [`docs/cms-auth-setup.md`](docs/c
 | Area | Location |
 | --- | --- |
 | Global labels, hero, nav, footer, SEO | `src/content/site/de/index.md` (via CMS: Website-Texte) |
-| Biography | `src/content/biography/de/` |
-| Projects, programs, tour dates, CDs, teaching, contact | matching folders under `src/content/` |
+| Über mich | `src/content/about/de/index.md` |
+| Cue Pilot, Sportlehrer, Aufgussmeister, … | `src/content/offerings/de/*.md` |
+| Kontakt | `src/content/contact/de/index.md` |
 | Legal | `src/content/legal/de/` |
 | Images, PDFs, audio | `public/uploads/` |
 

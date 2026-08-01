@@ -1,33 +1,23 @@
 ---
 lang: de
 title: Impressum
-lastUpdated: 2026-07-24
+lastUpdated: 2026-08-01
 ---
-**Angaben gemäß § 5 TMG**
 
-francesca-simone.com ist die Internetpräsenz von
+## Angaben gemäß § 5 TMG
 
-Francesca Simone
-Im Winkel 6
-51789 Lindlar
+**Laurin Wünsch**  
+_[Straße und Hausnummer ergänzen]_  
+_[PLZ Ort ergänzen]_
 
-**Kontakt**
+## Kontakt
 
-E-Mail: francesca-simone@onlinehome.de
-Telefon: +49 (0) 2266 / 46 30 25;                Mobil: +49 (0)162-8292323
+E-Mail: _[E-Mail ergänzen]_
 
-**Urheberrecht / Haftung**
+## Verantwortlich für den Inhalt
 
-Der Inhalt dieser Internetpräsenz ist urheberrechtlich geschützt. Alle Rechte sind vorbehalten,
-auch die der Übersetzung, des Nachdrucks und der Vervielfältigung des Inhalts oder Teilen daraus.
+Laurin Wünsch, Anschrift wie oben.
 
-Für Links und/oder nicht von Francesca Simone verfasste Inhalte wird keinerlei Haftung
-übernommen. Es wird sich ausdrücklich von Inhalt und Gestaltung fremdverlinkter Seiten
-distanziert.
+## Haftungshinweis
 
-**Bildnachweis & Gestaltung**
-
-Fotos: Dorina Köbele-Milas, Jörg Mehlhorn\
-Webdesign: Jörg Mehlhorn.
-
-© 2016 / aktualisierte Fassung 2026
+Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.

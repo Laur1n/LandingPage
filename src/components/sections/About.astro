@@ -3,43 +3,42 @@ import { getCollection } from "astro:content";
 import { getSiteTexts } from "../../lib/site-texts";
 import TeaserCta from "../blocks/TeaserCta.astro";
 
-// Landing teaser (hybrid IA): short excerpt + link — the full Kurzvita lives on /vita/.
-const [entry] = await getCollection("biography");
+const [entry] = await getCollection("about");
 const { sections, teasers } = await getSiteTexts();
 ---
 
-<section id="vita" class="vita">
-  <div class="container vita__grid">
-    <div class="vita__portrait" data-scene="portrait-parallax">
+<section id="ueber-mich" class="about">
+  <div class="container about__grid">
+    <div class="about__portrait" data-scene="portrait-parallax">
       <img src={entry.data.portrait} alt={entry.data.portraitAlt} loading="lazy" decoding="async" />
     </div>
-    <div class="vita__text" data-reveal>
-      <p class="vita__eyebrow">{sections.vitaEyebrow}</p>
-      <h2 class="vita__heading">{entry.data.tagline}</h2>
-      <p class="vita__teaser">{entry.data.teaser}</p>
-      <TeaserCta href="/vita/" label={teasers.vitaCtaLabel} />
+    <div class="about__text" data-reveal>
+      <p class="about__eyebrow">{sections.aboutEyebrow}</p>
+      <h2 class="about__heading">{sections.aboutHeading}</h2>
+      <p class="about__teaser">{entry.data.teaser}</p>
+      <TeaserCta href="/ueber-mich/" label={teasers.aboutCtaLabel} />
     </div>
   </div>
 </section>
 
 <style>
-  .vita {
+  .about {
     padding-block: var(--space-4xl);
   }
 
-  .vita__grid {
+  .about__grid {
     display: grid;
     grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
     gap: var(--space-3xl);
     align-items: center;
   }
 
-  .vita__portrait img {
+  .about__portrait img {
     border-radius: 0.25rem;
     width: 100%;
   }
 
-  .vita__eyebrow {
+  .about__eyebrow {
     text-transform: uppercase;
     letter-spacing: 0.12em;
     font-size: var(--text-sm);
@@ -48,25 +47,23 @@ const { sections, teasers } = await getSiteTexts();
     margin-bottom: var(--space-sm);
   }
 
-  .vita__heading {
+  .about__heading {
     font-size: var(--text-xl);
-    font-style: italic;
-    font-weight: 400;
     margin-bottom: var(--space-xl);
-    max-width: 20ch;
+    max-width: 24ch;
   }
 
-  .vita__teaser {
+  .about__teaser {
     color: var(--color-ink-muted);
     font-size: var(--text-lg);
   }
 
   @media (max-width: 56rem) {
-    .vita__grid {
+    .about__grid {
       grid-template-columns: 1fr;
     }
 
-    .vita__portrait {
+    .about__portrait {
       max-width: 20rem;
     }
   }

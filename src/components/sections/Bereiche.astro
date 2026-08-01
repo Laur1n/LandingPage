@@ -1,0 +1,88 @@
+---
+import { getCollection } from "astro:content";
+import { getSiteTexts } from "../../lib/site-texts";
+import TeaserCta from "../blocks/TeaserCta.astro";
+
+const { sections, teasers } = await getSiteTexts();
+const entries = (await getCollection("offerings")).sort(
+  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99),
+);
+---
+
+<section id="bereiche" class="bereiche">
+  <div class="container">
+    <p class="section-eyebrow">{sections.offeringsEyebrow}</p>
+    <h2 class="section-heading">{sections.offeringsHeading}</h2>
+    <ol class="bereiche__list">
+      {
+        entries.map((entry, index) => (
+          <li class="bereiche__item" data-reveal>
+            <span class="index-numeral" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <div>
+              <h3 class="bereiche__name">
+                <a href={`/${entry.id}/`}>{entry.data.title}</a>
+              </h3>
+              <p class="bereiche__excerpt">{entry.data.teaser}</p>
+              <TeaserCta
+                href={`/${entry.id}/`}
+                label={entry.data.ctaLabel ?? `Mehr zu ${entry.data.title}`}
+              />
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .bereiche {
+    padding-block: var(--space-4xl);
+    background: var(--color-surface-raised);
+  }
+
+  .bereiche__list {
+    list-style: none;
+    margin: var(--space-2xl) 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0;
+  }
+
+  .bereiche__item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-lg);
+    padding-block: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .bereiche__name {
+    font-size: var(--text-lg);
+    font-weight: 500;
+    margin-bottom: var(--space-sm);
+  }
+
+  .bereiche__name a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .bereiche__name a:hover,
+  .bereiche__name a:focus-visible {
+    color: var(--color-accent);
+  }
+
+  .bereiche__excerpt {
+    color: var(--color-ink-muted);
+    margin: 0 0 var(--space-md);
+  }
+
+  @media (max-width: 56rem) {
+    .bereiche__item {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

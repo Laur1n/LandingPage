@@ -5,36 +5,22 @@ alwaysApply: true
 
 # Decap CMS — agent-maintained content
 
-The user expects the agent to **update site content** on request. Do this by editing the Markdown/YAML
-files under `src/content/` and media under `public/uploads/` — the same files Decap CMS manages
-at `/admin/`.
+The user expects the agent to **update site content** on request. Edit Markdown/YAML under
+`src/content/` and media under `public/uploads/` — the same files Decap CMS manages at `/admin/`.
 
-## Workflow
-
-1. Read the relevant collection schema in `src/content.config.ts` and matching fields in
-   `public/admin/config.yml`.
-2. Edit content in `src/content/<collection>/de/` (and `public/uploads/` for new media).
-3. Match existing frontmatter field names exactly — parity is enforced by `tests/unit/cms-config-parity.test.ts`.
-4. Commit and push to `main` when the user wants it live (triggers GitHub Actions deploy).
-
-## Collections (CMS labels → folder)
+## Collections (CMS → path)
 
 | CMS section | Content path |
 | --- | --- |
 | Website-Texte | `src/content/site/de/index.md` |
-| Vita | `src/content/biography/de/index.md` |
-| Projekte | `src/content/projects/de/*.md` |
-| Programme | `src/content/programs/de/*.md` |
-| Termine | `src/content/tour-dates/de/*.md` |
-| CDs | `src/content/discography/de/*.md` |
-| Unterricht | `src/content/teaching/de/index.md` |
+| Über mich | `src/content/about/de/index.md` |
+| Bereiche | `src/content/offerings/de/*.md` (Cue Pilot, Sportlehrer, Aufgussmeister, …) |
 | Kontakt | `src/content/contact/de/index.md` |
 | Rechtliches | `src/content/legal/de/*.md` |
 
-## DecapBridge / git-gateway
+Each offering entry becomes a public page at `/<slug>/` (e.g. `/cue-pilot/`).
 
-Production auth uses DecapBridge (`public/admin/config.yml`). The agent does not log into `/admin/`
-— it writes content files directly, which is equivalent to a CMS publish after push.
+Field names must match `src/content.config.ts` and `public/admin/config.yml` — see
+`tests/unit/cms-config-parity.test.ts`.
 
-Auth setup reference: `docs/cms-auth-setup.md`. Change `backend.*` credentials only when setting up
-a new deployment or when the user asks.
+Commit and push to `main` when the user wants changes live.

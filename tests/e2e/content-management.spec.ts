@@ -20,14 +20,7 @@ test.describe("Content management contract (User Story 3)", () => {
     const config = parse(await response.text());
     const collectionNames = config.collections.map((c: { name: string }) => c.name);
 
-    for (const expected of [
-      "biography",
-      "projects",
-      "discography",
-      "teaching",
-      "contact",
-      "legal",
-    ]) {
+    for (const expected of ["about", "offerings", "contact", "legal", "site"]) {
       expect(collectionNames).toContain(expected);
     }
 
@@ -166,15 +159,10 @@ test.describe("Content management contract (User Story 3)", () => {
     }
   });
 
-  test("discography content renders on the public CDs section", async ({ page }) => {
-    await page.goto("/#cds");
-    await expect(page.getByRole("heading", { name: "Diskografie" })).toBeVisible();
-  });
-
-  test("all three projects render on the public Projekte section", async ({ page }) => {
-    await page.goto("/#projekte");
-    await expect(page.getByRole("heading", { name: "Francesca Simone & Friends" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "re:call" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Francesca Simone Trio" })).toBeVisible();
+  test("offerings render on the public homepage", async ({ page }) => {
+    await page.goto("/#bereiche");
+    await expect(page.getByRole("heading", { name: "Cue Pilot" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Sportlehrer" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Aufgussmeister" })).toBeVisible();
   });
 });

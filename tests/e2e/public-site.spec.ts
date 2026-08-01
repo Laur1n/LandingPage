@@ -1,44 +1,30 @@
 import { test, expect } from "@playwright/test";
 
-// User Story 1 — SC-001: every baseline section from the current site must be present and
-// reachable on the new site, on both desktop and mobile, with no login required.
 const sections = [
-  { id: "start", heading: /Francesca Simone/ },
-  { id: "vita", heading: /Eine Stimme zwischen Jazz/ },
-  { id: "projekte", heading: /Auf der Bühne/ },
-  { id: "termine", heading: /Nächste Konzerte/ },
-  { id: "cds", heading: /Diskografie/ },
-  { id: "unterricht", heading: /Gesang & Stimmarbeit/ },
-  { id: "kontakt", heading: /Konzert anfragen/ },
+  { id: "start", heading: /Laurin Wünsch/ },
+  { id: "bereiche", heading: /Was ich anbiete/ },
+  { id: "ueber-mich", heading: /Persönlich & professionell/ },
+  { id: "kontakt", heading: /Sprechen wir über Ihr Projekt/ },
 ];
 
-test.describe("Public portfolio site (User Story 1)", () => {
-  // 002: scroll reveals would keep below-fold sections hidden until scrolled into view;
-  // reduced-motion emulation shows everything immediately (motion covered in motion.spec.ts).
+test.describe("Public site", () => {
   test.beforeEach(async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
   });
 
-  test("every baseline section is present and reachable from the homepage", async ({ page }) => {
+  test("homepage sections are present", async ({ page }) => {
     await page.goto("/");
 
     for (const section of sections) {
-      const locator = page.locator(`#${section.id}`);
-      await expect(locator).toBeAttached();
+      await expect(page.locator(`#${section.id}`)).toBeAttached();
     }
 
-    await expect(page.getByRole("heading", { name: /Eine Stimme zwischen Jazz/ })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Nächste Konzerte" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Diskografie" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Cue Pilot" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Sportlehrer" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Aufgussmeister" })).toBeVisible();
   });
 
-  test("upcoming tour date is visible with venue, date, and location", async ({ page }) => {
-    await page.goto("/#termine");
-    await expect(page.getByText("Jubilate Forum Lindlar")).toBeVisible();
-    await expect(page.getByText("02.10.2026")).toBeVisible();
-  });
-
-  test("Impressum and Datenschutz pages are reachable from the footer", async ({ page }) => {
+  test("Impressum and Datenschutz are reachable from the footer", async ({ page }) => {
     await page.goto("/");
     await page.getByRole("link", { name: "Impressum" }).click();
     await expect(page).toHaveURL(/\/impressum/);
@@ -52,20 +38,24 @@ test.describe("Public portfolio site (User Story 1)", () => {
 
   test("admin surface is not linked from public navigation", async ({ page }) => {
     await page.goto("/");
-    const adminLinks = page.locator('a[href*="/admin"]');
-    await expect(adminLinks).toHaveCount(0);
+    await expect(page.locator('a[href*="/admin"]')).toHaveCount(0);
   });
 
-  test("public pages do not redirect away on localhost", async ({ page }) => {
-    await page.goto("/impressum");
-    await expect(page).toHaveURL(/\/impressum/);
-    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  test("offering pages load", async ({ page }) => {
+    await page.goto("/cue-pilot/");
+    await expect(page.getByRole("heading", { level: 1, name: "Cue Pilot" })).toBeVisible();
+
+    await page.goto("/sportlehrer/");
+    await expect(page.getByRole("heading", { level: 1, name: "Sportlehrer" })).toBeVisible();
+
+    await page.goto("/aufgussmeister/");
+    await expect(page.getByRole("heading", { level: 1, name: "Aufgussmeister" })).toBeVisible();
   });
 
-  test("navigation and content remain usable on a mobile viewport", async ({ page }) => {
+  test("navigation works on mobile viewport", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
-    await expect(page.getByRole("heading", { name: "Francesca Simone", level: 1 })).toBeVisible();
-    // No horizontal scroll: document width should not exceed the viewport width.
+    await expect(page.getByRole("heading", { name: "Laurin Wünsch", level: 1 })).toBeVisible();
     const hasHorizontalOverflow = await page.evaluate(
       () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
     );

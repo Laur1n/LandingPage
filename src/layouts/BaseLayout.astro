@@ -52,7 +52,7 @@ const { skipLinkLabel } = await getSiteTexts();
     <script>
       if (
         window.matchMedia("(prefers-reduced-motion: no-preference)").matches &&
-        document.querySelector("[data-reveal], [data-scene], [data-hero-line], [data-cd-card]")
+        document.querySelector("[data-reveal], [data-scene], [data-hero-line]")
       ) {
         import("../scripts/scroll-story");
       }

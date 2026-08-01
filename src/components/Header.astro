@@ -3,17 +3,12 @@ import { getSiteTexts } from "../lib/site-texts";
 
 const { brand, nav } = await getSiteTexts();
 
-// Public site navigation. MUST NOT link to /admin (Constitution III / FR-014) —
-// the admin surface is reached only by typing the URL directly. Labels are editable in the
-// CMS; the paths stay in code so a renamed label can never break a link.
-// 002 (hybrid IA): absolute subpage paths so navigation works from any route depth.
 const navItems = [
   { href: "/", label: nav.start },
-  { href: "/vita/", label: nav.vita },
-  { href: "/projekte/", label: nav.projekte },
-  { href: "/termine/", label: nav.termine },
-  { href: "/cds/", label: nav.cds },
-  { href: "/unterricht/", label: nav.unterricht },
+  { href: "/cue-pilot/", label: nav.cuePilot },
+  { href: "/sportlehrer/", label: nav.sportlehrer },
+  { href: "/aufgussmeister/", label: nav.aufgussmeister },
+  { href: "/ueber-mich/", label: nav.ueberMich },
   { href: "/kontakt/", label: nav.kontakt },
 ];
 
@@ -92,7 +87,7 @@ const currentPath = Astro.url.pathname.replace(/\/?$/, "/");
     color: var(--color-accent);
   }
 
-  @media (max-width: 40rem) {
+  @media (max-width: 48rem) {
     .site-header__inner {
       flex-direction: column;
       align-items: flex-start;

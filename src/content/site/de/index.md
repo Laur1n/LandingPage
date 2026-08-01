@@ -1,95 +1,55 @@
 ---
 lang: de
-seoTitle: Francesca Simone - Sängerin, Songwriterin, Gesangspädagogin, Chorleiterin
-seoDescription: Francesca Simone verbindet italienische Leichtigkeit, Jazz- und
-  Pop-Sensibilität und eine ausdrucksstarke Bühnenpräsenz zu Konzerten, die
-  berühren.
-brand: Francesca Simone
+seoTitle: Laurin Wünsch — IT-Berater · Cue Pilot · Sportlehrer · Aufgussmeister
+seoDescription: Persönliche Website von Laurin Wünsch — IT-Beratung, Cue Pilot App für Fitness-Instruktoren, freiberuflicher Sportunterricht und Aufgussmeister.
+brand: Laurin Wünsch
 skipLinkLabel: Zum Inhalt springen
 nav:
   start: Start
-  vita: Vita
-  projekte: Projekte
-  termine: Termine
-  cds: CDs
-  unterricht: Unterricht
+  cuePilot: Cue Pilot
+  sportlehrer: Sportlehrer
+  aufgussmeister: Aufgussmeister
+  ueberMich: Über mich
   kontakt: Kontakt
 hero:
-  welcome: Willkommen · Benvenuti
-  name: Francesca Simone
-  role: Sängerin · Songwriterin · Gesangspädagogin . Chorleiterin
-  primaryCtaLabel: Konzert anfragen
-  secondaryCtaLabel: Projekte entdecken
-  image: /uploads/hero.jpg
-  imageAlt: Francesca Simone auf der Bühne
+  welcome: Willkommen
+  name: Laurin Wünsch
+  role: IT-Berater · Sportlehrer · Aufgussmeister
+  primaryCtaLabel: Kontakt aufnehmen
+  secondaryCtaLabel: Bereiche entdecken
+  image: /uploads/francesca-portrait-placeholder.svg
+  imageAlt: Laurin Wünsch
 sections:
-  kontaktHeading: Konzert anfragen, Unterricht buchen, einfach schreiben.
+  offeringsEyebrow: Schwerpunkte
+  offeringsHeading: Was ich anbiete
+  aboutEyebrow: Über mich
+  aboutHeading: Persönlich & professionell
   kontaktEyebrow: Kontakt
-  vitaEyebrow: Vita
-  projekteHeading: Auf der Bühne
-  termineHeading: Nächste Konzerte
-  cdsHeading: Diskografie
-  unterrichtHeading: Gesang & Stimmarbeit
-  termineTicketLabel: Details / Tickets
-  termineEyebrow: Termine
-  projekteEyebrow: Projekte
-  cdsEyebrow: CDs
-  unterrichtEyebrow: Unterricht
-  termineEmpty: Am 2.10.2026 um 19.30h ist Premiere des neuen Programms „Canzoni
-    dall‘ Italia“ in Lindlar mit Francesca Simone & Friends! ( siehe Termine)
-  termineEmptyCtaLabel: Oder nehmen Sie direkt Kontakt auf.
+  kontaktHeading: Sprechen wir über Ihr Projekt.
 legalPages:
   eyebrow: Rechtliches
   updatedLabel: Zuletzt aktualisiert
-  impressumDescription: Impressum von Francesca Simone
-  datenschutzDescription: Datenschutzerklärung von Francesca Simone
+  impressumDescription: Impressum — Laurin Wünsch
+  datenschutzDescription: Datenschutzerklärung — Laurin Wünsch
 footer:
-  tagline: Francesca Simone — Sängerin · Songwriterin · Gesangspädagogin · Chorleiterin
-  copyright: Francesca Simone
+  tagline: Laurin Wünsch — IT-Berater · Sportlehrer · Aufgussmeister
+  copyright: Laurin Wünsch
 teasers:
-  vitaCtaLabel: Zur Vita
-  projekteCtaLabel: Alle Projekte
-  termineCtaLabel: Alle Termine
-  cdsCtaLabel: Alle CDs
-  unterrichtCtaLabel: Unterricht ansehen
+  aboutCtaLabel: Mehr über mich
+  offeringsCtaLabel: Alle Bereiche
   kontaktCtaLabel: Kontakt aufnehmen
-  programCtaLabel: „Canzoni dall‘Italia“ entdecken
 subpages:
-  vitaHeading: Francesca Simone
-  kontaktHeading: Anfragen & Buchungen.
-  projekteProgramLabel: Aktuelles Programm
+  aboutEyebrow: Über mich
+  aboutHeading: Laurin Wünsch
   kontaktEyebrow: Kontakt
-  vitaEyebrow: Vita
-  projekteHeading: Programme mit Charakter.
-  termineHeading: Live erleben.
-  cdsHeading: Musik zum Mitnehmen.
-  unterrichtHeading: Die eigene Stimme entdecken.
-  termineEyebrow: News & Termine
-  projekteEyebrow: Projekte
-  cdsEyebrow: CDs
-  projekteIntro: Von italienischen Canzoni über Songs der 70er bis zu
-    mehrstimmigen Arrangements.
-  termineIntro: Aktuelle und vergangene Termine
-  unterrichtEyebrow: Unterricht & Stimme
-  cdsIntro: Cover und Beschreibungen der vorhandenen CD-Veröffentlichungen.
-  unterrichtIntro: Gesang, Stimmarbeit, Chorleitung, Workshops und Klangarbeit —
-    für Anfänger, Fortgeschrittene, Gruppen und Teams.
-archive:
-  heading: Vergangene Termine
-  empty: Noch keine vergangenen Termine.
-downloads:
-  infoPdfLabel: Info-PDF
-  externalLinkHint: öffnet externe Seite
-  audioLabel: Hörprobe
-program:
-  lineupHeading: Besetzung
-  bookingCtaLabel: Konzert anfragen
+  kontaktHeading: Anfragen & Zusammenarbeit
+offering:
+  contactCtaLabel: Anfrage senden
   emailCtaLabel: E-Mail schreiben
-  flyerCtaLabel: Projektflyer herunterladen
   emailSubjectPrefix: Anfrage
+  externalLinkHint: öffnet externe Seite
 contactLabels:
   phone: Telefon
   mobile: Mobil
   email: E-Mail
   location: Ort
----

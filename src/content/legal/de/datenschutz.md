@@ -1,26 +1,25 @@
 ---
 lang: de
-title: Datenschutz
-lastUpdated: 2026-07-23
+title: Datenschutzerklärung
+lastUpdated: 2026-08-01
 ---
-**Verantwortliche**
 
-Francesca Simone, siehe [Impressum](/impressum).
+## Hinweis
 
-**Datenerhebung auf dieser Website**
+Diese Datenschutzerklärung ist ein **Platzhalter** und muss vor dem produktiven Einsatz an Ihre tatsächliche Website angepasst und rechtlich geprüft werden.
 
-Diese Website ist als statische Seite konzipiert und bindet standardmäßig keine Analyse- oder
-Tracking-Dienste ein. Kontaktaufnahme erfolgt ausschließlich über die auf der Kontaktseite
-angegebene E-Mail-Adresse bzw. Telefonnummer — es werden keine Formulardaten auf dieser Website
-gespeichert oder verarbeitet.
+## Verantwortlicher
 
-**Hosting**
+Laurin Wünsch — Kontaktdaten siehe [Impressum](/impressum/).
 
-Diese Website wird über einen externen Hosting-Anbieter bereitgestellt, der beim Seitenaufruf
-technisch notwendige Server-Logdaten (z. B. IP-Adresse, Zeitpunkt des Zugriffs) verarbeiten kann.
+## Hosting
 
-**Ihre Rechte**
+Diese Website wird als statische Seite über **GitHub Pages** ausgeliefert. Beim Aufruf können technisch notwendige Daten (z. B. IP-Adresse, Zeitpunkt) in Server-Logdateien verarbeitet werden.
 
-Sie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der
-Verarbeitung Ihrer personenbezogenen Daten sowie ein Beschwerderecht bei einer
-Datenschutz-Aufsichtsbehörde.
+## Kontaktformular / E-Mail
+
+Wenn Sie per E-Mail Kontakt aufnehmen, verarbeiten wir Ihre Angaben zur Bearbeitung der Anfrage.
+
+## Ihre Rechte
+
+Sie haben Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung und Widerspruch — im Rahmen der gesetzlichen Vorgaben.
