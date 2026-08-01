@@ -21,18 +21,11 @@ to replace, not as part of the template itself.
 | --- | --- |
 | `astro.config.mjs` | `site` — canonical URL (custom domain or `https://<user>.github.io/<repo>`) |
 | `public/CNAME` | Custom domain when DNS is ready (omit until then) |
-| `public/admin/config.yml` | `site_url` — where editors click "View site" from the CMS |
+| `public/admin/config.yml` | `site_url` and git-gateway backend — see [`docs/cms-auth-setup.md`](docs/cms-auth-setup.md) |
 
-### 3. Wire up Decap CMS (DecapBridge)
+### 3. Wire up CMS authentication
 
-1. Register a new site at [decapbridge.com](https://decapbridge.com/docs).
-2. Connect it to **your** GitHub repo (`backend.repo`, `branch: main`).
-3. Paste `identity_url` and `gateway_url` into `public/admin/config.yml`.
-4. Create a GitHub personal access token with **Contents: Read and write** and **Pull requests: Read and write**; add it in DecapBridge.
-5. Invite the content editor by email — they never need GitHub access.
-
-See [`specs/001-francesca-portfolio-site/contracts/decap-cms-config.md`](specs/001-francesca-portfolio-site/contracts/decap-cms-config.md)
-for the full CMS contract (collections, editorial workflow, preview behaviour).
+One-time manual setup outside the codebase — [`docs/cms-auth-setup.md`](docs/cms-auth-setup.md).
 
 ### 4. Enable GitHub Pages
 
@@ -66,7 +59,7 @@ Hanken Grotesk, warm terracotta palette). For a different brand:
 
 - [ ] Impressum and Datenschutz completed in CMS (not placeholders)
 - [ ] `astro.config.mjs` `site` matches live domain
-- [ ] DecapBridge connected to the correct repo
+- [ ] CMS auth configured — [`docs/cms-auth-setup.md`](docs/cms-auth-setup.md)
 - [ ] GitHub Pages deploy succeeds (`Actions` tab)
 - [ ] `/admin/` login works for the editor
 - [ ] Run `npm run build && npm run test:e2e` locally

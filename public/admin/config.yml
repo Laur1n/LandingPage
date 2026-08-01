@@ -1,10 +1,8 @@
-# Decap CMS configuration for this template deployment.
-# See specs/001-francesca-portfolio-site/contracts/decap-cms-config.md for the full contract.
-# When forking the template: update backend.repo, identity_url, and site_url for the new site.
-# Hosting is GitHub Pages (.github/workflows/deploy.yml); DecapBridge talks to the GitHub repo
-# directly regardless of where the built site is served from.
+# Decap CMS configuration — collections, fields, and editorial workflow for this template.
+# See specs/001-francesca-portfolio-site/contracts/decap-cms-config.md for the contract.
+# git-gateway backend credentials (repo, identity_url, gateway_url) are deployment-specific —
+# configured once manually; see docs/cms-auth-setup.md. Do not change unless setting up a new site.
 
-# Use DecapBridge classic auth (required)
 backend:
   name: git-gateway
   repo: Laur1n/LandingPage
@@ -12,19 +10,14 @@ backend:
   identity_url: https://auth.decapbridge.com/sites/e380cd0b-df6a-4278-963b-8eb57fc3bab9
   gateway_url: https://gateway.decapbridge.com
 
-  # See who did what (optional)
   commit_messages:
-    create: Create {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge
-    update: Update {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge
-    delete: Delete {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge
-    uploadMedia: Upload "{{path}}" - {{author-name}} <{{author-login}}> via DecapBridge
-    deleteMedia: Delete "{{path}}" - {{author-name}} <{{author-login}}> via DecapBridge
-    openAuthoring: Message {{message}} - {{author-name}} <{{author-login}}> via DecapBridge
+    create: Create {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}>
+    update: Update {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}>
+    delete: Delete {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}>
+    uploadMedia: Upload "{{path}}" - {{author-name}} <{{author-login}}>
+    deleteMedia: Delete "{{path}}" - {{author-name}} <{{author-login}}>
+    openAuthoring: Message {{message}} - {{author-name}} <{{author-login}}>
 
-# Better Decap + Bridge logo (optional)
-logo_url: https://decapbridge.com/decapcms-with-bridge.svg
-
-# Add site links in Decap CMS (optional)
 site_url: https://laur1n.github.io/LandingPage
 
 # FR-018/FR-019: save -> preview -> publish, rather than saves going straight to the live

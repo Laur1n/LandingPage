@@ -1,0 +1,16 @@
+---
+description: CMS git-gateway auth is manual external setup — do not touch unless asked
+globs: public/admin/config.yml
+alwaysApply: false
+---
+
+# CMS auth is outside agent scope
+
+`public/admin/config.yml` contains two different concerns:
+
+1. **Template code** (collections, fields, `publish_mode`, media paths) — safe to edit when extending the CMS schema.
+2. **Deployment credentials** (`backend.repo`, `identity_url`, `gateway_url`, `site_url`) — configured once manually via the auth provider dashboard.
+
+Do **not** change deployment credentials, invite users, or troubleshoot auth unless the user explicitly asks.
+
+Setup steps for humans live in `docs/cms-auth-setup.md`. Do not duplicate DecapBridge site IDs, tokens, or provider-specific URLs in README, rules, or `.env` files.

@@ -6,8 +6,7 @@ involvement for day-to-day content updates**.
 
 Every word, image, date, project, program page, and legal notice on the public site comes from
 Markdown/YAML under `src/content/`, edited through [Decap CMS](https://decapcms.org) at `/admin/`
-and authenticated via [DecapBridge](https://decapbridge.com). The site owner never needs a GitHub
-account.
+via a git-gateway backend. The site owner never needs a GitHub account.
 
 **Reference deployment:** [Francesca Simone](https://laur1n.github.io/LandingPage/) — the seeded
 content in this repository is her real portfolio data, kept as a working example of what the
@@ -43,7 +42,7 @@ npm install
 npm run dev          # site at http://localhost:4321
 ```
 
-To try the content-editing experience locally without a live GitHub/DecapBridge connection, set
+To try the content-editing experience locally without a live git-gateway connection, set
 `local_backend: true` in `public/admin/config.yml` temporarily and run `npx decap-server`
 alongside `npm run dev` — this lets Decap CMS read/write `src/content/` directly on disk. **Do
 not commit `local_backend: true`** — it must stay off in the deployed config.
@@ -64,8 +63,7 @@ need to run `build`/`preview` first.
 
 ## One-time deployment setup (per site)
 
-These steps happen outside this codebase, in GitHub's and DecapBridge's own settings, and only
-need doing once per deployment:
+These steps happen outside this codebase and only need doing once per deployment:
 
 1. **Create a repository from this template** (GitHub → "Use this template") or fork it. GitHub
    Pages' free tier requires a **public** repository.
@@ -77,21 +75,15 @@ need doing once per deployment:
    Then, in repo Settings → Pages → Custom domain, enter the domain. Add `public/CNAME` and update
    the `site` value in `astro.config.mjs` to match. Until a custom domain is live, keep `site` on
    the GitHub Pages project URL (e.g. `https://laur1n.github.io/LandingPage`).
-4. **Register the site with [DecapBridge](https://decapbridge.com/docs)** and invite the content
-   editor by email. Paste the `identity_url`, `gateway_url`, and `repo` into
-   `public/admin/config.yml`. See [`TEMPLATE.md`](TEMPLATE.md) for the full checklist.
-
-   ⚠️ **The GitHub token you give DecapBridge needs _two_ permissions.** Because this template uses
-   `publish_mode: editorial_workflow`, every save opens a pull request, so the token needs
-   **Contents: Read and write** _and_ **Pull requests: Read and write**.
-
+4. **Wire up CMS authentication** — one-time manual step, not part of routine development.
+   See [`docs/cms-auth-setup.md`](docs/cms-auth-setup.md).
 5. **Replace demo content** in `src/content/` and `public/uploads/` with the new site's copy and
    media. The Francesca Simone seed data is reference material — swap it entirely for a new client.
 6. **Legal pages**: complete Impressum and Datenschutz in `/admin/` under "Rechtliches" before
    going live (German legal requirement when targeting DE audiences).
 
 No environment variables or secrets are required for deploy — GitHub Actions uses its own built-in
-credentials, and DecapBridge/git-gateway needs no server-held tokens.
+credentials.
 
 Once set up, publishing a content change in `/admin/` is the _only_ step required to update the
 live site.
