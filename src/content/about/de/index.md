@@ -2,9 +2,11 @@
 lang: de
 name: Laurin Wünsch
 tagline: IT-Beratung, digitale Produkte und Bewegung — aus einer Hand.
-portrait: /uploads/francesca-portrait-placeholder.svg
+portrait: /uploads/pxl_20230816_103727575.portrait.jpg
 portraitAlt: Laurin Wünsch
-teaser: Ich verbinde technische Beratung mit praktischer Erfahrung im Sport — von der Cue Pilot App für Gruppenkurs-Instruktoren bis zur Arbeit als Sportlehrer und Aufgussmeister.
+teaser: Ich verbinde technische Beratung mit praktischer Erfahrung im Sport —
+  von der Cue Pilot App für Gruppenkurs-Instruktoren bis zur Arbeit als
+  Sportlehrer und Aufgussmeister.
 pullQuote: Gute Lösungen entstehen, wenn Technik und Mensch zusammenpassen.
 ---
 
