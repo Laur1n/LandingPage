@@ -7,4 +7,4 @@ location: Deutschland
 socialLinks: []
 ---
 
-Für Anfragen zu **IT-Beratung**, **Cue Pilot**, **Sportunterricht** oder **Aufguss** schreiben Sie mir gerne eine Nachricht. Ich melde mich zeitnah zurück.
+Für **Cue Pilot**, Sportunterricht, Aufguss oder IT: kurze Mail reicht. Ich antworte zeitnah.

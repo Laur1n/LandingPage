@@ -3,10 +3,12 @@ import { getCollection } from "astro:content";
 import { getSiteTexts } from "../../lib/site-texts";
 import TeaserCta from "../blocks/TeaserCta.astro";
 
-const { sections, teasers } = await getSiteTexts();
+const { sections } = await getSiteTexts();
 const entries = (await getCollection("offerings")).sort(
   (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99),
 );
+
+const marks = ["blue", "yellow", "red"] as const;
 ---
 
 <section id="bereiche" class="bereiche">
@@ -16,7 +18,7 @@ const entries = (await getCollection("offerings")).sort(
     <ol class="bereiche__list">
       {
         entries.map((entry, index) => (
-          <li class="bereiche__item" data-reveal>
+          <li class={`bereiche__item bereiche__item--${marks[index % 3]}`} data-reveal>
             <span class="index-numeral" aria-hidden="true">
               {String(index + 1).padStart(2, "0")}
             </span>
@@ -40,7 +42,7 @@ const entries = (await getCollection("offerings")).sort(
 <style>
   .bereiche {
     padding-block: var(--space-4xl);
-    background: var(--color-surface-raised);
+    border-bottom: 2px solid var(--color-ink);
   }
 
   .bereiche__list {
@@ -53,15 +55,25 @@ const entries = (await getCollection("offerings")).sort(
 
   .bereiche__item {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 4rem 1fr;
     gap: var(--space-lg);
-    padding-block: var(--space-lg);
-    border-top: 1px solid var(--color-border);
+    padding-block: var(--space-xl);
+    border-top: 2px solid var(--color-ink);
+  }
+
+  .bereiche__item--blue .index-numeral {
+    color: var(--color-bauhaus-blue);
+  }
+  .bereiche__item--yellow .index-numeral {
+    color: oklch(55% 0.12 95);
+  }
+  .bereiche__item--red .index-numeral {
+    color: var(--color-bauhaus-red);
   }
 
   .bereiche__name {
     font-size: var(--text-lg);
-    font-weight: 500;
+    font-weight: 700;
     margin-bottom: var(--space-sm);
   }
 
@@ -72,7 +84,7 @@ const entries = (await getCollection("offerings")).sort(
 
   .bereiche__name a:hover,
   .bereiche__name a:focus-visible {
-    color: var(--color-accent);
+    color: var(--color-bauhaus-red);
   }
 
   .bereiche__excerpt {
@@ -83,6 +95,7 @@ const entries = (await getCollection("offerings")).sort(
   @media (max-width: 56rem) {
     .bereiche__item {
       grid-template-columns: 1fr;
+      gap: var(--space-sm);
     }
   }
 </style>

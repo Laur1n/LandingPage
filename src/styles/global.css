@@ -7,11 +7,10 @@
 }
 
 html {
-  color-scheme: light;
+  color-scheme: light dark;
   -webkit-text-size-adjust: 100%;
 }
 
-/* Anchor jumps glide; the media query kills it for reduced-motion users (motion.md rule 4). */
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
@@ -19,8 +18,8 @@ html {
 }
 
 ::selection {
-  background: var(--color-accent);
-  color: var(--color-surface);
+  background: var(--color-bauhaus-yellow);
+  color: var(--color-ink);
 }
 
 body {
@@ -29,36 +28,36 @@ body {
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: var(--text-base);
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 h1,
 h2,
 h3 {
   font-family: var(--font-display);
-  font-weight: 500;
-  line-height: 1.1;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
   margin: 0;
   color: var(--color-ink);
 }
 
 p {
   margin: 0 0 var(--space-md);
-  max-width: 70ch;
+  max-width: 65ch;
 }
 
 a {
-  color: var(--color-accent);
+  color: var(--color-accent-strong);
 }
 
 a:hover,
 a:focus-visible {
-  color: var(--color-accent-strong);
+  color: var(--color-accent);
 }
 
-/* Visible, high-contrast focus ring everywhere — never remove focus outlines (WCAG 2.1 AA). */
 :focus-visible {
-  outline: 3px solid var(--color-accent);
+  outline: 3px solid var(--color-bauhaus-blue);
   outline-offset: 2px;
 }
 
@@ -75,7 +74,6 @@ img {
   background: var(--color-ink);
   color: var(--color-surface);
   padding: var(--space-sm) var(--space-md);
-  border-radius: 0.25rem;
   z-index: 100;
   transition: top var(--duration-base) var(--ease-out-expo);
 }
@@ -103,16 +101,20 @@ img {
   padding-inline: var(--space-lg);
 }
 
-/* Pill call-to-action — landing hero and program pages share the exact same button. */
+/* Rectangular Bauhaus CTA — no pills */
 .cta-pill {
   display: inline-block;
-  padding: var(--space-sm) var(--space-xl);
-  border-radius: 999px;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius);
   text-decoration: none;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-weight: 700;
   font-size: var(--text-sm);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   background: var(--color-accent);
-  color: var(--color-surface);
+  color: var(--color-on-accent);
+  border: 2px solid var(--color-accent);
   transition:
     background-color var(--duration-base) var(--ease-out-expo),
     color var(--duration-base) var(--ease-out-expo);
@@ -120,32 +122,63 @@ img {
 
 .cta-pill:hover,
 .cta-pill:focus-visible {
-  background: var(--color-accent-strong);
+  background: var(--color-ink);
+  border-color: var(--color-ink);
   color: var(--color-surface);
 }
 
-/* Oversized accent numeral used by the numbered project lists (teaser + subpage). */
 .index-numeral {
   font-family: var(--font-display);
   font-size: var(--text-xl);
-  color: var(--color-accent);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-bauhaus-blue);
   line-height: 1;
 }
 
-/* Shared section heading pattern, reused across Projekte/Termine/CDs/Unterricht/Kontakt. */
 .section-eyebrow {
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
+  font-family: var(--font-display);
   font-size: var(--text-sm);
-  color: var(--color-accent);
-  font-weight: 600;
+  color: var(--color-ink-muted);
+  font-weight: 700;
   margin-bottom: var(--space-sm);
 }
 
 .section-heading {
   font-size: var(--text-xl);
-  font-weight: 500;
-  max-width: 30ch;
+  font-weight: 700;
+  max-width: 28ch;
+}
+
+/* Product surface = ink plane when needed */
+[data-surface="product"] {
+  background: var(--color-surface-product);
+  color: var(--color-ink-on-product);
+}
+
+[data-surface="product"] h1,
+[data-surface="product"] h2,
+[data-surface="product"] h3 {
+  color: var(--color-ink-on-product);
+}
+
+[data-surface="product"] a:not(.cta-pill) {
+  color: var(--color-bauhaus-yellow);
+}
+
+[data-surface="product"] a:not(.cta-pill):hover,
+[data-surface="product"] a:not(.cta-pill):focus-visible {
+  color: var(--color-on-accent);
+}
+
+[data-surface="product"] .section-eyebrow {
+  color: var(--color-bauhaus-yellow);
+}
+
+[data-surface="product"] :focus-visible {
+  outline-color: var(--color-bauhaus-yellow);
 }
 
 @media (min-width: 48rem) {

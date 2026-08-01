@@ -1,0 +1,103 @@
+---
+interface Step {
+  title: string;
+  text: string;
+}
+
+interface Props {
+  eyebrow: string;
+  heading: string;
+  steps: Step[];
+}
+
+const { eyebrow, heading, steps } = Astro.props;
+---
+
+<section class="offering-workflow" data-reveal>
+  <div class="container">
+    <p class="section-eyebrow">{eyebrow}</p>
+    <h2 class="offering-workflow__heading">{heading}</h2>
+    <ol class="offering-workflow__steps">
+      {
+        steps.map((step, index) => (
+          <li class="offering-workflow__step">
+            <span class="offering-workflow__num" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <h3 class="offering-workflow__title">{step.title}</h3>
+            <p class="offering-workflow__text">{step.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .offering-workflow {
+    padding-block: var(--space-4xl);
+    background: var(--color-surface-raised);
+    border-bottom: 2px solid var(--color-ink);
+  }
+
+  .offering-workflow__heading {
+    font-size: var(--text-xl);
+    max-width: 24ch;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .offering-workflow__steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0;
+    grid-template-columns: repeat(3, 1fr);
+    border: 2px solid var(--color-ink);
+  }
+
+  .offering-workflow__step {
+    padding: var(--space-lg);
+    border-right: 2px solid var(--color-ink);
+  }
+
+  .offering-workflow__step:last-child {
+    border-right: none;
+  }
+
+  .offering-workflow__num {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-sm);
+    color: var(--color-bauhaus-red);
+    margin-bottom: var(--space-md);
+  }
+
+  .offering-workflow__title {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+  }
+
+  .offering-workflow__text {
+    color: var(--color-ink-muted);
+    margin: 0;
+    max-width: none;
+  }
+
+  @media (max-width: 48rem) {
+    .offering-workflow__steps {
+      grid-template-columns: 1fr;
+    }
+
+    .offering-workflow__step {
+      border-right: none;
+      border-bottom: 2px solid var(--color-ink);
+    }
+
+    .offering-workflow__step:last-child {
+      border-bottom: none;
+    }
+  }
+</style>

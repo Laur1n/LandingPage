@@ -1,10 +1,10 @@
 import { test, expect } from "@playwright/test";
 
 const sections = [
-  { id: "start", heading: /Laurin Wünsch/ },
-  { id: "bereiche", heading: /Was ich anbiete/ },
-  { id: "ueber-mich", heading: /Persönlich & professionell/ },
-  { id: "kontakt", heading: /Sprechen wir über Ihr Projekt/ },
+  { id: "start", heading: /BPM aus der Musik|Cues auf dem Beat/ },
+  { id: "bereiche", heading: /Drei Felder/ },
+  { id: "ueber-mich", heading: /Wer dahintersteckt/ },
+  { id: "kontakt", heading: /Schreiben Sie mir/ },
 ];
 
 test.describe("Public site", () => {
@@ -52,10 +52,52 @@ test.describe("Public site", () => {
     await expect(page.getByRole("heading", { level: 1, name: "Aufgussmeister" })).toBeVisible();
   });
 
+  test("Cue Pilot mini-demo is interactive", async ({ page }) => {
+    await page.goto("/");
+    const demo = page.locator("[data-cue-demo]");
+    await expect(demo).toBeVisible();
+    await expect(demo.getByText("142")).toBeVisible();
+
+    const playhead = demo.getByRole("slider", { name: /Playhead/ });
+    await expect(playhead).toBeVisible();
+    await playhead.focus();
+    await page.keyboard.press("ArrowRight");
+    await page.keyboard.press("ArrowRight");
+    await expect(playhead).toHaveAttribute("aria-valuenow", /[1-9]\d?/);
+
+    await demo.getByRole("tab", { name: /Peak/ }).click();
+    await expect(demo.getByText(/Jumps on beat/)).toBeVisible();
+    await demo.getByRole("button", { name: "Session starten" }).click();
+    await expect(demo.getByRole("button", { name: "Session beenden" })).toBeVisible();
+    await expect(demo.getByRole("button", { name: /Nächster Cue/ })).toBeEnabled({ timeout: 5000 });
+    await demo.getByRole("button", { name: /Nächster Cue/ }).click();
+    await expect(demo.locator("[data-cue-line]")).toContainText(/Climb|Standing climb/, {
+      timeout: 5000,
+    });
+  });
+
+  test("theme toggle switches light and dark", async ({ page }) => {
+    await page.goto("/");
+    const toggle = page.getByRole("button", { name: /Farbschema|Hell|Dunkel/ });
+    await expect(toggle).toBeVisible();
+    const before = await page.locator("html").getAttribute("data-theme");
+    await toggle.click();
+    const after = await page.locator("html").getAttribute("data-theme");
+    expect(after).not.toBe(before);
+    expect(["light", "dark"]).toContain(after);
+    await toggle.click();
+    await expect(page.locator("html")).toHaveAttribute("data-theme", before ?? "light");
+  });
+
   test("navigation works on mobile viewport", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
-    await expect(page.getByRole("heading", { name: "Laurin Wünsch", level: 1 })).toBeVisible();
+    await expect(
+      page.getByRole("heading", {
+        name: /BPM aus der Musik|Cues auf dem Beat/,
+        level: 1,
+      }),
+    ).toBeVisible();
     const hasHorizontalOverflow = await page.evaluate(
       () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
     );

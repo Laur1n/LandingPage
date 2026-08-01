@@ -82,6 +82,8 @@ describe("Decap config ↔ content schema parity", () => {
         "quoteAttribution",
         "pitchHeading",
         "pitchText",
+        "features",
+        "workflow",
         "links",
         "body",
       ].sort(),
@@ -105,5 +107,13 @@ describe("Decap config ↔ content schema parity", () => {
     const offerings = collection("offerings");
     const links = offerings.fields?.find((f) => f.name === "links");
     expect(fieldNames(links?.fields)).toEqual(["label", "url"]);
+  });
+
+  it("nested feature/workflow sub-fields use the names the schema reads", () => {
+    const offerings = collection("offerings");
+    const features = offerings.fields?.find((f) => f.name === "features");
+    const workflow = offerings.fields?.find((f) => f.name === "workflow");
+    expect(fieldNames(features?.fields)).toEqual(["text", "title"]);
+    expect(fieldNames(workflow?.fields)).toEqual(["text", "title"]);
   });
 });

@@ -1,36 +1,45 @@
 /*
-  Design tokens — source of truth is .impeccable.md.
-  Warm, editorial, light theme built around a terracotta accent and a deep
-  "evening sky" ink-teal secondary, on cream (never pure white/black) neutrals.
+  Design tokens — Laurin Wünsch / Cue Pilot
+  Editorial Bauhaus. Light = paper. Dark = black primary surface.
 */
-:root {
-  /* Color */
-  --color-surface: oklch(97% 0.012 60);
-  --color-surface-raised: oklch(93% 0.016 55);
-  --color-ink: oklch(22% 0.02 50);
-  --color-ink-muted: oklch(45% 0.02 50);
-  /* Darkened from an earlier oklch(58% 0.14 40) after an automated WCAG 2.1 AA audit found
-     insufficient contrast (4.16:1) for text use against the cream surface; 48%/40% lightness
-     passes AA (>=4.5:1) while keeping the same terracotta hue. */
-  --color-accent: oklch(48% 0.15 38);
-  --color-accent-strong: oklch(40% 0.15 36);
-  --color-evening: oklch(30% 0.06 230);
-  --color-evening-contrast: oklch(95% 0.015 220);
-  --color-border: oklch(88% 0.015 55);
+:root,
+[data-theme="light"] {
+  color-scheme: light;
 
-  /* Typography — self-hosted variable fonts via @fontsource (family names end in "Variable") */
-  --font-display: "Bodoni Moda Variable", "Bodoni Moda", "Times New Roman", serif;
-  --font-body: "Hanken Grotesk Variable", "Hanken Grotesk", system-ui, sans-serif;
+  --color-surface: oklch(96% 0.012 85);
+  --color-surface-raised: oklch(92% 0.016 85);
+  --color-ink: oklch(18% 0.02 255);
+  --color-ink-muted: oklch(42% 0.02 255);
+  --color-border: oklch(82% 0.015 85);
 
-  --text-sm: clamp(0.875rem, 0.85rem + 0.15vw, 0.95rem);
+  --color-bauhaus-blue: oklch(48% 0.11 250);
+  --color-bauhaus-yellow: oklch(78% 0.13 95);
+  --color-bauhaus-red: oklch(52% 0.16 28);
+
+  --color-intensity-low: var(--color-bauhaus-blue);
+  --color-intensity-mid: var(--color-bauhaus-yellow);
+  --color-intensity-high: var(--color-bauhaus-red);
+
+  --color-accent: var(--color-bauhaus-red);
+  --color-accent-strong: oklch(42% 0.15 28);
+  --color-accent-muted: oklch(88% 0.04 28);
+  --color-on-accent: oklch(97% 0.01 85);
+
+  --color-surface-product: oklch(12% 0.01 255);
+  --color-surface-product-raised: oklch(18% 0.015 255);
+  --color-ink-on-product: oklch(96% 0.01 85);
+  --color-ink-muted-on-product: oklch(72% 0.02 255);
+
+  --font-display: "Archivo Variable", "Archivo", system-ui, sans-serif;
+  --font-body: "Atkinson Hyperlegible", system-ui, sans-serif;
+
+  --text-sm: clamp(0.8125rem, 0.8rem + 0.1vw, 0.875rem);
   --text-base: clamp(1rem, 0.97rem + 0.2vw, 1.125rem);
-  --text-lg: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
-  --text-xl: clamp(1.75rem, 1.5rem + 1.2vw, 2.5rem);
-  --text-2xl: clamp(2.5rem, 2rem + 2.5vw, 4.25rem);
-  /* Display size for the landing hero name — editorial, Bodoni-led (002 US3). */
-  --text-3xl: clamp(3rem, 2rem + 5.5vw, 6.5rem);
+  --text-lg: clamp(1.25rem, 1.15rem + 0.45vw, 1.5rem);
+  --text-xl: clamp(1.75rem, 1.4rem + 1.4vw, 2.75rem);
+  --text-2xl: clamp(2.5rem, 1.8rem + 3vw, 4.5rem);
+  --text-3xl: clamp(2.75rem, 1.6rem + 4.5vw, 5.5rem);
 
-  /* Spacing (4pt scale) */
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
   --space-md: 1rem;
@@ -40,9 +49,34 @@
   --space-3xl: 4rem;
   --space-4xl: 6rem;
 
-  /* Motion (002 motion.md: expo-out entrances, linear only for scroll-scrubbed values) */
+  --radius: 0;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --duration-base: 400ms;
+  --duration-base: 280ms;
+}
+
+/* Dark: primary surface = black */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-surface: oklch(0% 0 0);
+  --color-surface-raised: oklch(12% 0.008 255);
+  --color-ink: oklch(94% 0.008 85);
+  --color-ink-muted: oklch(68% 0.015 85);
+  --color-border: oklch(28% 0.01 255);
+
+  --color-bauhaus-blue: oklch(62% 0.12 250);
+  --color-bauhaus-yellow: oklch(84% 0.14 95);
+  --color-bauhaus-red: oklch(62% 0.17 28);
+
+  --color-accent: var(--color-bauhaus-red);
+  --color-accent-strong: oklch(72% 0.16 28);
+  --color-accent-muted: oklch(28% 0.05 28);
+  --color-on-accent: oklch(8% 0 0);
+
+  --color-surface-product: oklch(0% 0 0);
+  --color-surface-product-raised: oklch(12% 0.01 255);
+  --color-ink-on-product: oklch(94% 0.008 85);
+  --color-ink-muted-on-product: oklch(68% 0.015 85);
 }
 
 @media (prefers-reduced-motion: reduce) {

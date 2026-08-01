@@ -5,9 +5,11 @@ test.describe("Motion guardrails", () => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");
 
-    await expect(page.getByRole("heading", { level: 1, name: "Laurin Wünsch" })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { level: 1, name: /BPM aus der Musik|Cues auf dem Beat/ }),
+    ).toBeVisible();
     const opacity = await page
-      .getByRole("heading", { level: 1, name: "Laurin Wünsch" })
+      .getByRole("heading", { level: 1, name: /BPM aus der Musik|Cues auf dem Beat/ })
       .evaluate((el) => getComputedStyle(el).opacity);
     expect(Number(opacity)).toBe(1);
     expect(await page.locator(".pin-spacer").count()).toBe(0);
@@ -18,12 +20,12 @@ test.describe("Motion guardrails", () => {
     const page = await context.newPage();
 
     const checks: [string, string | RegExp][] = [
-      ["/", "Willkommen"],
+      ["/", "Cue Pilot"],
       ["/ueber-mich/", "Wer ich bin"],
       ["/cue-pilot/", "Cue Pilot"],
       ["/sportlehrer/", "Sportlehrer"],
       ["/aufgussmeister/", "Aufguss"],
-      ["/kontakt/", "Anfragen"],
+      ["/kontakt/", "Anfrage"],
     ];
     for (const [route, text] of checks) {
       await page.goto(route);

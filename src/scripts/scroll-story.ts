@@ -26,26 +26,31 @@ function init(): void {
 
   // --- All motion: only when the visitor allows it (FR-014) ---
   mm.add(REDUCED_OK, () => {
-    // L1/S1: staged hero entrance (load-triggered, ≤ 900 ms overall)
+    // L1/S1: staged hero entrance — snappier cascade (.impeccable.md)
     const heroLines = document.querySelectorAll("[data-hero-line]");
     if (heroLines.length > 0) {
       gsap.from(heroLines, {
-        y: 24,
+        y: 32,
         autoAlpha: 0,
-        duration: 0.8,
+        duration: 0.65,
         ease: "expo.out",
-        stagger: 0.08,
+        stagger: 0.06,
         clearProps: "all",
       });
     }
 
-    // L2: landing hero photo — slow drift against scroll direction
-    const heroImage = document.querySelector("[data-hero-image]");
-    if (heroImage) {
+    // L2: landing hero product frame — drift + subtle scale on scroll
+    const heroVisual = document.querySelector("[data-hero-image]");
+    if (heroVisual) {
       gsap.fromTo(
-        heroImage,
-        { yPercent: 0 },
-        { yPercent: 10, ease: "none", scrollTrigger: scrubTrigger(heroImage) },
+        heroVisual,
+        { yPercent: 0, scale: 1 },
+        {
+          yPercent: 8,
+          scale: 1.03,
+          ease: "none",
+          scrollTrigger: scrubTrigger(heroVisual),
+        },
       );
     }
 

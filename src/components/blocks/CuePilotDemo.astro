@@ -1,0 +1,864 @@
+---
+/**
+ * Cue Pilot symbol-instrument: BPM, intensity bars, draggable playhead,
+ * beat-synced count-in, session circle.
+ */
+---
+
+<div
+  class="cue-score"
+  data-cue-demo
+  data-hero-image
+  role="region"
+  aria-label="Cue Pilot Symbol-Demo"
+>
+  <div class="cue-score__top">
+    <p class="cue-score__label">Spin Energy Mix</p>
+    <p class="cue-score__bpm">
+      <span data-cue-bpm>142</span>
+      <abbr title="Beats per minute">BPM</abbr>
+    </p>
+  </div>
+
+  <div class="cue-score__track" data-cue-track>
+    <div class="cue-score__bars" role="tablist" aria-label="Intensitäts-Sektionen" data-cue-sections>
+      <button
+        type="button"
+        class="cue-score__bar is-active"
+        role="tab"
+        aria-selected="true"
+        aria-label="Warm-up, niedrige Intensität"
+        data-section="0"
+        data-intensity="low"
+        style="--w: 25%"
+      ></button>
+      <button
+        type="button"
+        class="cue-score__bar"
+        role="tab"
+        aria-selected="false"
+        aria-label="Climb, mittlere Intensität"
+        data-section="1"
+        data-intensity="mid"
+        style="--w: 31%"
+      ></button>
+      <button
+        type="button"
+        class="cue-score__bar"
+        role="tab"
+        aria-selected="false"
+        aria-label="Peak, hohe Intensität"
+        data-section="2"
+        data-intensity="high"
+        style="--w: 20%"
+      ></button>
+      <button
+        type="button"
+        class="cue-score__bar"
+        role="tab"
+        aria-selected="false"
+        aria-label="Cool-down, mittlere Intensität"
+        data-section="3"
+        data-intensity="mid"
+        style="--w: 24%"
+      ></button>
+    </div>
+    <div
+      class="cue-score__playhead"
+      data-cue-playhead
+      role="slider"
+      tabindex="0"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="6"
+      aria-label="Playhead — Position im Track"
+      style="--x: 6%"
+    >
+      <span class="cue-score__playhead-knob" aria-hidden="true"></span>
+    </div>
+  </div>
+
+  <ol class="cue-score__captions" aria-hidden="true">
+    <li style="--w: 25%">Warm-up</li>
+    <li style="--w: 31%">Climb</li>
+    <li style="--w: 20%">Peak</li>
+    <li style="--w: 24%">Cool-down</li>
+  </ol>
+
+  <div class="cue-score__legend" aria-hidden="true">
+    <span class="cue-score__swatch cue-score__swatch--low"></span> niedrig
+    <span class="cue-score__swatch cue-score__swatch--mid"></span> mittel
+    <span class="cue-score__swatch cue-score__swatch--high"></span> hoch
+  </div>
+
+  <p class="cue-score__exercise" data-cue-exercise>Seated flat — Tempo finden</p>
+  <p class="cue-score__time" data-cue-time aria-live="polite">0:28 / 13:15</p>
+
+  <div class="cue-score__session">
+    <div class="cue-score__circle-wrap">
+      <span class="cue-score__ring" data-cue-ring aria-hidden="true"></span>
+      <ol class="cue-score__beats" aria-hidden="true" data-cue-beats>
+        <li data-beat="0"></li>
+        <li data-beat="1"></li>
+        <li data-beat="2"></li>
+        <li data-beat="3"></li>
+      </ol>
+      <button
+        type="button"
+        class="cue-score__circle"
+        data-cue-play
+        aria-pressed="false"
+        aria-label="Session starten"
+      >
+        <span class="cue-score__circle-num" data-cue-count aria-live="assertive">▶</span>
+      </button>
+    </div>
+    <div class="cue-score__session-copy">
+      <p class="cue-score__session-label" data-cue-status>Session</p>
+      <p class="cue-score__cue-line" data-cue-line>Kreis tippen · Einzählen im BPM</p>
+      <button type="button" class="cue-score__next" data-cue-next disabled>Nächster Cue →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  type Section = {
+    name: string;
+    intensity: "low" | "mid" | "high";
+    exercise: string;
+    cue: string;
+    start: number;
+    end: number;
+    durationSec: number;
+  };
+
+  const SECTIONS: Section[] = [
+    {
+      name: "Warm-up",
+      intensity: "low",
+      exercise: "Seated flat — Tempo finden",
+      cue: "Warm-up · Seated flat",
+      start: 0,
+      end: 25,
+      durationSec: 200,
+    },
+    {
+      name: "Climb",
+      intensity: "mid",
+      exercise: "Standing climb — Widerstand hoch",
+      cue: "Climb · Standing climb",
+      start: 25,
+      end: 56,
+      durationSec: 245,
+    },
+    {
+      name: "Peak",
+      intensity: "high",
+      exercise: "Jumps on beat — 8×8",
+      cue: "Peak · Jumps on beat",
+      start: 56,
+      end: 76,
+      durationSec: 160,
+    },
+    {
+      name: "Cool-down",
+      intensity: "mid",
+      exercise: "Seated recover — Puls runter",
+      cue: "Cool-down · Seated recover",
+      start: 76,
+      end: 100,
+      durationSec: 190,
+    },
+  ];
+
+  const TOTAL_SEC = SECTIONS.reduce((sum, s) => sum + s.durationSec, 0);
+  const BPM = 142;
+  const BEAT_MS = Math.round(60_000 / BPM);
+  /** Instructor-style: 4 · 3 · 2 · 1 · GO */
+  const COUNT_LABELS = ["4", "3", "2", "1", "GO"] as const;
+
+  function formatTime(sec: number): string {
+    const s = Math.max(0, Math.min(TOTAL_SEC, Math.round(sec)));
+    const m = Math.floor(s / 60);
+    const r = s % 60;
+    return `${m}:${String(r).padStart(2, "0")}`;
+  }
+
+  function sectionAt(pct: number): number {
+    const i = SECTIONS.findIndex((s) => pct >= s.start && pct < s.end);
+    return i === -1 ? SECTIONS.length - 1 : i;
+  }
+
+  function initDemo(root: HTMLElement): void {
+    const buttons = [...root.querySelectorAll<HTMLButtonElement>("[data-section]")];
+    const exerciseEl = root.querySelector<HTMLElement>("[data-cue-exercise]");
+    const timeEl = root.querySelector<HTMLElement>("[data-cue-time]");
+    const statusEl = root.querySelector<HTMLElement>("[data-cue-status]");
+    const countEl = root.querySelector<HTMLElement>("[data-cue-count]");
+    const lineEl = root.querySelector<HTMLElement>("[data-cue-line]");
+    const playBtn = root.querySelector<HTMLButtonElement>("[data-cue-play]");
+    const nextBtn = root.querySelector<HTMLButtonElement>("[data-cue-next]");
+    const track = root.querySelector<HTMLElement>("[data-cue-track]");
+    const playhead = root.querySelector<HTMLElement>("[data-cue-playhead]");
+    const ring = root.querySelector<HTMLElement>("[data-cue-ring]");
+    const beatDots = [...root.querySelectorAll<HTMLElement>("[data-beat]")];
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let index = 0;
+    let session = false;
+    let counting = false;
+    let pct = 6;
+    let timers: number[] = [];
+    let dragging = false;
+
+    function clearTimers(): void {
+      for (const id of timers) window.clearTimeout(id);
+      timers = [];
+    }
+
+    function setBeatDots(active: number): void {
+      for (const [i, dot] of beatDots.entries()) {
+        dot.classList.toggle("is-on", i <= active);
+        dot.classList.toggle("is-now", i === active);
+      }
+    }
+
+    function clearBeatDots(): void {
+      for (const dot of beatDots) {
+        dot.classList.remove("is-on", "is-now");
+      }
+    }
+
+    function pulseBeat(): void {
+      if (reduceMotion) return;
+      root.classList.remove("is-beat");
+      // Force reflow so the animation can restart
+      void root.offsetWidth;
+      root.classList.add("is-beat");
+      if (ring) {
+        ring.classList.remove("is-pulse");
+        void ring.offsetWidth;
+        ring.classList.add("is-pulse");
+      }
+    }
+
+    function setPlayhead(nextPct: number, fromSelect = false): void {
+      pct = Math.max(0, Math.min(100, nextPct));
+      if (playhead) {
+        playhead.style.setProperty("--x", `${pct}%`);
+        playhead.setAttribute("aria-valuenow", String(Math.round(pct)));
+      }
+      const elapsed = (pct / 100) * TOTAL_SEC;
+      if (timeEl) timeEl.textContent = `${formatTime(elapsed)} / ${formatTime(TOTAL_SEC)}`;
+      if (!fromSelect) {
+        const i = sectionAt(pct);
+        if (i !== index) select(i, true);
+      }
+    }
+
+    function select(i: number, keepPlayhead = false): void {
+      index = i;
+      const section = SECTIONS[i];
+      for (const [j, btn] of buttons.entries()) {
+        const on = j === i;
+        btn.classList.toggle("is-active", on);
+        btn.setAttribute("aria-selected", on ? "true" : "false");
+      }
+      root.dataset.intensity = section.intensity;
+      if (exerciseEl) exerciseEl.textContent = section.exercise;
+      if (!keepPlayhead) {
+        setPlayhead(section.start + (section.end - section.start) * 0.15, true);
+      }
+    }
+
+    function setSession(on: boolean): void {
+      session = on;
+      counting = false;
+      root.classList.toggle("is-session", on);
+      root.classList.remove("is-counting", "is-go", "is-beat");
+      playBtn?.setAttribute("aria-pressed", on ? "true" : "false");
+      playBtn?.setAttribute("aria-label", on ? "Session beenden" : "Session starten");
+      if (statusEl) statusEl.textContent = on ? "Live" : "Session";
+      if (nextBtn) nextBtn.disabled = !on;
+      clearBeatDots();
+      if (!on) {
+        clearTimers();
+        if (countEl) countEl.textContent = "▶";
+        if (lineEl) lineEl.textContent = "Kreis tippen · Einzählen im BPM";
+      }
+    }
+
+    function countIn(then: () => void): void {
+      if (!countEl || !lineEl) {
+        then();
+        return;
+      }
+      clearTimers();
+      counting = true;
+      root.classList.add("is-counting");
+      root.classList.remove("is-go");
+      if (nextBtn) nextBtn.disabled = true;
+      if (statusEl) statusEl.textContent = "Einzählen";
+      lineEl.textContent = `Nächster Cue · ${SECTIONS[index].cue}`;
+      clearBeatDots();
+
+      if (reduceMotion) {
+        countEl.textContent = "GO";
+        root.classList.add("is-go");
+        setBeatDots(3);
+        counting = false;
+        root.classList.remove("is-counting");
+        if (nextBtn && session) nextBtn.disabled = false;
+        then();
+        return;
+      }
+
+      COUNT_LABELS.forEach((label, step) => {
+        const id = window.setTimeout(() => {
+          countEl.textContent = label;
+          pulseBeat();
+          if (step < 4) {
+            setBeatDots(step);
+          } else {
+            setBeatDots(3);
+            root.classList.add("is-go");
+            root.classList.remove("is-counting");
+            counting = false;
+            if (statusEl) statusEl.textContent = "Jetzt";
+            if (nextBtn && session) nextBtn.disabled = false;
+            then();
+          }
+        }, step * BEAT_MS);
+        timers.push(id);
+      });
+    }
+
+    function pctFromClientX(clientX: number): number {
+      if (!track) return pct;
+      const rect = track.getBoundingClientRect();
+      if (rect.width === 0) return pct;
+      return ((clientX - rect.left) / rect.width) * 100;
+    }
+
+    function onPointerDown(event: PointerEvent): void {
+      if (session) return;
+      const target = event.target as HTMLElement;
+      if (target.closest("[data-section]") && !target.closest("[data-cue-playhead]")) {
+        return;
+      }
+      dragging = true;
+      playhead?.setPointerCapture(event.pointerId);
+      setPlayhead(pctFromClientX(event.clientX));
+      event.preventDefault();
+    }
+
+    function onPointerMove(event: PointerEvent): void {
+      if (!dragging || session) return;
+      setPlayhead(pctFromClientX(event.clientX));
+    }
+
+    function onPointerUp(event: PointerEvent): void {
+      if (!dragging) return;
+      dragging = false;
+      try {
+        playhead?.releasePointerCapture(event.pointerId);
+      } catch {
+        /* ignore */
+      }
+    }
+
+    track?.addEventListener("pointerdown", onPointerDown);
+    playhead?.addEventListener("pointermove", onPointerMove);
+    playhead?.addEventListener("pointerup", onPointerUp);
+    playhead?.addEventListener("pointercancel", onPointerUp);
+
+    playhead?.addEventListener("keydown", (event) => {
+      if (session) return;
+      const step = event.shiftKey ? 5 : 2;
+      if (event.key === "ArrowRight" || event.key === "ArrowUp") {
+        setPlayhead(pct + step);
+        event.preventDefault();
+      } else if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
+        setPlayhead(pct - step);
+        event.preventDefault();
+      } else if (event.key === "Home") {
+        setPlayhead(0);
+        event.preventDefault();
+      } else if (event.key === "End") {
+        setPlayhead(100);
+        event.preventDefault();
+      }
+    });
+
+    for (const btn of buttons) {
+      btn.addEventListener("click", () => {
+        if (session) return;
+        select(Number(btn.dataset.section));
+      });
+    }
+
+    playBtn?.addEventListener("click", () => {
+      if (session) {
+        setSession(false);
+        return;
+      }
+      setSession(true);
+      select(0);
+      countIn(() => {
+        if (lineEl) lineEl.textContent = `Jetzt · ${SECTIONS[0].cue}`;
+        if (countEl) {
+          const hold = window.setTimeout(() => {
+            if (session && !counting) countEl.textContent = "●";
+          }, BEAT_MS * 2);
+          timers.push(hold);
+        }
+      });
+    });
+
+    nextBtn?.addEventListener("click", () => {
+      if (!session || counting) return;
+      const next = (index + 1) % SECTIONS.length;
+      select(next);
+      countIn(() => {
+        if (lineEl) lineEl.textContent = `Jetzt · ${SECTIONS[next].cue}`;
+        if (countEl) {
+          const hold = window.setTimeout(() => {
+            if (session && !counting) countEl.textContent = "●";
+          }, BEAT_MS * 2);
+          timers.push(hold);
+        }
+      });
+    });
+
+    select(0);
+  }
+
+  function boot(): void {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-cue-demo]")) {
+      if (root.dataset.ready === "1") continue;
+      root.dataset.ready = "1";
+      initDemo(root);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot, { once: true });
+  } else {
+    boot();
+  }
+</script>
+
+<style>
+  .cue-score {
+    --beat-ms: 423ms;
+    width: 100%;
+    max-width: 32rem;
+    display: grid;
+    gap: var(--space-lg);
+    padding: var(--space-xl);
+    background: var(--color-surface);
+    border: 2px solid var(--color-ink);
+  }
+
+  .cue-score__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--space-md);
+    border-bottom: 2px solid var(--color-ink);
+    padding-bottom: var(--space-md);
+  }
+
+  .cue-score__label {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+    max-width: none;
+  }
+
+  .cue-score__bpm {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-2xl);
+    font-variant-numeric: tabular-nums;
+    line-height: 0.9;
+    max-width: none;
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-sm);
+  }
+
+  .cue-score__bpm abbr {
+    font-size: var(--text-sm);
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    color: var(--color-ink-muted);
+  }
+
+  .cue-score__track {
+    position: relative;
+    min-height: 7rem;
+    touch-action: none;
+    cursor: ew-resize;
+  }
+
+  .cue-score__bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    min-height: 7rem;
+    height: 100%;
+  }
+
+  .cue-score__bar {
+    appearance: none;
+    border: 2px solid transparent;
+    margin: 0;
+    padding: 0;
+    flex: 0 0 var(--w);
+    width: var(--w);
+    min-height: calc(2.5rem + var(--w));
+    cursor: pointer;
+    transition:
+      opacity var(--duration-base) var(--ease-out-expo),
+      border-color var(--duration-base) var(--ease-out-expo);
+  }
+
+  .cue-score__bar[data-intensity="low"] {
+    background: var(--color-bauhaus-blue);
+  }
+  .cue-score__bar[data-intensity="mid"] {
+    background: var(--color-bauhaus-yellow);
+  }
+  .cue-score__bar[data-intensity="high"] {
+    background: var(--color-bauhaus-red);
+  }
+
+  .cue-score__bar:not(.is-active) {
+    opacity: 0.35;
+  }
+
+  .cue-score__bar.is-active {
+    border-color: var(--color-ink);
+    opacity: 1;
+  }
+
+  .cue-score.is-session .cue-score__bar,
+  .cue-score.is-session .cue-score__track {
+    cursor: default;
+  }
+
+  .cue-score__playhead {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--x, 0%);
+    width: 2px;
+    margin-left: -1px;
+    background: var(--color-ink);
+    z-index: 2;
+    cursor: grab;
+    touch-action: none;
+  }
+
+  .cue-score__playhead:active {
+    cursor: grabbing;
+  }
+
+  .cue-score__playhead-knob {
+    position: absolute;
+    top: -0.35rem;
+    left: 50%;
+    width: 0.85rem;
+    height: 0.85rem;
+    margin-left: -0.425rem;
+    background: var(--color-ink);
+    border: 2px solid var(--color-surface);
+  }
+
+  .cue-score__playhead:focus-visible {
+    outline: none;
+  }
+
+  .cue-score__playhead:focus-visible .cue-score__playhead-knob {
+    outline: 3px solid var(--color-bauhaus-blue);
+    outline-offset: 2px;
+  }
+
+  .cue-score__captions {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 3px;
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-ink);
+  }
+
+  .cue-score__captions li {
+    flex: 0 0 var(--w);
+    width: var(--w);
+  }
+
+  .cue-score__legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm) var(--space-md);
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+
+  .cue-score__swatch {
+    width: 0.75rem;
+    height: 0.75rem;
+    display: inline-block;
+  }
+  .cue-score__swatch--low {
+    background: var(--color-bauhaus-blue);
+  }
+  .cue-score__swatch--mid {
+    background: var(--color-bauhaus-yellow);
+  }
+  .cue-score__swatch--high {
+    background: var(--color-bauhaus-red);
+  }
+
+  .cue-score__exercise {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    max-width: none;
+  }
+
+  .cue-score__time {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-ink-muted);
+    max-width: none;
+  }
+
+  .cue-score__session {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-lg);
+    align-items: center;
+    border-top: 2px solid var(--color-ink);
+    padding-top: var(--space-lg);
+  }
+
+  .cue-score__circle-wrap {
+    position: relative;
+    width: 6.25rem;
+    height: 6.25rem;
+    display: grid;
+    place-items: center;
+  }
+
+  .cue-score__ring {
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--color-bauhaus-yellow);
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .cue-score__ring.is-pulse {
+    animation: cue-ring-pulse var(--beat-ms) var(--ease-out-expo) forwards;
+  }
+
+  .cue-score__beats {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    pointer-events: none;
+  }
+
+  .cue-score__beats li {
+    position: absolute;
+    width: 0.55rem;
+    height: 0.55rem;
+    background: var(--color-border);
+    border: 1px solid var(--color-ink);
+  }
+
+  .cue-score__beats li:nth-child(1) {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .cue-score__beats li:nth-child(2) {
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+  }
+  .cue-score__beats li:nth-child(3) {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .cue-score__beats li:nth-child(4) {
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+
+  .cue-score__beats li.is-on {
+    background: var(--color-bauhaus-yellow);
+  }
+
+  .cue-score__beats li.is-now {
+    background: var(--color-bauhaus-red);
+    border-color: var(--color-bauhaus-red);
+  }
+
+  .cue-score__circle {
+    appearance: none;
+    position: relative;
+    z-index: 1;
+    width: 5.5rem;
+    height: 5.5rem;
+    border-radius: 50%;
+    border: 3px solid var(--color-ink);
+    background: var(--color-surface);
+    color: var(--color-ink);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    transition:
+      background-color var(--duration-base) var(--ease-out-expo),
+      border-color var(--duration-base) var(--ease-out-expo),
+      color var(--duration-base) var(--ease-out-expo),
+      transform 80ms linear;
+  }
+
+  .cue-score.is-session .cue-score__circle {
+    background: var(--color-bauhaus-red);
+    border-color: var(--color-bauhaus-red);
+    color: var(--color-on-accent);
+  }
+
+  .cue-score.is-counting .cue-score__circle {
+    background: var(--color-surface);
+    border-color: var(--color-ink);
+    color: var(--color-ink);
+  }
+
+  .cue-score.is-go .cue-score__circle {
+    background: var(--color-bauhaus-yellow);
+    border-color: var(--color-ink);
+    color: var(--color-ink);
+  }
+
+  .cue-score.is-beat .cue-score__circle {
+    animation: cue-beat-pop calc(var(--beat-ms) * 0.85) var(--ease-out-expo);
+  }
+
+  .cue-score__circle-num {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .cue-score.is-counting .cue-score__circle-num,
+  .cue-score.is-go .cue-score__circle-num {
+    font-size: var(--text-2xl);
+  }
+
+  .cue-score__session-label {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    max-width: none;
+  }
+
+  .cue-score.is-counting .cue-score__session-label {
+    color: var(--color-bauhaus-red);
+  }
+
+  .cue-score__cue-line {
+    margin: var(--space-xs) 0 var(--space-sm);
+    font-size: var(--text-sm);
+    color: var(--color-ink-muted);
+    max-width: none;
+  }
+
+  .cue-score__next {
+    appearance: none;
+    border: none;
+    background: none;
+    padding: 0;
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-ink);
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .cue-score__next:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    text-decoration: none;
+  }
+
+  @keyframes cue-beat-pop {
+    0% {
+      transform: scale(1);
+    }
+    18% {
+      transform: scale(1.08);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes cue-ring-pulse {
+    0% {
+      opacity: 0.85;
+      transform: scale(0.92);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.28);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cue-score.is-beat .cue-score__circle,
+    .cue-score__ring.is-pulse {
+      animation: none;
+    }
+  }
+</style>

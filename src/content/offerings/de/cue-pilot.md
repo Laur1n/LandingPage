@@ -1,34 +1,51 @@
 ---
 lang: de
 title: Cue Pilot
-subtitle: App für Fitness-Instruktoren
-intro: Cue Pilot unterstützt Instruktorinnen und Instruktoren von Gruppenkursen bei Planung, Musik und Ablauf — damit mehr Zeit für die Teilnehmenden bleibt.
-teaser: Die App für Gruppenkurs-Instruktoren — Kurse planen, Cues setzen, Musik und Timing im Griff.
+subtitle: Für Spinning- und Gruppenkurs-Instruktor:innen
+intro: >-
+  Cue Pilot analysiert Kursmusik, zeigt BPM, teilt Tracks in Intensitäts-Sektionen
+  und zählt dich im Session-Modus in die nächste Übung ein.
+teaser: >-
+  BPM lesen, Intensität setzen, im Takt cueden — für Spinning- und Gruppenkurse.
 order: 1
-ctaLabel: Mehr zu Cue Pilot
-heroImage: /uploads/francesca-portrait-placeholder.svg
-heroImageAlt: Cue Pilot — App für Fitness-Instruktoren
-pitchHeading: Interesse an Cue Pilot?
-pitchText: Ob Demo, Feedback oder Kooperation — ich freue mich über Ihre Nachricht.
+ctaLabel: Demo anfragen
+pitchHeading: Demo oder Feedback?
+pitchText: >-
+  Schreiben Sie mir — ich melde mich mit den nächsten Schritten.
+quote: Wenn der Cue auf dem Beat sitzt, bleibt der Fokus bei der Gruppe.
+features:
+  - title: Musik analysieren
+    text: >-
+      Track laden — Cue Pilot liest BPM und Abschnitte aus.
+  - title: Intensitäts-Sektionen
+    text: >-
+      Warm-up, Climb, Peak, Cool-down — nach Intensität, nicht nur nach Minuten.
+  - title: Übungen zuordnen
+    text: >-
+      Pro Sektion die Übung hinterlegen und die Playlist speichern.
+  - title: Session-Modus
+    text: >-
+      Beim Unterrichten: Ansage und Einzählen im Takt — ohne Zettelchaos.
+workflow:
+  - title: Track laden
+    text: Musik einspielen — BPM und Struktur kommen mit.
+  - title: Planen
+    text: Sektionen, Intensität, Übungen — einmal setzen, wiederverwenden.
+  - title: Fahren
+    text: Im Kurs cueden und einzählen — Blick bei der Gruppe.
 links:
-  - label: Website (Platzhalter)
+  - label: Website (in Kürze)
     url: https://example.com
 ---
 
-## Was ist Cue Pilot?
+## Was Cue Pilot macht
 
-**Cue Pilot** ist eine App für **Fitness-Instruktoren von Gruppenkursen**. Sie hilft dabei, Stunden vorzubereiten, Abläufe zu strukturieren und im Unterricht den Überblick zu behalten — ohne ständig auf Notizen oder externe Tools angewiesen zu sein.
+Für **Spinning- und Gruppenkurse**, in denen Musik den Ablauf trägt: analysieren, planen, im Takt cueden.
 
-## Für wen?
+## Für wen
 
-- Gruppenkurs-Instruktorinnen und -Instruktoren
-- Studios und Trainer, die ihre Kursplanung digitalisieren möchten
-- Teams, die einheitliche Abläufe und Cues nutzen wollen
+- Spinning- und Indoor-Cycling-Instruktor:innen
+- Gruppenkurs-Trainer:innen mit BPM-Struktur
+- Studios mit gemeinsamen Playlisten und Abläufen
 
-## Funktionen (Auszug)
-
-- Kurse und Blöcke planen
-- Timing und Cues im Blick behalten
-- Musik und Ablauf an einem Ort
-
-_Details und Screenshots können Sie hier jederzeit im CMS ergänzen._
+Die Symbol-Demo auf der Startseite zeigt den Kern — Playhead, Sektionen, Session — ohne echte Audioanalyse.
