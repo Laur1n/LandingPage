@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Laurin Wünsch — Inhalte bearbeiten</title>
+    <title>Laurin Wünsch · Inhalte bearbeiten</title>
     <!-- Never indexed / never linked from public nav (Constitution III / FR-014). -->
     <meta name="robots" content="noindex, nofollow" />
   </head>
@@ -56,7 +56,7 @@
               h(
                 "blockquote",
                 { key: "quote" },
-                "„" + quote + "“" + (attribution ? " — " + attribution : ""),
+                "„" + quote + "“" + (attribution ? " · " + attribution : ""),
               ),
             );
           }
@@ -214,7 +214,7 @@
                 "ul",
                 { key: field },
                 list.toJS().map(function (link, index) {
-                  return h("li", { key: index }, (link.label || "") + " — " + (link.url || ""));
+                  return h("li", { key: index }, (link.label || "") + ": " + (link.url || ""));
                 }),
               ),
             );

@@ -12,7 +12,7 @@ const { Content } = await render(entry);
 const { brand, legalPages } = await getSiteTexts();
 ---
 
-<BaseLayout title={`${entry.data.title} — ${brand}`} description={legalPages.impressumDescription}>
+<BaseLayout title={`${entry.data.title} · ${brand}`} description={legalPages.impressumDescription}>
   <article class="container legal-page">
     <p class="section-eyebrow">{legalPages.eyebrow}</p>
     <h1 class="section-heading">{entry.data.title}</h1>

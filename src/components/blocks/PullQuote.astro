@@ -13,7 +13,7 @@ const quoted = `„${quote.replace(/^[„"]|[“"]$/g, "")}“`;
 
 <figure class="pull-quote">
   <blockquote class="pull-quote__text">{quoted}</blockquote>
-  {attribution && <figcaption class="pull-quote__attribution">— {attribution}</figcaption>}
+  {attribution && <figcaption class="pull-quote__attribution">{attribution}</figcaption>}
 </figure>
 
 <style>

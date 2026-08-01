@@ -69,7 +69,7 @@ const site = defineCollection({
   loader: glob({ pattern: "index.md", base: "./src/content/site/de" }),
   schema: z.object({
     lang: langField,
-    seoTitle: z.string().default("Laurin Wünsch — IT-Berater · Sport · Cue Pilot"),
+    seoTitle: z.string().default("Laurin Wünsch · IT-Berater · Sport · Cue Pilot"),
     seoDescription: z.string().default(""),
     brand: z.string().default("Laurin Wünsch"),
     skipLinkLabel: z.string().default("Zum Inhalt springen"),
@@ -86,19 +86,19 @@ const site = defineCollection({
     hero: z
       .object({
         welcome: z.string().default("Cue Pilot"),
-        name: z.string().default("BPM aus der Musik. Cues auf dem Beat."),
+        name: z
+          .string()
+          .default("Musik analysieren. Intensität planen. Im Takt abliefern."),
         intro: z
           .string()
           .default(
-            "Cue Pilot analysiert Kursmusik, zeigt BPM, teilt Sektionen nach Intensität und zählt dich beim Unterrichten in die nächste Übung ein. Rechts kannst du den Playhead verschieben und Sektionen anfassen.",
+            "Cue Pilot analysiert Kursmusik, zeigt BPM, teilt Sektionen nach Intensität und zählt dich beim Unterrichten in die nächste Übung ein. In der Demo kannst du den Playhead verschieben und Sektionen anfassen.",
           ),
         role: z.string().default("von Laurin Wünsch"),
         primaryCtaLabel: z.string().default("Mehr zu Cue Pilot"),
         secondaryCtaLabel: z.string().default("Alle Bereiche"),
         image: z.string().default(""),
-        imageAlt: z
-          .string()
-          .default("Cue Pilot Demo — Track mit Intensitäts-Sektionen und Playhead"),
+        imageAlt: z.string().default("Cue Pilot Demo mit Intensitäts-Sektionen und Playhead"),
       })
       .prefault({}),
     sections: z
@@ -106,7 +106,7 @@ const site = defineCollection({
         offeringsEyebrow: z.string().default("Schwerpunkte"),
         offeringsHeading: z.string().default("Was ich anbiete"),
         aboutEyebrow: z.string().default("Über mich"),
-        aboutHeading: z.string().default("Wer dahintersteckt"),
+        aboutHeading: z.string().default("Kurz zu mir"),
         kontaktEyebrow: z.string().default("Kontakt"),
         kontaktHeading: z.string().default("Schreiben Sie mir."),
       })
@@ -121,7 +121,7 @@ const site = defineCollection({
       .prefault({}),
     footer: z
       .object({
-        tagline: z.string().default("Laurin Wünsch — IT-Berater · Sportlehrer · Aufgussmeister"),
+        tagline: z.string().default("Laurin Wünsch · IT-Berater · Sportlehrer · Aufgussmeister"),
         copyright: z.string().default("Laurin Wünsch"),
       })
       .prefault({}),

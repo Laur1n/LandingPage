@@ -1,4 +1,4 @@
-# Decap CMS — Laurin Wünsch personal site (see docs/cms-auth-setup.md for git-gateway setup).
+# Decap CMS: Laurin Wünsch personal site (see docs/cms-auth-setup.md for git-gateway setup).
 
 backend:
   name: git-gateway
@@ -68,12 +68,12 @@ collections:
             widget: "object"
             collapsed: true
             fields:
-              - { label: "Bereiche — Kleintitel", name: "offeringsEyebrow", widget: "string" }
-              - { label: "Bereiche — Überschrift", name: "offeringsHeading", widget: "string" }
-              - { label: "Über mich — Kleintitel", name: "aboutEyebrow", widget: "string" }
-              - { label: "Über mich — Überschrift", name: "aboutHeading", widget: "string" }
-              - { label: "Kontakt — Kleintitel", name: "kontaktEyebrow", widget: "string" }
-              - { label: "Kontakt — Überschrift", name: "kontaktHeading", widget: "string" }
+              - { label: "Bereiche: Kleintitel", name: "offeringsEyebrow", widget: "string" }
+              - { label: "Bereiche: Überschrift", name: "offeringsHeading", widget: "string" }
+              - { label: "Über mich: Kleintitel", name: "aboutEyebrow", widget: "string" }
+              - { label: "Über mich: Überschrift", name: "aboutHeading", widget: "string" }
+              - { label: "Kontakt: Kleintitel", name: "kontaktEyebrow", widget: "string" }
+              - { label: "Kontakt: Überschrift", name: "kontaktHeading", widget: "string" }
           - label: "Impressum & Datenschutz"
             name: "legalPages"
             widget: "object"
@@ -81,8 +81,8 @@ collections:
             fields:
               - { label: "Kleintitel", name: "eyebrow", widget: "string" }
               - { label: "„Zuletzt aktualisiert“", name: "updatedLabel", widget: "string" }
-              - { label: "Impressum — Meta-Beschreibung", name: "impressumDescription", widget: "string" }
-              - { label: "Datenschutz — Meta-Beschreibung", name: "datenschutzDescription", widget: "string" }
+              - { label: "Impressum: Meta-Beschreibung", name: "impressumDescription", widget: "string" }
+              - { label: "Datenschutz: Meta-Beschreibung", name: "datenschutzDescription", widget: "string" }
           - label: "Fußzeile"
             name: "footer"
             widget: "object"
@@ -90,7 +90,7 @@ collections:
             fields:
               - { label: "Tagline", name: "tagline", widget: "string" }
               - { label: "Copyright-Name", name: "copyright", widget: "string" }
-          - label: "Startseite — Link-Texte"
+          - label: "Startseite: Link-Texte"
             name: "teasers"
             widget: "object"
             collapsed: true
@@ -98,15 +98,15 @@ collections:
               - { label: "Über mich", name: "aboutCtaLabel", widget: "string" }
               - { label: "Bereiche (optional)", name: "offeringsCtaLabel", widget: "string" }
               - { label: "Kontakt", name: "kontaktCtaLabel", widget: "string" }
-          - label: "Unterseiten — Überschriften"
+          - label: "Unterseiten: Überschriften"
             name: "subpages"
             widget: "object"
             collapsed: true
             fields:
-              - { label: "Über mich — Kleintitel", name: "aboutEyebrow", widget: "string" }
-              - { label: "Über mich — Überschrift", name: "aboutHeading", widget: "string" }
-              - { label: "Kontakt — Kleintitel", name: "kontaktEyebrow", widget: "string" }
-              - { label: "Kontakt — Überschrift", name: "kontaktHeading", widget: "string" }
+              - { label: "Über mich: Kleintitel", name: "aboutEyebrow", widget: "string" }
+              - { label: "Über mich: Überschrift", name: "aboutHeading", widget: "string" }
+              - { label: "Kontakt: Kleintitel", name: "kontaktEyebrow", widget: "string" }
+              - { label: "Kontakt: Überschrift", name: "kontaktHeading", widget: "string" }
           - label: "Bereichs-Seiten"
             name: "offering"
             widget: "object"
@@ -116,7 +116,7 @@ collections:
               - { label: "Button „E-Mail schreiben“", name: "emailCtaLabel", widget: "string" }
               - { label: "E-Mail-Betreff (Präfix)", name: "emailSubjectPrefix", widget: "string" }
               - { label: "Hinweis externe Links", name: "externalLinkHint", widget: "string" }
-          - label: "Kontakt — Feldlabels"
+          - label: "Kontakt: Feldlabels"
             name: "contactLabels"
             widget: "object"
             collapsed: true
@@ -169,9 +169,9 @@ collections:
       - { label: "Reihenfolge", name: "order", widget: "number", required: false, value_type: "int" }
       - { label: "Link-Text „Mehr erfahren“", name: "ctaLabel", widget: "string", required: false }
       - { label: "Zitat (optional)", name: "quote", widget: "text", required: false }
-      - { label: "Zitat — Quelle", name: "quoteAttribution", widget: "string", required: false }
-      - { label: "Abschnitt — Überschrift (optional)", name: "pitchHeading", widget: "string", required: false }
-      - { label: "Abschnitt — Text (optional)", name: "pitchText", widget: "text", required: false }
+      - { label: "Zitat: Quelle", name: "quoteAttribution", widget: "string", required: false }
+      - { label: "Abschnitt: Überschrift (optional)", name: "pitchHeading", widget: "string", required: false }
+      - { label: "Abschnitt: Text (optional)", name: "pitchText", widget: "text", required: false }
       - label: "Funktionen (optional, z. B. Cue Pilot)"
         name: "features"
         widget: "list"

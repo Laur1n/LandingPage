@@ -2,7 +2,7 @@
 lang: de
 title: Sportlehrer
 subtitle: Freiberuflicher Unterricht
-intro: Einzel- und Gruppentraining — angepasst an Niveau und Ziel.
+intro: Einzel- und Gruppentraining, angepasst an Niveau und Ziel.
 teaser: Freiberuflicher Sportunterricht für Einzelpersonen und Gruppen.
 order: 2
 ctaLabel: Sportunterricht anfragen
@@ -14,7 +14,7 @@ pitchText: Wunschtermin, Ort und Ziel genügen für den Start.
 
 ## Angebot
 
-Bewegung, Technik und regelmäßige Einheiten — einzeln oder in der Kleingruppe.
+Bewegung, Technik und regelmäßige Einheiten, einzeln oder in der Kleingruppe.
 
 ## Schwerpunkte
 
