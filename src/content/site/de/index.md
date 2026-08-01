@@ -1,14 +1,16 @@
 ---
 lang: de
 seoTitle: Laurin Wünsch — IT-Berater · Cue Pilot · Sportlehrer · Aufgussmeister
-seoDescription: Persönliche Website von Laurin Wünsch — IT-Beratung, Cue Pilot App für Fitness-Instruktoren, freiberuflicher Sportunterricht und Aufgussmeister.
+seoDescription: Persönliche Website von Laurin Wünsch — IT-Beratung, Cue Pilot
+  App für Fitness-Instruktoren, freiberuflicher Sportunterricht und
+  Aufgussmeister.
 brand: Laurin Wünsch
 skipLinkLabel: Zum Inhalt springen
 nav:
   start: Start
   cuePilot: Cue Pilot
   sportlehrer: Sportlehrer
-  aufgussmeister: Aufgussmeister
+  aufgussmeister: Sauna und Aufgüsse
   ueberMich: Über mich
   kontakt: Kontakt
 hero:
@@ -53,3 +55,4 @@ contactLabels:
   mobile: Mobil
   email: E-Mail
   location: Ort
+---
