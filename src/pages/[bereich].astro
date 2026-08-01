@@ -278,12 +278,36 @@ const emailHref = `mailto:${contact.data.email}?subject=${encodeURIComponent(
   }
 
   @media (max-width: 56rem) {
+    .offering-hero {
+      padding-block: var(--space-2xl) var(--space-xl);
+    }
+
     .offering-hero__grid {
       grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+
+    .offering-hero__title {
+      max-width: none;
+    }
+
+    .offering-hero__actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .offering-hero__actions .cta-pill,
+    .offering-hero__secondary {
+      text-align: center;
     }
 
     .offering-hero__figure {
-      max-width: 24rem;
+      max-width: 20rem;
+    }
+
+    .offering-page__prose,
+    .offering-page__pitch {
+      padding-block: var(--space-2xl);
     }
   }
 </style>

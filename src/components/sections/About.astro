@@ -64,12 +64,17 @@ const { sections, teasers } = await getSiteTexts();
   }
 
   @media (max-width: 56rem) {
+    .about {
+      padding-block: var(--space-2xl);
+    }
+
     .about__grid {
       grid-template-columns: 1fr;
+      gap: var(--space-xl);
     }
 
     .about__portrait {
-      max-width: 18rem;
+      max-width: 16rem;
     }
 
     .about__portrait::after {

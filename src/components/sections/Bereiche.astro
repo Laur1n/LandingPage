@@ -93,9 +93,14 @@ const marks = ["blue", "yellow", "red"] as const;
   }
 
   @media (max-width: 56rem) {
+    .bereiche {
+      padding-block: var(--space-2xl);
+    }
+
     .bereiche__item {
       grid-template-columns: 1fr;
       gap: var(--space-sm);
+      padding-block: var(--space-lg);
     }
   }
 </style>

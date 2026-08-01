@@ -98,6 +98,15 @@ test.describe("Public site", () => {
         level: 1,
       }),
     ).toBeVisible();
+
+    const menuBtn = page.getByRole("button", { name: /Menü öffnen/ });
+    await expect(menuBtn).toBeVisible();
+    await menuBtn.click();
+    await expect(page.getByRole("navigation", { name: "Mobilnavigation" })).toBeVisible();
+    await page.getByRole("navigation", { name: "Mobilnavigation" }).getByRole("link", { name: "Kontakt" }).click();
+    await expect(page).toHaveURL(/\/kontakt/);
+
+    await page.goto("/");
     const hasHorizontalOverflow = await page.evaluate(
       () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
     );

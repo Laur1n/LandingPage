@@ -105,4 +105,15 @@ const phones = [phone, phoneMobile].filter((value): value is string => Boolean(v
     padding: 0;
     margin: var(--space-xl) 0 0;
   }
+
+  @media (max-width: 48rem) {
+    .kontakt {
+      padding-block: var(--space-2xl);
+    }
+
+    .kontakt__primary {
+      font-size: var(--text-lg);
+      word-break: break-word;
+    }
+  }
 </style>
