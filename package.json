@@ -1,9 +1,9 @@
 {
-  "name": "francesca-simone-portfolio",
+  "name": "cms-landing-page-template",
   "type": "module",
   "version": "1.0.0",
   "private": true,
-  "description": "Static portfolio site for Francesca Simone (singer, songwriter, vocal teacher) with a self-service content login.",
+  "description": "Reusable Astro + Decap CMS landing page template for portfolio sites, fully editable without code.",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",

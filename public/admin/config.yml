@@ -1,7 +1,8 @@
-# Decap CMS configuration — see specs/001-francesca-portfolio-site/contracts/decap-cms-config.md
-# for the full contract this file implements. Hosting is GitHub Pages (see
-# .github/workflows/deploy.yml); this backend config is unaffected by that choice — DecapBridge
-# talks to the GitHub repo directly regardless of where the built site is served from.
+# Decap CMS configuration for this template deployment.
+# See specs/001-francesca-portfolio-site/contracts/decap-cms-config.md for the full contract.
+# When forking the template: update backend.repo, identity_url, and site_url for the new site.
+# Hosting is GitHub Pages (.github/workflows/deploy.yml); DecapBridge talks to the GitHub repo
+# directly regardless of where the built site is served from.
 
 # Use DecapBridge classic auth (required)
 backend:

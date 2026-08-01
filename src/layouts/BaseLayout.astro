@@ -26,27 +26,6 @@ const { skipLinkLabel } = await getSiteTexts();
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!--
-      GitHub Pages serves this exact build at two URLs: the default
-      https://laur1n.github.io/LandingPage/ (subpath) and the custom domain from `site` in
-      astro.config.mjs (root) once DNS is configured. Every asset link in this build is
-      root-relative (correct for the custom domain), so visiting the subpath URL directly would
-      404 every CSS/font/image. Rather than picking one via Astro's `base` config (which would
-      just break the other), redirect the subpath URL straight to the real domain — both URLs end
-      up working for a visitor, with no path-prefixing trade-off in the codebase. Runs before any
-      other resource tag to avoid a flash of unstyled content.
-    -->
-    <script is:inline define:vars={{ siteOrigin: Astro.site?.origin ?? "https://francesca-simone.com" }}>
-      if (window.location.hostname === "laur1n.github.io") {
-        window.location.replace(
-          siteOrigin +
-            window.location.pathname.replace(/^\/LandingPage/, "") +
-            window.location.search +
-            window.location.hash,
-        );
-      }
-    </script>
-
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     <meta name="description" content={description} />

@@ -1,28 +1,20 @@
 <!--
 Sync Impact Report
 ==================
-Version change: (template, unratified) → 1.0.0
-Modified principles: n/a (initial ratification, all principles newly defined)
-Added principles:
-  - I. Static-First, Fast & Simple
-  - II. Non-Technical Content Ownership
-  - III. Minimal, Secure Single-Admin Authentication
-  - IV. Impeccable, Distinctive Design Craft
-  - V. Baseline Continuity with the Existing Site
-Added sections:
-  - Technology & Platform Constraints
-  - Content Workflow & Quality Gates
-  - Governance
-Removed sections: none (first fill of the template placeholders)
+Version change: 1.0.0 → 1.1.0
+Modified principles:
+  - II. Non-Technical Content Ownership — generalized from a single named owner to any site editor
+  - IV. Impeccable, Distinctive Design Craft — per-deployment design context, not one artist
+  - V. Baseline Continuity → Complete Content Coverage — template framing for new deployments
+Added sections: none
+Removed sections: none
 Templates requiring updates:
-  ✅ .specify/templates/plan-template.md — Constitution Check gate reads this file dynamically; no hardcoded principle names to update
-  ✅ .specify/templates/spec-template.md — feature-agnostic, no changes required
-  ✅ .specify/templates/tasks-template.md — feature-agnostic, no changes required
-  ⚠ README.md — does not exist yet; recommend creating one that reflects Principles I-III when the first feature is implemented (not a constitution-governance task, left for follow-up)
-Follow-up TODOs: none blocking. Specific hosting provider, static-site framework, and auth implementation are intentionally left open for /speckit-specify and /speckit-plan to resolve per feature.
+  ✅ README.md — rewritten as CMS landing page template guide
+  ✅ TEMPLATE.md — new per-deployment customization checklist
+Follow-up TODOs: none blocking.
 -->
 
-# MamaLanding Constitution
+# CMS Landing Page Template — Constitution
 
 ## Core Principles
 
@@ -34,20 +26,20 @@ required to display any public page. Any dynamic capability — most notably aut
 content editing — MUST be isolated behind a clearly separated admin surface and MUST NOT degrade
 the load speed, reliability, or resilience of the public pages.
 
-Rationale: The audience for a touring musician's site is bandwidth- and device-diverse (concertgoers
-on mobile, journalists, venue bookers). A static site guarantees fast loads, near-zero hosting cost,
-and high uptime without ongoing server maintenance.
+Rationale: The audience for a portfolio or professional landing page is bandwidth- and device-diverse
+(mobile visitors, press, bookers, clients). A static site guarantees fast loads, near-zero hosting
+cost, and high uptime without ongoing server maintenance.
 
 ### II. Non-Technical Content Ownership
 
-Francesca (the site owner) MUST be able to log in and independently create, edit, and remove all
-editable content — biography, project/ensemble descriptions, tour dates, discography, teaching/lesson
-information, photos, and contact details — without writing code or involving a developer. Every
-piece of content that appears on the public site MUST be backed by a field in the content-editing
+The site owner (or their delegated editor) MUST be able to log in and independently create, edit,
+and remove all editable content — biography, projects, tour dates, discography, teaching info,
+photos, contact details, and global site texts — without writing code or involving a developer.
+Every piece of content that appears on the public site MUST be backed by a field in the content-editing
 area; there MUST be no content that only a developer can change.
 
-Rationale: The explicit purpose of building a login is to make the site self-maintaining. A feature
-that still requires a code change to update text or a date defeats that purpose.
+Rationale: The explicit purpose of this template is CMS-driven self-maintenance. A feature that still
+requires a code change to update text or a date defeats that purpose.
 
 ### III. Minimal, Secure Single-Admin Authentication
 
@@ -57,32 +49,33 @@ hashed at rest, sessions MUST be protected against fixation and CSRF, the admin 
 linked from public navigation or indexable by search engines, and every content-mutating action MUST
 require an authenticated session.
 
-Rationale: The security model should match the actual threat surface — one trusted, non-technical
-user maintaining public marketing content — simple enough for her to use unassisted, strong enough
-to prevent defacement or data loss.
+Rationale: The security model should match the actual threat surface — one or few trusted,
+non-technical users maintaining public marketing content — simple enough to use unassisted, strong
+enough to prevent defacement or data loss.
 
 ### IV. Impeccable, Distinctive Design Craft
 
 All new UI/visual work MUST be produced using the `impeccable` design skill/workflow and MUST avoid
 generic, templated "AI slop" aesthetics (default fonts, cyan-purple gradients, stock card grids,
 gratuitous glassmorphism). Design context (audience, brand personality, aesthetic direction) MUST be
-established explicitly — via `impeccable teach` — before visual work begins, reflecting Francesca
-Simone's actual artistic identity (Italian, jazz/pop, warm and expressive), not genre stereotypes
-assumed from the codebase alone.
+established explicitly — via `impeccable teach` — before visual work begins for each deployment,
+reflecting the client's actual identity, not genre stereotypes assumed from the codebase alone.
+The seed `.impeccable.md` in this repository documents the Francesca Simone reference deployment only.
 
-Rationale: This is a professional artist's public face. A generic, forgettable template undermines
-credibility with venues, press, students, and audiences — the opposite of what a portfolio site is
-for.
+Rationale: A professional landing page is a public face. A generic, forgettable template undermines
+credibility with the intended audience — the opposite of what a portfolio site is for.
 
-### V. Baseline Continuity with the Existing Site
+### V. Complete Content Coverage (per deployment)
 
-The current live site (https://jazz-isses.de/Francesca/) is the content and information baseline:
-biography/Vita, projects/ensembles (e.g. "Francesca Simone & Friends", "re:call"), upcoming
-dates/Termine, discography/CDs, teaching/Unterricht, and contact/Kontakt. The new site MUST cover at
-least this same information unless a feature spec explicitly and intentionally supersedes a section.
+Every section the public site exposes MUST be backed by CMS-editable content before launch. When
+adapting this template for a new client, replace all seed/demo content entirely — do not ship
+another site's biography, dates, or media. When migrating from an existing site (as in the Francesca
+Simone reference implementation documented under `specs/`), the new deployment MUST cover at least
+the same information the old site provided unless a feature spec explicitly and intentionally
+supersedes a section.
 
-Rationale: Existing visitors, venues, and students rely on this information being present. A rebuild
-must not silently drop content the audience depends on.
+Rationale: Visitors and stakeholders rely on complete, accurate information. A template fork must not
+silently drop content the audience depends on, nor leave placeholder copy live.
 
 ## Technology & Platform Constraints
 
@@ -102,7 +95,8 @@ must not silently drop content the audience depends on.
 ## Content Workflow & Quality Gates
 
 - Before implementing any new UI surface, design context MUST be established per the `impeccable`
-  workflow (Principle IV). This is a one-time setup per project and can be reused across features.
+  workflow (Principle IV). This is a one-time setup per deployment and can be reused across features
+  on the same site.
 - Automated tests are not required for static marketing pages, but authentication and
   content-persistence logic (login, and create/update/delete of content) MUST have basic tests
   covering the success path and at least one failure/security path (e.g., rejecting unauthenticated
@@ -121,4 +115,4 @@ feature plan produced via `/speckit-plan` MUST include a Constitution Check sect
 alignment with the principles above before implementation begins; unresolved violations MUST be
 justified in that plan's Complexity Tracking section or the plan MUST be revised.
 
-**Version**: 1.0.0 | **Ratified**: 2026-07-23 | **Last Amended**: 2026-07-23
+**Version**: 1.1.0 | **Ratified**: 2026-07-23 | **Last Amended**: 2026-08-01

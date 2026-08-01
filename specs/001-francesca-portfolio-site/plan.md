@@ -1,5 +1,8 @@
 # Implementation Plan: Francesca Simone Portfolio Site with Self-Service Content Login
 
+> **Template note:** Reference implementation for the CMS landing page template. New deployments
+> reuse the architecture documented here; see [`TEMPLATE.md`](../../TEMPLATE.md).
+
 **Branch**: `001-francesca-portfolio-site` | **Date**: 2026-07-23 | **Spec**: [spec.md](./spec.md)
 
 **Input**: Feature specification from `/specs/001-francesca-portfolio-site/spec.md`

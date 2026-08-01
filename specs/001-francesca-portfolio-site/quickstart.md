@@ -1,4 +1,8 @@
-# Quickstart: Validate the Francesca Simone Portfolio Site
+# Quickstart: Validate the Reference Implementation (Francesca Simone)
+
+> **Template note:** This repository is a reusable CMS landing page template. The steps below
+> validate the **Francesca Simone reference deployment** that ships as demo content. For starting a
+> new site from the template, see [`TEMPLATE.md`](../../TEMPLATE.md) at the repo root.
 
 **Feature**: [spec.md](./spec.md) | **Plan**: [plan.md](./plan.md)
 

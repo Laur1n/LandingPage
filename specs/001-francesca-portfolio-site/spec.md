@@ -1,5 +1,9 @@
 # Feature Specification: Francesca Simone Portfolio Site with Self-Service Content Login
 
+> **Template note:** This spec describes the **reference implementation** that became the seed
+> content for the reusable CMS landing page template in this repository. See [`TEMPLATE.md`](../../TEMPLATE.md)
+> for adapting the template to other sites.
+
 **Feature Branch**: `001-francesca-portfolio-site`
 
 **Created**: 2026-07-23

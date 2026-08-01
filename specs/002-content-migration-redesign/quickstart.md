@@ -1,5 +1,9 @@
 # Quickstart — Validating 002 (Content Migration & Design Overhaul)
 
+> **Template note:** Feature 002 documents how the Francesca Simone reference content was migrated
+> and redesigned. New template deployments replace seed content instead of running this harvest
+> workflow unless they are migrating from an existing site.
+
 Prerequisites: Node 22+, `npm install`. Run everything from the repo root on branch
 `002-content-migration-redesign`.
 

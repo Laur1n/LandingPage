@@ -1,5 +1,8 @@
 # Feature Specification: Full Content Migration & Design Overhaul
 
+> **Template note:** This spec documents the Francesca Simone content migration that populates the
+> reference deployment. Template forks replace seed content rather than repeating this migration.
+
 **Feature Branch**: `002-content-migration-redesign`
 
 **Created**: 2026-07-24
