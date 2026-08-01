@@ -64,14 +64,14 @@ test.describe("Public portfolio site (User Story 1)", () => {
     await expect(page).toHaveURL(/\/impressum/);
 
     // The redirect script only triggers on the exact default GitHub Pages hostname. Verify the
-    // URL-rewriting logic it uses (strip the /mamaLanding subpath, swap in the real domain)
+    // URL-rewriting logic it uses (strip the /LandingPage subpath, swap in the real domain)
     // produces the right target, without actually simulating a cross-origin navigation.
     const target = await page.evaluate(() => {
-      const pathname = "/mamaLanding/impressum";
+      const pathname = "/LandingPage/impressum";
       const search = "?ref=test";
       const hash = "#section";
       return (
-        "https://francesca-simone.com" + pathname.replace(/^\/mamaLanding/, "") + search + hash
+        "https://francesca-simone.com" + pathname.replace(/^\/LandingPage/, "") + search + hash
       );
     });
     expect(target).toBe("https://francesca-simone.com/impressum?ref=test#section");

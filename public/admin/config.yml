@@ -6,9 +6,9 @@
 # Use DecapBridge classic auth (required)
 backend:
   name: git-gateway
-  repo: mrarno3108/mamaLanding
+  repo: Laur1n/LandingPage
   branch: main
-  identity_url: https://auth.decapbridge.com/sites/6ce414fb-7b28-4e09-906f-798c9e6517d6
+  identity_url: https://auth.decapbridge.com/sites/e380cd0b-df6a-4278-963b-8eb57fc3bab9
   gateway_url: https://gateway.decapbridge.com
 
   # See who did what (optional)
@@ -24,7 +24,7 @@ backend:
 logo_url: https://decapbridge.com/decapcms-with-bridge.svg
 
 # Add site links in Decap CMS (optional)
-site_url: https://francesca-simone.com
+site_url: https://laur1n.github.io/LandingPage
 
 # FR-018/FR-019: save -> preview -> publish, rather than saves going straight to the live
 # site. Preview is rendered in-app (via registerPreviewTemplate in index.html) rather than a
