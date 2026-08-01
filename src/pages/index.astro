@@ -132,6 +132,10 @@ const { seoTitle, seoDescription, hero } = await getSiteTexts();
   }
 
   @media (max-width: 56rem) {
+    .hero {
+      padding-block: var(--space-2xl) var(--space-3xl);
+    }
+
     .hero__grid {
       grid-template-columns: 1fr;
       gap: var(--space-2xl);
@@ -139,10 +143,38 @@ const { seoTitle, seoDescription, hero } = await getSiteTexts();
 
     .hero__headline {
       max-width: none;
+      font-size: var(--text-2xl);
+    }
+
+    .hero__intro {
+      font-size: var(--text-base);
+      margin-bottom: var(--space-xl);
+    }
+
+    .hero__actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .hero__actions .cta-pill,
+    .hero__actions .hero__ghost {
+      text-align: center;
     }
 
     .hero__visual {
       justify-self: stretch;
+      max-width: 100%;
+      overflow-x: auto;
+    }
+
+    .quote-band {
+      padding-block: var(--space-2xl);
+    }
+  }
+
+  @media (max-width: 30rem) {
+    .hero__actions {
+      gap: var(--space-sm);
     }
   }
 </style>

@@ -864,4 +864,40 @@
       animation: none;
     }
   }
+
+  @media (max-width: 30rem) {
+    .cue-score {
+      padding: var(--space-md);
+      gap: var(--space-md);
+    }
+
+    .cue-score__bpm {
+      font-size: var(--text-xl);
+    }
+
+    .cue-score__track,
+    .cue-score__bars {
+      min-height: 5.5rem;
+    }
+
+    .cue-score__session {
+      grid-template-columns: 1fr;
+      justify-items: start;
+      gap: var(--space-md);
+    }
+
+    .cue-score__circle-wrap {
+      width: 5.5rem;
+      height: 5.5rem;
+    }
+
+    .cue-score__circle {
+      width: 4.75rem;
+      height: 4.75rem;
+    }
+
+    .cue-score__exercise {
+      font-size: var(--text-base);
+    }
+  }
 </style>
