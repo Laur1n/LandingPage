@@ -1,8 +1,6 @@
 ---
 /**
- * Large display quote. When an attribution exists it is rendered inside the same <figure> —
- * quote and attribution never separate (spec edge case, FR-004). German typographic quote
- * marks are added here, once, so CMS fields store the raw sentence.
+ * Large display quote — editorial Bauhaus, no italic costume.
  */
 interface Props {
   quote: string;
@@ -21,7 +19,16 @@ const quoted = `„${quote.replace(/^[„"]|[“"]$/g, "")}“`;
 <style>
   .pull-quote {
     margin: 0;
-    padding-block: var(--space-2xl);
+    padding-block: var(--space-lg);
+    display: grid;
+    gap: var(--space-lg);
+    grid-template-columns: 1rem 1fr;
+  }
+
+  .pull-quote::before {
+    content: "";
+    width: 1rem;
+    background: var(--color-bauhaus-red);
   }
 
   .pull-quote__text {
@@ -30,18 +37,19 @@ const quoted = `„${quote.replace(/^[„"]|[“"]$/g, "")}“`;
     padding: 0;
     font-family: var(--font-display);
     font-size: var(--text-xl);
-    font-style: italic;
-    font-weight: 400;
-    line-height: 1.3;
+    font-weight: 700;
+    line-height: 1.2;
     max-width: 28ch;
     text-wrap: balance;
   }
 
   .pull-quote__attribution {
-    margin-top: var(--space-lg);
+    grid-column: 2;
     color: var(--color-ink-muted);
+    font-family: var(--font-display);
     font-size: var(--text-sm);
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    font-weight: 700;
   }
 </style>

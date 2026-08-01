@@ -2,28 +2,22 @@
 lang: de
 title: Aufgussmeister
 subtitle: Sauna & Wellness
-intro: Aufgüsse mit Rhythmus, Atmosphäre und Erfahrung — für Gäste, die Wellness bewusst erleben wollen.
-teaser: Aufgussmeister für Sauna und Wellness — Ritual, Düfte und ein durchdachtes Gästeerlebnis.
+intro: Aufgüsse mit Rhythmus und Dramaturgie — für Gäste, die das Ritual ernst nehmen.
+teaser: Aufgüsse für Sauna und Wellness — Düfte, Timing, ruhiger Auftritt.
 order: 3
 ctaLabel: Aufguss anfragen
-heroImage: /uploads/francesca-portrait-placeholder.svg
+heroImage: /uploads/laurin-portrait-placeholder.svg
 heroImageAlt: Aufgussmeister Laurin Wünsch
-pitchHeading: Booking & Events
-pitchText: Für Hotels, Thermen oder Events — sprechen Sie mich an.
+pitchHeading: Hotels, Thermen, Events
+pitchText: Schreiben Sie mir mit Location und Terminwunsch.
 ---
 
-## Aufguss & Wellness
+## Aufguss
 
-Als **Aufgussmeister** gestalte ich Aufgüsse mit klarer Dramaturgie, passenden Düften und einem ruhigen, professionellen Auftritt vor Ihren Gästen.
+Klare Dramaturgie, passende Düfte, sicherer Ablauf — ohne Show um der Show willen.
 
-## Einsatzfelder
+## Einsatz
 
 - Saunalandschaften und Thermen
-- Events und besondere Abende
-- Themenaufgüsse nach Absprache
-
-## Mein Ansatz
-
-Respekt vor den Gästen, Sicherheit im Ablauf und ein Erlebnis, das im Gedächtnis bleibt — ohne Show um der Show willen.
-
-_Konkrete Termine, Locations und Referenzen können Sie im CMS ergänzen._
+- Events und Themenabende
+- Gastauftritte nach Absprache

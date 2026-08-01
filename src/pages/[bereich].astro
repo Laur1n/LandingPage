@@ -4,6 +4,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Prose from "../components/blocks/Prose.astro";
 import PullQuote from "../components/blocks/PullQuote.astro";
 import ExternalLink from "../components/blocks/ExternalLink.astro";
+import CuePilotDemo from "../components/blocks/CuePilotDemo.astro";
+import SportVisual from "../components/blocks/SportVisual.astro";
+import WellnessVisual from "../components/blocks/WellnessVisual.astro";
+import OfferingFeatures from "../components/sections/OfferingFeatures.astro";
+import OfferingWorkflow from "../components/sections/OfferingWorkflow.astro";
 import { getSiteTexts } from "../lib/site-texts";
 import { RESERVED_SLUGS } from "../lib/routes";
 
@@ -23,6 +28,10 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const { brand, offering: offeringTexts } = await getSiteTexts();
 const [contact] = await getCollection("contact");
+const bereich = entry.id;
+const isProductOffering = bereich === "cue-pilot";
+const isSport = bereich === "sportlehrer";
+const isWellness = bereich === "aufgussmeister";
 
 const emailHref = `mailto:${contact.data.email}?subject=${encodeURIComponent(
   `${offeringTexts.emailSubjectPrefix} ${entry.data.title}`,
@@ -30,91 +39,135 @@ const emailHref = `mailto:${contact.data.email}?subject=${encodeURIComponent(
 ---
 
 <BaseLayout title={`${entry.data.title} · ${brand}`} description={entry.data.intro}>
-  <header class="offering-hero">
-    <div class="container offering-hero__grid">
-      <div>
-        {
-          entry.data.subtitle && (
-            <p class="section-eyebrow" data-hero-line>
-              {entry.data.subtitle}
-            </p>
-          )
-        }
-        <h1 class="offering-hero__title" data-hero-line>{entry.data.title}</h1>
-        <p class="offering-hero__intro" data-hero-line>{entry.data.intro}</p>
-        <div class="offering-hero__actions" data-hero-line>
-          <a class="cta-pill" href="/kontakt/">
-            {entry.data.ctaLabel ?? offeringTexts.contactCtaLabel}
-          </a>
-        </div>
-      </div>
-      {
-        entry.data.heroImage && (
-          <figure class="offering-hero__figure">
-            <img
-              src={entry.data.heroImage}
-              alt={entry.data.heroImageAlt ?? ""}
-              loading="eager"
-              decoding="async"
-              data-program-hero-image
-            />
-          </figure>
-        )
-      }
-    </div>
-  </header>
-
-  {
-    entry.data.quote && (
-      <div class="container">
-        <PullQuote quote={entry.data.quote} attribution={entry.data.quoteAttribution} />
-      </div>
-    )
-  }
-
-  <div class="container">
-    <Prose>
-      <Content />
-    </Prose>
-  </div>
-
-  {
-    entry.data.links && entry.data.links.length > 0 && (
-      <div class="container offering-page__links" data-reveal>
-        <ul class="offering-page__link-list">
-          {entry.data.links.map((link) => (
-            <li>
-              <ExternalLink href={link.url} label={link.label} hint={offeringTexts.externalLinkHint} />
-            </li>
-          ))}
-        </ul>
-      </div>
-    )
-  }
-
-  {
-    (entry.data.pitchHeading || entry.data.pitchText) && (
-      <section class="offering-page__pitch" data-reveal>
-        <div class="container">
-          {entry.data.pitchHeading && (
-            <h2 class="offering-page__pitch-heading">{entry.data.pitchHeading}</h2>
-          )}
-          {entry.data.pitchText && <p class="offering-page__pitch-text">{entry.data.pitchText}</p>}
-          <div class="offering-page__pitch-actions">
-            <a class="cta-pill" href={emailHref}>
-              {offeringTexts.emailCtaLabel}
+  <article class="offering-page" data-bereich={bereich}>
+    <header class="offering-hero">
+      <div class="container offering-hero__grid">
+        <div>
+          {
+            entry.data.subtitle && (
+              <p class="section-eyebrow" data-hero-line>
+                {entry.data.subtitle}
+              </p>
+            )
+          }
+          <h1 class="offering-hero__title" data-hero-line>{entry.data.title}</h1>
+          <p class="offering-hero__intro" data-hero-line>{entry.data.intro}</p>
+          <div class="offering-hero__actions" data-hero-line>
+            <a class="cta-pill" href={isProductOffering ? emailHref : "/kontakt/"}>
+              {entry.data.ctaLabel ?? offeringTexts.contactCtaLabel}
             </a>
+            {
+              isProductOffering && entry.data.features && (
+                <a class="offering-hero__secondary" href="#funktionen">
+                  Funktionen
+                </a>
+              )
+            }
           </div>
         </div>
-      </section>
-    )
-  }
+        {
+          isProductOffering ? (
+            <div class="offering-hero__figure">
+              <CuePilotDemo />
+            </div>
+          ) : isSport ? (
+            <div class="offering-hero__figure">
+              <SportVisual />
+            </div>
+          ) : isWellness ? (
+            <div class="offering-hero__figure">
+              <WellnessVisual />
+            </div>
+          ) : (
+            entry.data.heroImage && (
+              <figure class="offering-hero__figure">
+                <img
+                  src={entry.data.heroImage}
+                  alt={entry.data.heroImageAlt ?? ""}
+                  loading="eager"
+                  decoding="async"
+                  data-program-hero-image
+                />
+              </figure>
+            )
+          )
+        }
+      </div>
+    </header>
+
+    {
+      entry.data.quote && (
+        <div class="container offering-page__quote" data-reveal>
+          <PullQuote quote={entry.data.quote} attribution={entry.data.quoteAttribution} />
+        </div>
+      )
+    }
+
+    {
+      isProductOffering && entry.data.features && (
+        <OfferingFeatures
+          eyebrow="Funktionen"
+          heading="Was Cue Pilot für Sie erledigt"
+          features={entry.data.features}
+          surface="human"
+        />
+      )
+    }
+
+    {
+      isProductOffering && entry.data.workflow && (
+        <OfferingWorkflow
+          eyebrow="Ablauf"
+          heading="So läuft es im Alltag"
+          steps={entry.data.workflow}
+        />
+      )
+    }
+
+    <div class="container offering-page__prose">
+      <Prose>
+        <Content />
+      </Prose>
+    </div>
+
+    {
+      entry.data.links && entry.data.links.length > 0 && (
+        <div class="container offering-page__links" data-reveal>
+          <ul class="offering-page__link-list">
+            {entry.data.links.map((link) => (
+              <li>
+                <ExternalLink href={link.url} label={link.label} hint={offeringTexts.externalLinkHint} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+
+    {
+      (entry.data.pitchHeading || entry.data.pitchText) && (
+        <section class="offering-page__pitch" data-reveal>
+          <div class="container">
+            {entry.data.pitchHeading && (
+              <h2 class="offering-page__pitch-heading">{entry.data.pitchHeading}</h2>
+            )}
+            {entry.data.pitchText && <p class="offering-page__pitch-text">{entry.data.pitchText}</p>}
+            <div class="offering-page__pitch-actions">
+              <a class="cta-pill" href={emailHref}>
+                {offeringTexts.emailCtaLabel}
+              </a>
+            </div>
+          </div>
+        </section>
+      )
+    }
+  </article>
 </BaseLayout>
 
 <style>
   .offering-hero {
     padding-block: var(--space-4xl) var(--space-3xl);
-    overflow: clip;
+    border-bottom: 2px solid var(--color-ink);
   }
 
   .offering-hero__grid {
@@ -126,19 +179,42 @@ const emailHref = `mailto:${contact.data.email}?subject=${encodeURIComponent(
 
   .offering-hero__title {
     font-size: var(--text-2xl);
-    max-width: 16ch;
+    max-width: 14ch;
     text-wrap: balance;
   }
 
   .offering-hero__intro {
     margin-top: var(--space-lg);
     font-size: var(--text-lg);
-    color: var(--color-ink-muted);
     max-width: 45ch;
+    color: var(--color-ink-muted);
   }
 
   .offering-hero__actions {
     margin-top: var(--space-xl);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    align-items: center;
+  }
+
+  .offering-hero__secondary {
+    display: inline-block;
+    padding: var(--space-sm) var(--space-lg);
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-sm);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-ink);
+    border: 2px solid var(--color-ink);
+  }
+
+  .offering-hero__secondary:hover,
+  .offering-hero__secondary:focus-visible {
+    background: var(--color-ink);
+    color: var(--color-surface);
   }
 
   .offering-hero__figure {
@@ -146,14 +222,24 @@ const emailHref = `mailto:${contact.data.email}?subject=${encodeURIComponent(
   }
 
   .offering-hero__figure img {
-    border-radius: 0.25rem;
     width: 100%;
     aspect-ratio: 3 / 4;
     object-fit: cover;
+    border: 2px solid var(--color-ink);
+  }
+
+  .offering-page__quote {
+    padding-block: var(--space-2xl);
+    border-bottom: 2px solid var(--color-ink);
+  }
+
+  .offering-page__prose {
+    padding-block: var(--space-3xl);
   }
 
   .offering-page__links {
     padding-block: var(--space-2xl);
+    border-top: 2px solid var(--color-ink);
   }
 
   .offering-page__link-list {
@@ -166,25 +252,29 @@ const emailHref = `mailto:${contact.data.email}?subject=${encodeURIComponent(
   }
 
   .offering-page__pitch {
-    margin-top: var(--space-3xl);
+    margin-top: 0;
     padding-block: var(--space-3xl);
-    background: var(--color-evening);
-    color: var(--color-evening-contrast);
+    border-top: 2px solid var(--color-ink);
+    background: var(--color-surface-raised);
   }
 
   .offering-page__pitch-heading {
-    color: var(--color-evening-contrast);
     font-size: var(--text-xl);
   }
 
   .offering-page__pitch-text {
     margin-top: var(--space-md);
-    color: var(--color-evening-contrast);
-    opacity: 0.85;
+    max-width: 52ch;
+    color: var(--color-ink-muted);
   }
 
   .offering-page__pitch-actions {
     margin-top: var(--space-xl);
+  }
+
+  .offering-page[data-bereich="aufgussmeister"] .offering-hero,
+  .offering-page[data-bereich="aufgussmeister"] .offering-page__prose {
+    padding-block: var(--space-4xl);
   }
 
   @media (max-width: 56rem) {

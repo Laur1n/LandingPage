@@ -1,9 +1,8 @@
 ---
 lang: de
-seoTitle: Laurin Wünsch — IT-Berater · Cue Pilot · Sportlehrer · Aufgussmeister
-seoDescription: Persönliche Website von Laurin Wünsch — IT-Beratung, Cue Pilot
-  App für Fitness-Instruktoren, freiberuflicher Sportunterricht und
-  Aufgussmeister.
+seoTitle: Laurin Wünsch — Cue Pilot · Sport · Aufguss
+seoDescription: Cue Pilot liest BPM aus Kursmusik, plant Intensitäts-Sektionen und
+  zählt Spinning-Instruktor:innen im Takt ein — von Laurin Wünsch.
 brand: Laurin Wünsch
 skipLinkLabel: Zum Inhalt springen
 nav:
@@ -14,37 +13,41 @@ nav:
   ueberMich: Über mich
   kontakt: Kontakt
 hero:
-  welcome: Willkommen
-  name: Laurin Wünsch
-  role: IT-Berater · Sportlehrer · Aufgussmeister
-  primaryCtaLabel: Kontakt aufnehmen
-  secondaryCtaLabel: Bereiche entdecken
-  image: /uploads/francesca-portrait-placeholder.svg
-  imageAlt: Laurin Wünsch
+  welcome: Cue Pilot
+  name: BPM aus der Musik. Cues auf dem Beat.
+  intro: >-
+    Cue Pilot analysiert Kursmusik, zeigt BPM, teilt Sektionen nach Intensität und zählt
+    dich beim Unterrichten in die nächste Übung ein. Rechts kannst du den Playhead
+    verschieben und Sektionen anfassen.
+  role: von Laurin Wünsch
+  primaryCtaLabel: Mehr zu Cue Pilot
+  secondaryCtaLabel: Alle Bereiche
+  image: ""
+  imageAlt: Cue Pilot Demo — Track mit Intensitäts-Sektionen und Playhead
 sections:
-  offeringsEyebrow: Schwerpunkte
-  offeringsHeading: Was ich anbiete
+  offeringsEyebrow: Bereiche
+  offeringsHeading: Drei Felder
   aboutEyebrow: Über mich
-  aboutHeading: Persönlich & professionell
+  aboutHeading: Wer dahintersteckt
   kontaktEyebrow: Kontakt
-  kontaktHeading: Sprechen wir über Ihr Projekt.
+  kontaktHeading: Schreiben Sie mir.
 legalPages:
   eyebrow: Rechtliches
   updatedLabel: Zuletzt aktualisiert
   impressumDescription: Impressum — Laurin Wünsch
   datenschutzDescription: Datenschutzerklärung — Laurin Wünsch
 footer:
-  tagline: Laurin Wünsch — IT-Berater · Sportlehrer · Aufgussmeister
+  tagline: Laurin Wünsch — Cue Pilot · Sport · Aufguss
   copyright: Laurin Wünsch
 teasers:
   aboutCtaLabel: Mehr über mich
   offeringsCtaLabel: Alle Bereiche
-  kontaktCtaLabel: Kontakt aufnehmen
+  kontaktCtaLabel: Nachricht senden
 subpages:
   aboutEyebrow: Über mich
   aboutHeading: Laurin Wünsch
   kontaktEyebrow: Kontakt
-  kontaktHeading: Anfragen & Zusammenarbeit
+  kontaktHeading: Anfrage
 offering:
   contactCtaLabel: Anfrage senden
   emailCtaLabel: E-Mail schreiben

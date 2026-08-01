@@ -13,7 +13,7 @@ const { sections, teasers } = await getSiteTexts();
       <img src={entry.data.portrait} alt={entry.data.portraitAlt} loading="lazy" decoding="async" />
     </div>
     <div class="about__text" data-reveal>
-      <p class="about__eyebrow">{sections.aboutEyebrow}</p>
+      <p class="section-eyebrow">{sections.aboutEyebrow}</p>
       <h2 class="about__heading">{sections.aboutHeading}</h2>
       <p class="about__teaser">{entry.data.teaser}</p>
       <TeaserCta href="/ueber-mich/" label={teasers.aboutCtaLabel} />
@@ -24,27 +24,32 @@ const { sections, teasers } = await getSiteTexts();
 <style>
   .about {
     padding-block: var(--space-4xl);
+    border-bottom: 2px solid var(--color-ink);
   }
 
   .about__grid {
     display: grid;
-    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
     gap: var(--space-3xl);
     align-items: center;
   }
 
-  .about__portrait img {
-    border-radius: 0.25rem;
-    width: 100%;
+  .about__portrait {
+    position: relative;
   }
 
-  .about__eyebrow {
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: var(--text-sm);
-    color: var(--color-accent);
-    font-weight: 600;
-    margin-bottom: var(--space-sm);
+  .about__portrait::after {
+    content: "";
+    position: absolute;
+    inset: var(--space-md) calc(-1 * var(--space-md)) calc(-1 * var(--space-md)) auto;
+    width: var(--space-md);
+    background: var(--color-bauhaus-yellow);
+    z-index: -1;
+  }
+
+  .about__portrait img {
+    width: 100%;
+    border: 2px solid var(--color-ink);
   }
 
   .about__heading {
@@ -64,7 +69,11 @@ const { sections, teasers } = await getSiteTexts();
     }
 
     .about__portrait {
-      max-width: 20rem;
+      max-width: 18rem;
+    }
+
+    .about__portrait::after {
+      display: none;
     }
   }
 </style>

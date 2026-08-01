@@ -1,23 +1,22 @@
 ---
 lang: de
 name: Laurin Wünsch
-tagline: IT-Beratung, digitale Produkte und Bewegung — aus einer Hand.
-portrait: /uploads/pxl_20230816_103727575.portrait.jpg
+tagline: IT-Beratung, Cue Pilot, Sport und Aufguss.
+portrait: /uploads/laurin-portrait-placeholder.svg
 portraitAlt: Laurin Wünsch
-teaser: Ich verbinde technische Beratung mit praktischer Erfahrung im Sport —
-  von der Cue Pilot App für Gruppenkurs-Instruktoren bis zur Arbeit als
-  Sportlehrer und Aufgussmeister.
+teaser: Ich baue digitale Werkzeuge und unterrichte Bewegung — von Cue Pilot für
+  Gruppenkurs-Instruktor:innen bis zu Sportstunden und Aufgüssen.
 pullQuote: Gute Lösungen entstehen, wenn Technik und Mensch zusammenpassen.
 ---
 
 ## Wer ich bin
 
-Ich arbeite als **IT-Berater** an digitalen Produkten und Prozessen, entwickle mit **Cue Pilot** eine App für Fitness-Instruktoren von Gruppenkursen und bin parallel als **freiberuflicher Sportlehrer** sowie **Aufgussmeister** tätig.
+**IT-Berater**, Macher von **Cue Pilot**, freiberuflicher **Sportlehrer** und **Aufgussmeister**.
 
-## Hintergrund
+## Ansatz
 
-Diese Kombination aus Technik, Produktentwicklung und praktischer Arbeit mit Menschen prägt meinen Ansatz: verständlich, strukturiert und nah an den realen Anforderungen der Nutzerinnen und Nutzer.
+Strukturiert, verständlich, nah an dem, was im Kurs oder Projekt wirklich gebraucht wird — nicht an dem, was auf der Folie gut aussieht.
 
-## Was mich antreibt
+## Weiter
 
-Ob Software, Sport oder Wellness — ich möchte Dinge bauen und vermitteln, die im Alltag wirklich helfen. Auf den nächsten Seiten finden Sie meine Schwerpunkte im Detail.
+Die nächsten Seiten beschreiben die drei Schwerpunkte im Detail.

@@ -1,0 +1,74 @@
+---
+/** Geometric movement motif — Bauhaus, not gym stock. */
+---
+
+<div class="sport-visual" data-program-hero-image aria-hidden="true">
+  <span class="sport-visual__bar sport-visual__bar--1"></span>
+  <span class="sport-visual__bar sport-visual__bar--2"></span>
+  <span class="sport-visual__bar sport-visual__bar--3"></span>
+  <span class="sport-visual__dot"></span>
+  <p class="sport-visual__label">01 · Bewegung</p>
+</div>
+
+<style>
+  .sport-visual {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background: var(--color-surface);
+    border: 2px solid var(--color-ink);
+    overflow: hidden;
+  }
+
+  .sport-visual__bar {
+    position: absolute;
+    left: 12%;
+    height: 2px;
+    background: var(--color-ink);
+  }
+
+  .sport-visual__bar--1 {
+    top: 28%;
+    width: 70%;
+    background: var(--color-bauhaus-blue);
+    height: 1.25rem;
+  }
+
+  .sport-visual__bar--2 {
+    top: 48%;
+    width: 48%;
+    background: var(--color-bauhaus-yellow);
+    height: 1.25rem;
+  }
+
+  .sport-visual__bar--3 {
+    top: 68%;
+    width: 62%;
+    background: var(--color-bauhaus-red);
+    height: 1.25rem;
+  }
+
+  .sport-visual__dot {
+    position: absolute;
+    right: 14%;
+    bottom: 18%;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    border: 2px solid var(--color-ink);
+    background: var(--color-bauhaus-yellow);
+  }
+
+  .sport-visual__label {
+    position: absolute;
+    left: var(--space-lg);
+    bottom: var(--space-lg);
+    margin: 0;
+    max-width: none;
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+</style>

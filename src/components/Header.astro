@@ -1,5 +1,6 @@
 ---
 import { getSiteTexts } from "../lib/site-texts";
+import ThemeToggle from "./ThemeToggle.astro";
 
 const { brand, nav } = await getSiteTexts();
 
@@ -17,8 +18,11 @@ const currentPath = Astro.url.pathname.replace(/\/?$/, "/");
 
 <header class="site-header">
   <div class="container site-header__inner">
-    <a class="site-header__brand" href="/">{brand}</a>
-    <nav aria-label="Hauptnavigation">
+    <a class="site-header__brand" href="/">
+      <span class="site-header__mark" aria-hidden="true"></span>
+      {brand}
+    </a>
+    <nav class="site-header__nav-wrap" aria-label="Hauptnavigation">
       <ul class="site-header__nav">
         {
           navItems.map((item) => (
@@ -31,6 +35,9 @@ const currentPath = Astro.url.pathname.replace(/\/?$/, "/");
         }
       </ul>
     </nav>
+    <div class="site-header__toggle">
+      <ThemeToggle />
+    </div>
   </div>
 </header>
 
@@ -39,30 +46,55 @@ const currentPath = Astro.url.pathname.replace(/\/?$/, "/");
     position: sticky;
     top: 0;
     z-index: 10;
-    background: color-mix(in oklch, var(--color-surface) 92%, transparent);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface);
+    border-bottom: 2px solid var(--color-ink);
   }
 
   .site-header__inner {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    justify-content: space-between;
-    gap: var(--space-lg);
+    gap: var(--space-md) var(--space-lg);
     padding-block: var(--space-md);
   }
 
   .site-header__brand {
     font-family: var(--font-display);
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
+    font-weight: 700;
     color: var(--color-ink);
     text-decoration: none;
     white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    grid-column: 1;
+  }
+
+  .site-header__mark {
+    width: 0.9rem;
+    height: 0.9rem;
+    background: var(--color-bauhaus-red);
+    flex-shrink: 0;
+  }
+
+  .site-header__nav-wrap {
+    grid-column: 2;
+    justify-self: end;
+    min-width: 0;
+  }
+
+  .site-header__toggle {
+    grid-column: 3;
+    justify-self: end;
+    align-self: start;
+    padding-top: 0.1rem;
   }
 
   .site-header__nav {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-end;
     gap: var(--space-md) var(--space-lg);
     list-style: none;
     margin: 0;
@@ -72,28 +104,48 @@ const currentPath = Astro.url.pathname.replace(/\/?$/, "/");
   .site-header__nav a {
     color: var(--color-ink-muted);
     text-decoration: none;
+    font-family: var(--font-display);
     font-size: var(--text-sm);
-    font-weight: 500;
-    letter-spacing: 0.02em;
+    font-weight: 700;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
   .site-header__nav a:hover,
   .site-header__nav a:focus-visible {
-    color: var(--color-accent);
+    color: var(--color-ink);
   }
 
   .site-header__nav a[aria-current="page"] {
-    color: var(--color-accent);
+    color: var(--color-bauhaus-red);
   }
 
   @media (max-width: 48rem) {
     .site-header__inner {
-      flex-direction: column;
-      align-items: flex-start;
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto auto;
+    }
+
+    .site-header__brand {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .site-header__toggle {
+      grid-column: 2;
+      grid-row: 1;
+      align-self: center;
+      padding-top: 0;
+    }
+
+    .site-header__nav-wrap {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      justify-self: stretch;
     }
 
     .site-header__nav {
+      justify-content: flex-start;
       gap: var(--space-sm) var(--space-md);
     }
   }

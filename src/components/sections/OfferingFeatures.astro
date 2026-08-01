@@ -1,0 +1,80 @@
+---
+interface Feature {
+  title: string;
+  text: string;
+}
+
+interface Props {
+  id?: string;
+  eyebrow: string;
+  heading: string;
+  features: Feature[];
+  surface?: "product" | "human";
+}
+
+const { id = "funktionen", eyebrow, heading, features } = Astro.props;
+---
+
+<section id={id} class="offering-features" data-reveal>
+  <div class="container">
+    <p class="section-eyebrow">{eyebrow}</p>
+    <h2 class="offering-features__heading">{heading}</h2>
+    <ol class="offering-features__grid">
+      {
+        features.map((feature, index) => (
+          <li class="offering-features__item">
+            <span class="index-numeral" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <div>
+              <h3 class="offering-features__title">{feature.title}</h3>
+              <p class="offering-features__text">{feature.text}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .offering-features {
+    padding-block: var(--space-4xl);
+    border-bottom: 2px solid var(--color-ink);
+  }
+
+  .offering-features__heading {
+    font-size: var(--text-xl);
+    max-width: 22ch;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .offering-features__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-xl);
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+
+  .offering-features__item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-md);
+    align-items: start;
+    padding: var(--space-lg);
+    border: 2px solid var(--color-ink);
+  }
+
+  .offering-features__text {
+    color: var(--color-ink-muted);
+    margin: var(--space-sm) 0 0;
+    max-width: 36ch;
+  }
+
+  .offering-features__title {
+    font-size: var(--text-lg);
+    font-weight: 700;
+  }
+</style>

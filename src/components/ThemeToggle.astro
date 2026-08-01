@@ -1,0 +1,95 @@
+---
+/** Bauhaus theme toggle — light paper / dark black. */
+---
+
+<button
+  type="button"
+  class="theme-toggle"
+  data-theme-toggle
+  aria-label="Farbschema umschalten"
+  title="Hell / Dunkel"
+>
+  <span class="theme-toggle__light" aria-hidden="true"></span>
+  <span class="theme-toggle__dark" aria-hidden="true"></span>
+  <span class="visually-hidden" data-theme-label>Hell</span>
+</button>
+
+<script>
+  const STORAGE_KEY = "lw-theme";
+
+  function resolveTheme(): "light" | "dark" {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored === "light" || stored === "dark") return stored;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+
+  function applyTheme(theme: "light" | "dark"): void {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem(STORAGE_KEY, theme);
+    for (const btn of document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]")) {
+      btn.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+      const label = btn.querySelector("[data-theme-label]");
+      if (label) label.textContent = theme === "dark" ? "Dunkel" : "Hell";
+      btn.title = theme === "dark" ? "Zu Hell wechseln" : "Zu Dunkel wechseln";
+    }
+  }
+
+  function boot(): void {
+    applyTheme(resolveTheme());
+    for (const btn of document.querySelectorAll("[data-theme-toggle]")) {
+      if ((btn as HTMLElement).dataset.ready === "1") continue;
+      (btn as HTMLElement).dataset.ready = "1";
+      btn.addEventListener("click", () => {
+        const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        applyTheme(next);
+      });
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot, { once: true });
+  } else {
+    boot();
+  }
+</script>
+
+<style>
+  .theme-toggle {
+    appearance: none;
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    width: 2.5rem;
+    height: 1.25rem;
+    padding: 2px;
+    border: 2px solid var(--color-ink);
+    background: var(--color-surface);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .theme-toggle__light,
+  .theme-toggle__dark {
+    display: block;
+    height: 100%;
+  }
+
+  .theme-toggle__light {
+    background: var(--color-bauhaus-yellow);
+  }
+
+  .theme-toggle__dark {
+    background: oklch(0% 0 0);
+    border: 1px solid var(--color-ink);
+  }
+
+  [data-theme="dark"] .theme-toggle__dark {
+    background: oklch(94% 0.008 85);
+    border-color: transparent;
+  }
+
+  [data-theme="dark"] .theme-toggle__light {
+    background: oklch(0% 0 0);
+    border: 1px solid var(--color-ink);
+  }
+</style>

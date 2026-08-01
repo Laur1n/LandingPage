@@ -4,8 +4,6 @@ import { getSiteTexts } from "../lib/site-texts";
 
 const { nav, footer, legalPages } = await getSiteTexts();
 
-// The two legal links take their labels from the legal entries themselves, so renaming a page
-// in the CMS renames its footer link too.
 const impressum = await getEntry("legal", "impressum");
 const datenschutz = await getEntry("legal", "datenschutz");
 if (!impressum || !datenschutz) {
@@ -31,9 +29,10 @@ const year = new Date().getFullYear();
 
 <style>
   .site-footer {
-    background: var(--color-evening);
-    color: var(--color-evening-contrast);
-    margin-top: var(--space-4xl);
+    background: var(--color-surface-product);
+    color: var(--color-ink-on-product);
+    margin-top: 0;
+    border-top: 2px solid var(--color-ink);
   }
 
   .site-footer__inner {
@@ -47,7 +46,9 @@ const year = new Date().getFullYear();
 
   .site-footer__tagline {
     margin: 0;
+    font-family: var(--font-display);
     font-size: var(--text-sm);
+    font-weight: 700;
     max-width: none;
   }
 
@@ -60,20 +61,22 @@ const year = new Date().getFullYear();
   }
 
   .site-footer__links a {
-    color: var(--color-evening-contrast);
+    color: var(--color-ink-on-product);
     font-size: var(--text-sm);
+    font-family: var(--font-display);
+    font-weight: 700;
     text-decoration: underline;
     text-underline-offset: 0.2em;
   }
 
   .site-footer__links a:hover,
   .site-footer__links a:focus-visible {
-    color: var(--color-accent);
+    color: var(--color-bauhaus-yellow);
   }
 
   .site-footer__copyright {
     margin: 0;
     font-size: var(--text-sm);
-    opacity: 0.8;
+    opacity: 0.75;
   }
 </style>

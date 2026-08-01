@@ -10,6 +10,11 @@ const linkSchema = z.object({
   }),
 });
 
+const offeringItemSchema = z.object({
+  title: z.string(),
+  text: z.string(),
+});
+
 const about = defineCollection({
   loader: glob({ pattern: "index.md", base: "./src/content/about/de" }),
   schema: z.object({
@@ -43,6 +48,8 @@ const offerings = defineCollection({
     pitchHeading: z.string().optional(),
     pitchText: z.string().optional(),
     ctaLabel: z.string().optional(),
+    features: z.array(offeringItemSchema).optional(),
+    workflow: z.array(offeringItemSchema).optional(),
   }),
 });
 
@@ -78,13 +85,20 @@ const site = defineCollection({
       .prefault({}),
     hero: z
       .object({
-        welcome: z.string().default("Willkommen"),
-        name: z.string().default("Laurin Wünsch"),
-        role: z.string().default("IT-Berater · Sportlehrer · Aufgussmeister"),
-        primaryCtaLabel: z.string().default("Kontakt aufnehmen"),
-        secondaryCtaLabel: z.string().default("Bereiche entdecken"),
-        image: z.string().default("/uploads/hero.jpg"),
-        imageAlt: z.string().default("Laurin Wünsch"),
+        welcome: z.string().default("Cue Pilot"),
+        name: z.string().default("BPM aus der Musik. Cues auf dem Beat."),
+        intro: z
+          .string()
+          .default(
+            "Cue Pilot analysiert Kursmusik, zeigt BPM, teilt Sektionen nach Intensität und zählt dich beim Unterrichten in die nächste Übung ein. Rechts kannst du den Playhead verschieben und Sektionen anfassen.",
+          ),
+        role: z.string().default("von Laurin Wünsch"),
+        primaryCtaLabel: z.string().default("Mehr zu Cue Pilot"),
+        secondaryCtaLabel: z.string().default("Alle Bereiche"),
+        image: z.string().default(""),
+        imageAlt: z
+          .string()
+          .default("Cue Pilot Demo — Track mit Intensitäts-Sektionen und Playhead"),
       })
       .prefault({}),
     sections: z
@@ -92,9 +106,9 @@ const site = defineCollection({
         offeringsEyebrow: z.string().default("Schwerpunkte"),
         offeringsHeading: z.string().default("Was ich anbiete"),
         aboutEyebrow: z.string().default("Über mich"),
-        aboutHeading: z.string().default("Persönlich & professionell"),
+        aboutHeading: z.string().default("Wer dahintersteckt"),
         kontaktEyebrow: z.string().default("Kontakt"),
-        kontaktHeading: z.string().default("Sprechen wir über Ihr Projekt."),
+        kontaktHeading: z.string().default("Schreiben Sie mir."),
       })
       .prefault({}),
     legalPages: z

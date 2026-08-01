@@ -1,0 +1,170 @@
+---
+/**
+ * Abstract Cue Pilot product frame — placeholder until app screenshots exist.
+ * Pure CSS/SVG; no stock imagery (.impeccable.md Assets).
+ */
+interface Props {
+  label?: string;
+}
+
+const { label = "Cue Pilot" } = Astro.props;
+---
+
+<div class="product-frame" data-hero-image aria-hidden="true">
+  <div class="product-frame__chrome">
+    <span class="product-frame__dot" />
+    <span class="product-frame__dot" />
+    <span class="product-frame__dot product-frame__dot--accent" />
+    <span class="product-frame__title">{label}</span>
+  </div>
+  <div class="product-frame__body">
+    <div class="product-frame__track">
+      <span class="product-frame__cue product-frame__cue--1">Warm-up</span>
+      <span class="product-frame__cue product-frame__cue--2">Block A</span>
+      <span class="product-frame__cue product-frame__cue--3">Peak</span>
+      <span class="product-frame__cue product-frame__cue--4">Cool-down</span>
+    </div>
+    <div class="product-frame__timeline" role="presentation">
+      <span class="product-frame__playhead" />
+    </div>
+    <div class="product-frame__blocks">
+      <div class="product-frame__block product-frame__block--active">
+        <span class="product-frame__block-label">3:24</span>
+      </div>
+      <div class="product-frame__block">
+        <span class="product-frame__block-label">2:00</span>
+      </div>
+      <div class="product-frame__block">
+        <span class="product-frame__block-label">4:15</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .product-frame {
+    width: 100%;
+    max-height: min(78svh, 52rem);
+    aspect-ratio: 4 / 5;
+    background: var(--color-surface-product-raised);
+    border: 1px solid color-mix(in oklch, var(--color-ink-on-product) 12%, transparent);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow:
+      0 1.5rem 3rem oklch(12% 0.03 260 / 0.45),
+      0 0 0 1px oklch(62% 0.14 55 / 0.08);
+  }
+
+  .product-frame__chrome {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid color-mix(in oklch, var(--color-ink-on-product) 10%, transparent);
+  }
+
+  .product-frame__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: color-mix(in oklch, var(--color-ink-on-product) 25%, transparent);
+  }
+
+  .product-frame__dot--accent {
+    background: var(--color-accent);
+  }
+
+  .product-frame__title {
+    margin-left: auto;
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted-on-product);
+  }
+
+  .product-frame__body {
+    flex: 1;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .product-frame__track {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .product-frame__cue {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    padding: var(--space-xs) var(--space-md);
+    border-radius: 999px;
+    background: color-mix(in oklch, var(--color-ink-on-product) 8%, transparent);
+    color: var(--color-ink-muted-on-product);
+  }
+
+  .product-frame__cue--2,
+  .product-frame__cue--3 {
+    background: color-mix(in oklch, var(--color-accent) 22%, transparent);
+    color: oklch(78% 0.12 55);
+  }
+
+  .product-frame__timeline {
+    position: relative;
+    height: 0.35rem;
+    border-radius: 999px;
+    background: color-mix(in oklch, var(--color-ink-on-product) 10%, transparent);
+    overflow: hidden;
+  }
+
+  .product-frame__playhead {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 42%;
+    border-radius: inherit;
+    background: linear-gradient(
+      90deg,
+      oklch(52% 0.15 50),
+      oklch(62% 0.14 55)
+    );
+  }
+
+  .product-frame__blocks {
+    display: grid;
+    gap: var(--space-md);
+    margin-top: auto;
+  }
+
+  .product-frame__block {
+    display: flex;
+    align-items: center;
+    min-height: 3.5rem;
+    padding: var(--space-md) var(--space-lg);
+    border-radius: 0.5rem;
+    background: color-mix(in oklch, var(--color-ink-on-product) 6%, transparent);
+    border: 1px solid color-mix(in oklch, var(--color-ink-on-product) 8%, transparent);
+  }
+
+  .product-frame__block--active {
+    background: color-mix(in oklch, var(--color-accent) 12%, transparent);
+    border-color: color-mix(in oklch, var(--color-accent) 35%, transparent);
+  }
+
+  .product-frame__block-label {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-ink-on-product);
+  }
+
+  .product-frame__block--active .product-frame__block-label {
+    color: oklch(78% 0.12 55);
+  }
+</style>

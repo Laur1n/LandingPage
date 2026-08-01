@@ -1,0 +1,64 @@
+---
+/** Geometric calm layers — Bauhaus, not spa stock. */
+---
+
+<div class="wellness-visual" data-program-hero-image aria-hidden="true">
+  <span class="wellness-visual__block wellness-visual__block--1"></span>
+  <span class="wellness-visual__block wellness-visual__block--2"></span>
+  <span class="wellness-visual__circle"></span>
+  <p class="wellness-visual__label">03 · Ritual</p>
+</div>
+
+<style>
+  .wellness-visual {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background: var(--color-surface-raised);
+    border: 2px solid var(--color-ink);
+    overflow: hidden;
+  }
+
+  .wellness-visual__block {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 22%;
+  }
+
+  .wellness-visual__block--1 {
+    top: 18%;
+    background: color-mix(in oklch, var(--color-bauhaus-blue) 35%, var(--color-surface));
+  }
+
+  .wellness-visual__block--2 {
+    top: 42%;
+    background: color-mix(in oklch, var(--color-bauhaus-blue) 18%, var(--color-surface));
+  }
+
+  .wellness-visual__circle {
+    position: absolute;
+    left: 50%;
+    top: 58%;
+    width: 7rem;
+    height: 7rem;
+    margin-left: -3.5rem;
+    border-radius: 50%;
+    border: 2px solid var(--color-ink);
+    background: var(--color-surface);
+  }
+
+  .wellness-visual__label {
+    position: absolute;
+    left: var(--space-lg);
+    bottom: var(--space-lg);
+    margin: 0;
+    max-width: none;
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+</style>

@@ -56,7 +56,8 @@ collections:
             collapsed: true
             fields:
               - { label: "Begrüßung", name: "welcome", widget: "string" }
-              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Überschrift", name: "name", widget: "string" }
+              - { label: "Einleitungstext", name: "intro", widget: "text" }
               - { label: "Rollen / Kurzbeschreibung", name: "role", widget: "string" }
               - { label: "Button 1", name: "primaryCtaLabel", widget: "string" }
               - { label: "Button 2", name: "secondaryCtaLabel", widget: "string" }
@@ -171,6 +172,20 @@ collections:
       - { label: "Zitat — Quelle", name: "quoteAttribution", widget: "string", required: false }
       - { label: "Abschnitt — Überschrift (optional)", name: "pitchHeading", widget: "string", required: false }
       - { label: "Abschnitt — Text (optional)", name: "pitchText", widget: "text", required: false }
+      - label: "Funktionen (optional, z. B. Cue Pilot)"
+        name: "features"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Titel", name: "title", widget: "string" }
+          - { label: "Text", name: "text", widget: "text" }
+      - label: "Ablauf-Schritte (optional, z. B. Cue Pilot)"
+        name: "workflow"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Titel", name: "title", widget: "string" }
+          - { label: "Text", name: "text", widget: "text" }
       - label: "Links (optional)"
         name: "links"
         widget: "list"
