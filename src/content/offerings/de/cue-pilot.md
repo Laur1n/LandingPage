@@ -6,33 +6,33 @@ intro: >-
   Cue Pilot analysiert Kursmusik, zeigt BPM, teilt Tracks in Intensitäts-Sektionen
   und zählt dich im Session-Modus in die nächste Übung ein.
 teaser: >-
-  BPM lesen, Intensität setzen, im Takt cueden — für Spinning- und Gruppenkurse.
+  BPM lesen, Intensität setzen, im Takt cueden. Für Spinning- und Gruppenkurse.
 order: 1
 ctaLabel: Demo anfragen
 pitchHeading: Demo oder Feedback?
 pitchText: >-
-  Schreiben Sie mir — ich melde mich mit den nächsten Schritten.
+  Schreiben Sie mir. Ich melde mich mit den nächsten Schritten.
 quote: Wenn der Cue auf dem Beat sitzt, bleibt der Fokus bei der Gruppe.
 features:
   - title: Musik analysieren
     text: >-
-      Track laden — Cue Pilot liest BPM und Abschnitte aus.
+      Track laden. Cue Pilot liest BPM und Abschnitte aus.
   - title: Intensitäts-Sektionen
     text: >-
-      Warm-up, Climb, Peak, Cool-down — nach Intensität, nicht nur nach Minuten.
+      Warm-up, Climb, Peak, Cool-down: nach Intensität, nicht nur nach Minuten.
   - title: Übungen zuordnen
     text: >-
       Pro Sektion die Übung hinterlegen und die Playlist speichern.
   - title: Session-Modus
     text: >-
-      Beim Unterrichten: Ansage und Einzählen im Takt — ohne Zettelchaos.
+      Beim Unterrichten: Ansage und Einzählen im Takt, ohne Zettelchaos.
 workflow:
   - title: Track laden
-    text: Musik einspielen — BPM und Struktur kommen mit.
+    text: Musik einspielen. BPM und Struktur kommen mit.
   - title: Planen
-    text: Sektionen, Intensität, Übungen — einmal setzen, wiederverwenden.
+    text: Sektionen, Intensität, Übungen. Einmal setzen, wiederverwenden.
   - title: Fahren
-    text: Im Kurs cueden und einzählen — Blick bei der Gruppe.
+    text: Im Kurs cueden und einzählen. Blick bei der Gruppe.
 links:
   - label: Website (in Kürze)
     url: https://example.com
@@ -48,4 +48,4 @@ Für **Spinning- und Gruppenkurse**, in denen Musik den Ablauf trägt: analysier
 - Gruppenkurs-Trainer:innen mit BPM-Struktur
 - Studios mit gemeinsamen Playlisten und Abläufen
 
-Die Symbol-Demo auf der Startseite zeigt den Kern — Playhead, Sektionen, Session — ohne echte Audioanalyse.
+Die Demo auf der Startseite zeigt den Kern (Playhead, Sektionen, Session) ohne echte Audioanalyse.

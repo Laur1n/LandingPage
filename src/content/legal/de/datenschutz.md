@@ -10,7 +10,7 @@ Diese Datenschutzerklärung ist ein **Platzhalter** und muss vor dem produktiven
 
 ## Verantwortlicher
 
-Laurin Wünsch — Kontaktdaten siehe [Impressum](/impressum/).
+Laurin Wünsch. Kontaktdaten siehe [Impressum](/impressum/).
 
 ## Hosting
 
@@ -22,4 +22,4 @@ Wenn Sie per E-Mail Kontakt aufnehmen, verarbeiten wir Ihre Angaben zur Bearbeit
 
 ## Ihre Rechte
 
-Sie haben Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung und Widerspruch — im Rahmen der gesetzlichen Vorgaben.
+Sie haben Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung und Widerspruch, im Rahmen der gesetzlichen Vorgaben.

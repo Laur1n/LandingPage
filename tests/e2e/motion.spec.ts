@@ -6,10 +6,10 @@ test.describe("Motion guardrails", () => {
     await page.goto("/");
 
     await expect(
-      page.getByRole("heading", { level: 1, name: /BPM aus der Musik|Cues auf dem Beat/ }),
+      page.getByRole("heading", { level: 1, name: /Musik analysieren|Intensität planen|Im Takt abliefern/ }),
     ).toBeVisible();
     const opacity = await page
-      .getByRole("heading", { level: 1, name: /BPM aus der Musik|Cues auf dem Beat/ })
+      .getByRole("heading", { level: 1, name: /Musik analysieren|Intensität planen|Im Takt abliefern/ })
       .evaluate((el) => getComputedStyle(el).opacity);
     expect(Number(opacity)).toBe(1);
     expect(await page.locator(".pin-spacer").count()).toBe(0);

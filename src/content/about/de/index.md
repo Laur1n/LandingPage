@@ -4,8 +4,9 @@ name: Laurin Wünsch
 tagline: IT-Beratung, Cue Pilot, Sport und Aufguss.
 portrait: /uploads/laurin-portrait-placeholder.svg
 portraitAlt: Laurin Wünsch
-teaser: Ich baue digitale Werkzeuge und unterrichte Bewegung — von Cue Pilot für
-  Gruppenkurs-Instruktor:innen bis zu Sportstunden und Aufgüssen.
+teaser: >-
+  Ich baue digitale Werkzeuge und unterrichte Bewegung: Cue Pilot für
+  Gruppenkurs-Instruktor:innen, Sportstunden und Aufgüsse.
 pullQuote: Gute Lösungen entstehen, wenn Technik und Mensch zusammenpassen.
 ---
 
@@ -15,7 +16,7 @@ pullQuote: Gute Lösungen entstehen, wenn Technik und Mensch zusammenpassen.
 
 ## Ansatz
 
-Strukturiert, verständlich, nah an dem, was im Kurs oder Projekt wirklich gebraucht wird — nicht an dem, was auf der Folie gut aussieht.
+Strukturiert und verständlich. Nah an dem, was im Kurs oder Projekt gebraucht wird, nicht an dem, was auf der Folie gut aussieht.
 
 ## Weiter
 

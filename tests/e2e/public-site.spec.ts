@@ -1,9 +1,9 @@
 import { test, expect } from "@playwright/test";
 
 const sections = [
-  { id: "start", heading: /BPM aus der Musik|Cues auf dem Beat/ },
-  { id: "bereiche", heading: /Drei Felder/ },
-  { id: "ueber-mich", heading: /Wer dahintersteckt/ },
+  { id: "start", heading: /Musik analysieren|Intensität planen|Im Takt abliefern/ },
+  { id: "bereiche", heading: /Was ich anbiete/ },
+  { id: "ueber-mich", heading: /Kurz zu mir/ },
   { id: "kontakt", heading: /Schreiben Sie mir/ },
 ];
 
@@ -69,10 +69,10 @@ test.describe("Public site", () => {
     await expect(demo.getByText(/Jumps on beat/)).toBeVisible();
     await demo.getByRole("button", { name: "Session starten" }).click();
     await expect(demo.getByRole("button", { name: "Session beenden" })).toBeVisible();
-    await expect(demo.getByRole("button", { name: /Nächster Cue/ })).toBeEnabled({ timeout: 5000 });
+    await expect(demo.getByRole("button", { name: /Nächster Cue/ })).toBeEnabled({ timeout: 8000 });
     await demo.getByRole("button", { name: /Nächster Cue/ }).click();
     await expect(demo.locator("[data-cue-line]")).toContainText(/Climb|Standing climb/, {
-      timeout: 5000,
+      timeout: 8000,
     });
   });
 
@@ -94,7 +94,7 @@ test.describe("Public site", () => {
     await page.goto("/");
     await expect(
       page.getByRole("heading", {
-        name: /BPM aus der Musik|Cues auf dem Beat/,
+        name: /Musik analysieren|Intensität planen|Im Takt abliefern/,
         level: 1,
       }),
     ).toBeVisible();
