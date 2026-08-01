@@ -75,8 +75,9 @@ These steps happen outside this codebase and only need doing once per deployment
    Then, in repo Settings → Pages → Custom domain, enter the domain. Add `public/CNAME` and update
    the `site` value in `astro.config.mjs` to match. Until a custom domain is live, keep `site` on
    the GitHub Pages project URL (e.g. `https://laur1n.github.io/LandingPage`).
-4. **Wire up CMS authentication** — one-time manual step, not part of routine development.
-   See [`docs/cms-auth-setup.md`](docs/cms-auth-setup.md).
+4. **Wire up CMS authentication** (DecapBridge, one-time) — [`docs/cms-auth-setup.md`](docs/cms-auth-setup.md).
+   Day-to-day content updates can be done via `/admin/` **or** by asking the agent to edit
+   `src/content/` and push.
 5. **Replace demo content** in `src/content/` and `public/uploads/` with the new site's copy and
    media. The Francesca Simone seed data is reference material — swap it entirely for a new client.
 6. **Legal pages**: complete Impressum and Datenschutz in `/admin/` under "Rechtliches" before

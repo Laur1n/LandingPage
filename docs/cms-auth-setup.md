@@ -1,14 +1,10 @@
-# CMS authentication — one-time manual setup
+# CMS authentication (DecapBridge)
 
-Decap CMS at `/admin/` uses a **git-gateway** backend: the editor logs in through an external
-auth provider, and saves go to GitHub as commits or pull requests. This is configured **once per
-deployment**, outside the normal code/agent workflow.
+Decap CMS at `/admin/` uses a **git-gateway** backend via [DecapBridge](https://decapbridge.com/docs).
+The **agent updates content** by editing `src/content/` directly (same files the CMS writes); push
+to `main` deploys the live site. Francesca (or other editors) can also use `/admin/` in the browser.
 
-The reference deployment uses [DecapBridge](https://decapbridge.com/docs). Any compatible
-git-gateway host works the same way — paste its `identity_url` and `gateway_url` into
-`public/admin/config.yml`.
-
-## Steps (DecapBridge)
+Initial auth setup is one-time per deployment:
 
 1. Register a site at [decapbridge.com](https://decapbridge.com/docs).
 2. Connect it to your GitHub repo (`backend.repo`, `branch: main` in `public/admin/config.yml`).
