@@ -3,7 +3,7 @@ lang: de
 seoTitle: Laurin Wünsch ·nichts
 seoDescription: Cue Pilot liest BPM aus Kursmusik, plant Intensitäts-Sektionen
   und zählt Spinning-Instruktor:innen im Takt ein. Von Laurin Wünsch.
-brand: Laurin Wünsch
+brand: Laurin
 skipLinkLabel: Zum Inhalt springen
 nav:
   start: Start
