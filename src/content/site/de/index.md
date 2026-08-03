@@ -1,9 +1,8 @@
 ---
 lang: de
-seoTitle: Laurin Wünsch · Cue Pilot · Sport · Aufguss
-seoDescription: >-
-  Cue Pilot liest BPM aus Kursmusik, plant Intensitäts-Sektionen und zählt
-  Spinning-Instruktor:innen im Takt ein. Von Laurin Wünsch.
+seoTitle: Laurin Wünsch ·nichts
+seoDescription: Cue Pilot liest BPM aus Kursmusik, plant Intensitäts-Sektionen
+  und zählt Spinning-Instruktor:innen im Takt ein. Von Laurin Wünsch.
 brand: Laurin Wünsch
 skipLinkLabel: Zum Inhalt springen
 nav:
@@ -16,14 +15,13 @@ nav:
 hero:
   welcome: Cue Pilot
   name: Musik analysieren. Intensität planen. Im Takt abliefern.
-  intro: >-
-    Cue Pilot analysiert Kursmusik, zeigt BPM, teilt Sektionen nach Intensität und zählt
-    dich beim Unterrichten in die nächste Übung ein. In der Demo kannst du den Playhead
-    verschieben und Sektionen anfassen.
+  intro: Cue Pilot analysiert Kursmusik, zeigt BPM, teilt Sektionen nach
+    Intensität und zählt dich beim Unterrichten in die nächste Übung ein. In der
+    Demo kannst du den Playhead verschieben und Sektionen anfassen.
   role: von Laurin Wünsch
   primaryCtaLabel: Mehr zu Cue Pilot
   secondaryCtaLabel: Alle Bereiche
-  image: ""
+  image: /uploads/laurin-portrait-placeholder.svg
   imageAlt: Cue Pilot Demo mit Intensitäts-Sektionen und Playhead
 sections:
   offeringsEyebrow: Bereiche
