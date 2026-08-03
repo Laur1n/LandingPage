@@ -6,29 +6,29 @@
 [data-theme="light"] {
   color-scheme: light;
 
-  --color-surface: oklch(96% 0.012 85);
-  --color-surface-raised: oklch(92% 0.016 85);
+  --color-surface: oklch(96% 0.02 140);
+  --color-surface-raised: oklch(92% 0.02 140);
   --color-ink: oklch(18% 0.02 255);
   --color-ink-muted: oklch(42% 0.02 255);
-  --color-border: oklch(82% 0.015 85);
+  --color-border: oklch(82% 0.015 140);
 
-  --color-bauhaus-blue: oklch(48% 0.11 250);
-  --color-bauhaus-yellow: oklch(78% 0.13 95);
-  --color-bauhaus-red: oklch(52% 0.16 28);
+  --color-bauhaus-blue: oklch(44% 0.14 140);
+  --color-bauhaus-yellow: oklch(74% 0.10 130);
+  --color-bauhaus-red: oklch(52% 0.18 100);
 
   --color-intensity-low: var(--color-bauhaus-blue);
   --color-intensity-mid: var(--color-bauhaus-yellow);
   --color-intensity-high: var(--color-bauhaus-red);
 
   --color-accent: var(--color-bauhaus-red);
-  --color-accent-strong: oklch(42% 0.15 28);
-  --color-accent-muted: oklch(88% 0.04 28);
+  --color-accent-strong: oklch(42% 0.18 100);
+  --color-accent-muted: oklch(88% 0.03 100);
   --color-on-accent: oklch(97% 0.01 85);
 
-  --color-surface-product: oklch(12% 0.01 255);
-  --color-surface-product-raised: oklch(18% 0.015 255);
+  --color-surface-product: oklch(18% 0.025 140);
+  --color-surface-product-raised: oklch(24% 0.03 140);
   --color-ink-on-product: oklch(96% 0.01 85);
-  --color-ink-muted-on-product: oklch(72% 0.02 255);
+  --color-ink-muted-on-product: oklch(72% 0.03 255);
 
   --font-display: "Archivo Variable", "Archivo", system-ui, sans-serif;
   --font-body: "Atkinson Hyperlegible", system-ui, sans-serif;
@@ -58,23 +58,23 @@
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --color-surface: oklch(0% 0 0);
-  --color-surface-raised: oklch(12% 0.008 255);
+  --color-surface: oklch(10% 0.03 140);
+  --color-surface-raised: oklch(18% 0.02 140);
   --color-ink: oklch(94% 0.008 85);
   --color-ink-muted: oklch(68% 0.015 85);
-  --color-border: oklch(28% 0.01 255);
+  --color-border: oklch(28% 0.01 140);
 
-  --color-bauhaus-blue: oklch(62% 0.12 250);
-  --color-bauhaus-yellow: oklch(84% 0.14 95);
-  --color-bauhaus-red: oklch(62% 0.17 28);
+  --color-bauhaus-blue: oklch(58% 0.15 140);
+  --color-bauhaus-yellow: oklch(80% 0.18 110);
+  --color-bauhaus-red: oklch(60% 0.20 100);
 
   --color-accent: var(--color-bauhaus-red);
-  --color-accent-strong: oklch(72% 0.16 28);
-  --color-accent-muted: oklch(28% 0.05 28);
+  --color-accent-strong: oklch(72% 0.20 100);
+  --color-accent-muted: oklch(28% 0.06 100);
   --color-on-accent: oklch(8% 0 0);
 
-  --color-surface-product: oklch(0% 0 0);
-  --color-surface-product-raised: oklch(12% 0.01 255);
+  --color-surface-product: oklch(12% 0.02 140);
+  --color-surface-product-raised: oklch(18% 0.03 140);
   --color-ink-on-product: oklch(94% 0.008 85);
   --color-ink-muted-on-product: oklch(68% 0.015 85);
 }

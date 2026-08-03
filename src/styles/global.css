@@ -18,7 +18,7 @@ html {
 }
 
 ::selection {
-  background: var(--color-bauhaus-yellow);
+  background: var(--color-accent-muted);
   color: var(--color-ink);
 }
 
@@ -57,7 +57,7 @@ a:focus-visible {
 }
 
 :focus-visible {
-  outline: 3px solid var(--color-bauhaus-blue);
+  outline: 3px solid var(--color-accent-strong);
   outline-offset: 2px;
 }
 
@@ -190,5 +190,5 @@ img {
 }
 
 [data-surface="product"] :focus-visible {
-  outline-color: var(--color-bauhaus-yellow);
+  outline-color: var(--color-accent);
 }
